@@ -1,7 +1,7 @@
 package ru.nsu.fit.trubinov;
 
 /**
- * Binary heap and heap sort
+ * Binary heap and heap sort.
  *
  * @author Timofey Trubinov
  * @version 0.2.0
@@ -56,9 +56,6 @@ public class Heap {
     }
 
     private int extractMin() {
-        if (cur == 0) {
-            throw new IndexOutOfBoundsException();
-        }
         int min = heap[0];
         swap(0, cur - 1);
         cur--;
@@ -67,7 +64,7 @@ public class Heap {
     }
 
     /**
-     * Heap sort of array
+     * Heap sort of array.
      *
      * @param arr the array that needs to be sorted
      * @throws NullPointerException if array pointer is null

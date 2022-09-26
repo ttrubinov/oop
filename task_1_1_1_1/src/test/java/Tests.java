@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class Tests {
     @Test
@@ -14,6 +15,9 @@ public class Tests {
         Heap.heapSort(testArr1);
         Arrays.sort(testArr2);
         assertArrayEquals(testArr1, testArr2);
+
+        int[] testArr = null;
+        assertThrows(NullPointerException.class, () -> Heap.heapSort(testArr));
 
         Random rand = new Random();
         for (int i = 0; i < 10000; i++) {
