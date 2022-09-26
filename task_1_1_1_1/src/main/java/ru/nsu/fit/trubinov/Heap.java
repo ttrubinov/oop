@@ -24,13 +24,18 @@ public class Heap {
 
     private void siftDown(int i) {
         if (2 * i + 1 < cur) {
-            int l = 2 * i + 1, r = 2 * i + 2;
+            int l = 2 * i + 1;
+            int r = 2 * i + 2;
             if (r >= cur || heap[l] < heap[r]) {
-                if (heap[i] < heap[l]) return;
+                if (heap[i] < heap[l]) {
+                    return;
+                }
                 swap(i, l);
                 siftDown(l);
             } else {
-                if (heap[i] < heap[r]) return;
+                if (heap[i] < heap[r]) {
+                    return;
+                }
                 swap(i, r);
                 siftDown(r);
             }

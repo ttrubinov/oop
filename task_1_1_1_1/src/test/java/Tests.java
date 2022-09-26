@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class Tests {
     @Test
-    void Test() {
+    void tests() {
         int[] testArr1 = {};
         int[] testArr2 = {};
         Heap.heapSort(testArr1);
@@ -23,8 +23,9 @@ public class Tests {
             for (int j = 0; j < len; j++) {
                 arr1[j] = rand.nextInt(1000000000);
                 int s = rand.nextInt(2);
-                if (s == 0)
+                if (s == 0) {
                     arr1[j] *= -1;
+                }
                 arr2[j] = arr1[j];
             }
             Heap.heapSort(arr1);
