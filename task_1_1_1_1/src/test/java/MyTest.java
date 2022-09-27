@@ -33,13 +33,13 @@ public class MyTest {
     }
 
     @Test
-    void testNullPointer() {
+    public void testNullPointer() {
         int[] testArr = null;
         assertThrows(NullPointerException.class, () -> Heap.heapSort(testArr));
     }
 
     @Test
-    void testRandomArrays() {
+    public void testRandomArrays() {
         Random rand = new Random();
         for (int i = 0; i < 10000; i++) {
             int len = rand.nextInt(10000);
