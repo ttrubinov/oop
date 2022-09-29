@@ -5,12 +5,14 @@ name: CI
 # Controls when the workflow will run
 on:
   pull_request:
+
     branches: [ "main" ] # "master" Если ветка дефолтная - мастер (если локально создавали)
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latesjt
+
     steps:
       - uses: actions/checkout@v3
 
@@ -19,12 +21,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
 
-      - name: chmod gradlew
+      - name: chmod
         run: chmod +x gradlew
-
 
       - name: Execute Gradle build
         run: ./gradlew ${{ github.event.pull_request.title }}:build
+
+
 
 
       - name: Generate Jacoco report

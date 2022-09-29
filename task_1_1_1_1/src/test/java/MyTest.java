@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MyTest {
-    public static Stream<int[]> tests() {
+    public static Stream<int[]> specialCases() {
         return Stream.of(new int[]{0}, new int[]{1}, new int[]{-1}, new int[]{1, 2, 3, 4, 5},
                 new int[]{5, 4, 3, 2, 1}, new int[]{-1, -2, -3, -4, -5},
                 new int[]{-5, -4, -3, -2, -1}, new int[]{MAX_VALUE, MAX_VALUE, MAX_VALUE},
@@ -23,8 +23,8 @@ public class MyTest {
     }
 
     @ParameterizedTest
-    @MethodSource("tests")
-    public void tests(int[] arr1) {
+    @MethodSource("specialCases")
+    public void testSpecialCases(int[] arr1) {
         int[] arr2 = new int[arr1.length];
         System.arraycopy(arr1, 0, arr2, 0, arr1.length);
         Heap.heapSort(arr1);
@@ -33,13 +33,13 @@ public class MyTest {
     }
 
     @Test
-    void tests2() {
+    public void testNullPointer() {
         int[] testArr = null;
         assertThrows(NullPointerException.class, () -> Heap.heapSort(testArr));
     }
 
     @Test
-    void tests3() {
+    public void testRandomArrays() {
         Random rand = new Random();
         for (int i = 0; i < 10000; i++) {
             int len = rand.nextInt(10000);
