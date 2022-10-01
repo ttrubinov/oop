@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 
 /**
- * A stack with reallocating and with functions push, pushStack, pop, popStack, count.
+ * Stack with reallocating
  *
  * @param <T> data type of elements in the stack
+ * @author Timofey Trubinov
+ * @version 0.2
  */
 public class Stack<T> {
     private T[] stack;
@@ -14,7 +16,7 @@ public class Stack<T> {
     private int cap;
 
     /**
-     * Initializing current position, capacity and array,
+     * Initializing current position, capacity and array.
      */
     @SuppressWarnings("unchecked")
     public Stack() {
@@ -34,7 +36,7 @@ public class Stack<T> {
      * @param elem element to push
      */
     public void push(T elem) {
-        if (cur + 1 >= cap) {
+        if (cur >= cap) {
             stackRealloc();
         }
         stack[cur++] = elem;
@@ -73,8 +75,8 @@ public class Stack<T> {
      *
      * @param cnt count of elements to pop
      * @return popped stack
-     * @throws IllegalArgumentException if number of requested elements is less than zero
-     * @throws EmptyStackException      if number of requested elements is more than number of elements in the stack
+     * @throws IllegalArgumentException if number of requested elements < 0
+     * @throws EmptyStackException      if number of requested elements > number of elements in the stack
      */
     public Stack<T> popStack(int cnt) {
         if (cnt < 0) {
