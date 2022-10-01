@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 
 /**
- * Stack with reallocating
+ * Stack with reallocating.
  *
  * @param <T> data type of elements in the stack
  * @author Timofey Trubinov
@@ -76,7 +76,7 @@ public class Stack<T> {
      * @param cnt count of elements to pop
      * @return popped stack
      * @throws IllegalArgumentException if number of requested elements < 0
-     * @throws EmptyStackException      if number of requested elements > number of elements in the stack
+     * @throws EmptyStackException      if number of requested elements > number of stack elements
      */
     public Stack<T> popStack(int cnt) {
         if (cnt < 0) {
