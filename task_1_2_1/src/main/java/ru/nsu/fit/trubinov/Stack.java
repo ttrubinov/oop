@@ -46,6 +46,7 @@ public class Stack<T> {
      * Pushing one stack to the end of another.
      *
      * @param st stack to push
+     * @throws NullPointerException if stack to push is empty
      */
     public void pushStack(Stack<T> st) {
         if (st == null) {
