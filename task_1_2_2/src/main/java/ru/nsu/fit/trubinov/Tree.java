@@ -2,11 +2,19 @@ package ru.nsu.fit.trubinov;
 
 import java.util.*;
 
+/**
+ * The tree implementing collection with DFS and BFS algorithms.
+ *
+ * @param <T> type of the elements
+ */
 public class Tree<T> implements Collection<T> {
     private final Node<T> root;
     private int cnt;
     private int cntChanges;
 
+    /**
+     * Creates an empty tree.
+     */
     public Tree() {
         cnt = 0;
         cntChanges = 0;
