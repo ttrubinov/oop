@@ -6,18 +6,17 @@ import java.util.Set;
 
 import static java.lang.Integer.MAX_VALUE;
 
-@SuppressWarnings("unused")
-public interface Graph<V extends Vertex, E extends Edge> {
+public interface Graph {
     Set<Vertex> vertices = new HashSet<>();
     Set<Edge> edges = new HashSet<>();
 
-    boolean addVertex(Vertex v);
+    void addVertex(Vertex v);
 
     void removeVertex(Vertex v);
 
-    boolean addEdge(Edge e, Vertex v1, Vertex v2);
+    void addEdge(Edge e, Vertex v1, Vertex v2);
 
-    boolean removeEdge(Edge e, Vertex v1, Vertex v2);
+    void removeEdge(Edge e, Vertex v1, Vertex v2);
 
     boolean isEdge(Vertex v1, Vertex v2);
 
@@ -35,6 +34,9 @@ public interface Graph<V extends Vertex, E extends Edge> {
                 if (!used.get(j) && (v == null || dist.get(j) < dist.get(v))) {
                     v = j;
                 }
+            }
+            if (dist.get(v) == MAX_VALUE) {
+                break;
             }
             used.replace(v, true);
             for (Edge e : edges) {
