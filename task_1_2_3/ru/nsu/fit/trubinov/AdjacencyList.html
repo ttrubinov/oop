@@ -136,6 +136,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">AdjacencyList</span>
 extends java.lang.Object
 implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></pre>
+<div class="block">Two-dimensional list,
+ each vertex corresponds to a list of vertices,
+ adjacent to the vertex.</div>
 </li>
 </ul>
 </div>
@@ -199,30 +202,40 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">addEdge</a></span>&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adding edge to the graph.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVertex(ru.nsu.fit.trubinov.Vertex)">addVertex</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adding vertex to the graph.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEdge(ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">isEdge</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
       <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns true if the edge from v1 to v2 exists.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">removeEdge</a></span>&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
           <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
           <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removing edge from the graph.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeVertex(ru.nsu.fit.trubinov.Vertex)">removeVertex</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removing vertex from the graph.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -281,9 +294,12 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <li class="blockList">
 <h4>addVertex</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</pre>
+<div class="block">Adding vertex to the graph.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#addVertex(ru.nsu.fit.trubinov.Vertex)">addVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v</code> - vertex to add</dd>
 </dl>
 </li>
 </ul>
@@ -294,9 +310,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <li class="blockList">
 <h4>removeVertex</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;removeVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</pre>
+<div class="block">Removing vertex from the graph.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#removeVertex(ru.nsu.fit.trubinov.Vertex)">removeVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v</code> - vertex to remove</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if there is no v in matrix</dd>
 </dl>
 </li>
 </ul>
@@ -309,9 +330,17 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <pre class="methodSignature">public&nbsp;void&nbsp;addEdge&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
                     <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
                     <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Adding edge to the graph.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#addEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>e</code> - edge to add</dd>
+<dd><code>v1</code> - tail vertex of e</dd>
+<dd><code>v2</code> - head vertex of e</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if there is no v1 or v2 in matrix
+                                  or v1 and v2 are the same vertex</dd>
 </dl>
 </li>
 </ul>
@@ -324,9 +353,17 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <pre class="methodSignature">public&nbsp;void&nbsp;removeEdge&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
                        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
                        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Removing edge from the graph.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#removeEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">removeEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>e</code> - edge to remove</dd>
+<dd><code>v1</code> - tail vertex of e</dd>
+<dd><code>v2</code> - head vertex of e</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if there is no v1 or v2 in matrix
+                                  or v1 and v2 are the same vertex</dd>
 </dl>
 </li>
 </ul>
@@ -338,9 +375,18 @@ implements <a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</
 <h4>isEdge</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isEdge&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
                       <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Returns true if the edge from v1 to v2 exists.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#isEdge(ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">isEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v1</code> - tail vertex</dd>
+<dd><code>v2</code> - head vertex</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the edge from v1 to v2 exists</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if there is no v1 or v2 in matrix
+                                  or v1 and v2 are the same vertex</dd>
 </dl>
 </li>
 </ul>

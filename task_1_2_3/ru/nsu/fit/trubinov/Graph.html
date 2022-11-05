@@ -126,6 +126,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">Graph</span></pre>
+<div class="block">Interface of weighted oriented graph with the shortest path algorithm.</div>
 </li>
 </ul>
 </div>
@@ -179,35 +180,48 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">addEdge</a></span>&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
        <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adding edge to the graph.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVertex(ru.nsu.fit.trubinov.Vertex)">addVertex</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adding vertex to the graph.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEdge(ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">isEdge</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
       <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns true if the edge from v1 to v2 exists.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">removeEdge</a></span>&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
           <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
           <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removing edge from the graph.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeVertex(ru.nsu.fit.trubinov.Vertex)">removeVertex</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removing vertex from the graph.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>default java.util.HashMap&lt;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>,&#8203;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shortestPaths(ru.nsu.fit.trubinov.Vertex)">shortestPaths</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;source)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Dijkstra's algorithm for finding the shortest path
+ between source vertex and other vertices.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -261,6 +275,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>addVertex</h4>
 <pre class="methodSignature">void&nbsp;addVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</pre>
+<div class="block">Adding vertex to the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v</code> - vertex to add</dd>
+</dl>
 </li>
 </ul>
 <a id="removeVertex(ru.nsu.fit.trubinov.Vertex)">
@@ -270,6 +289,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>removeVertex</h4>
 <pre class="methodSignature">void&nbsp;removeVertex&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v)</pre>
+<div class="block">Removing vertex from the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v</code> - vertex to remove</dd>
+</dl>
 </li>
 </ul>
 <a id="addEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">
@@ -281,6 +305,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre class="methodSignature">void&nbsp;addEdge&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
              <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
              <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Adding edge to the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>e</code> - edge to add</dd>
+<dd><code>v1</code> - tail vertex of e</dd>
+<dd><code>v2</code> - head vertex of e</dd>
+</dl>
 </li>
 </ul>
 <a id="removeEdge(ru.nsu.fit.trubinov.Edge,ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">
@@ -292,6 +323,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre class="methodSignature">void&nbsp;removeEdge&#8203;(<a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&nbsp;e,
                 <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
                 <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Removing edge from the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>e</code> - edge to remove</dd>
+<dd><code>v1</code> - tail vertex of e</dd>
+<dd><code>v2</code> - head vertex of e</dd>
+</dl>
 </li>
 </ul>
 <a id="isEdge(ru.nsu.fit.trubinov.Vertex,ru.nsu.fit.trubinov.Vertex)">
@@ -302,6 +340,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>isEdge</h4>
 <pre class="methodSignature">boolean&nbsp;isEdge&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v1,
                <a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;v2)</pre>
+<div class="block">Returns true if the edge from v1 to v2 exists.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>v1</code> - tail vertex</dd>
+<dd><code>v2</code> - head vertex</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the edge from v1 to v2 exists</dd>
+</dl>
 </li>
 </ul>
 <a id="shortestPaths(ru.nsu.fit.trubinov.Vertex)">
@@ -311,6 +357,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>shortestPaths</h4>
 <pre class="methodSignature">default&nbsp;java.util.HashMap&lt;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>,&#8203;java.lang.Integer&gt;&nbsp;shortestPaths&#8203;(<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&nbsp;source)</pre>
+<div class="block">Dijkstra's algorithm for finding the shortest path
+ between source vertex and other vertices.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>source</code> - source vertex</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>hashmap of distances between source vertex and others</dd>
+</dl>
 </li>
 </ul>
 </li>
