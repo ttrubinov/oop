@@ -2,15 +2,11 @@ package ru.nsu.fit.trubinov;
 
 @SuppressWarnings("unused")
 public class Edge {
-    public Vertex v1;
-    public Vertex v2;
     private Object obj;
     private Integer weight;
 
     public Edge() {
         obj = null;
-        v1 = null;
-        v2 = null;
         weight = 0;
     }
 
