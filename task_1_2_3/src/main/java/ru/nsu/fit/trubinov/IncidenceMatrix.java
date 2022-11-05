@@ -8,6 +8,7 @@ public class IncidenceMatrix<V extends Vertex, E extends Edge> implements Graph<
 
     @Override
     public boolean addVertex(Vertex v) {
+        vertices.add(v);
         HashMap<Edge, Integer> map = new HashMap<>();
         matrix.put(v, map);
         return true;
@@ -18,6 +19,7 @@ public class IncidenceMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v)) {
             throw new IllegalArgumentException();
         }
+        vertices.remove(v);
         matrix.remove(v);
         for (Vertex vertex : matrix.keySet()) {
             for (Edge edge : matrix.get(v).keySet()) {
@@ -31,6 +33,9 @@ public class IncidenceMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.add(e);
+        e.sourceVertex = v1;
+        e.destVertex = v2;
         matrix.get(v1).put(e, 1);
         matrix.get(v2).put(e, -1);
         return true;
@@ -41,6 +46,7 @@ public class IncidenceMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.remove(e);
         for (Vertex vertex : matrix.keySet()) {
             matrix.get(vertex).remove(e);
         }

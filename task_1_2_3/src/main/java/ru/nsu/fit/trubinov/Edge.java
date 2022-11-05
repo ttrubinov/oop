@@ -3,26 +3,28 @@ package ru.nsu.fit.trubinov;
 @SuppressWarnings("unused")
 public class Edge {
     private Object obj;
+    public Vertex sourceVertex;
+    public Vertex destVertex;
     private Integer weight;
 
     public Edge() {
         obj = null;
-        weight = 0;
+        weight = null;
     }
 
-    public Object getObject(Edge e) {
-        return e.obj;
+    public Object getObject() {
+        return obj;
     }
 
-    public void changeObject(Edge e, Object obj) {
-        e.obj = obj;
+    public void changeObject(Object obj) {
+        this.obj = obj;
     }
 
-    public Integer getWeight(Edge e) {
-        return e.weight;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void changeWeight(Edge e, Integer weight) {
-        e.weight = weight;
+    public void changeWeight(Integer weight) {
+        this.weight = weight;
     }
 }
