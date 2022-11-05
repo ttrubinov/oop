@@ -1,5 +1,8 @@
 package ru.nsu.fit.trubinov;
 
+/**
+ * Vertex of a graph, it contains any object.
+ */
 public class Vertex {
     private Object obj;
 
