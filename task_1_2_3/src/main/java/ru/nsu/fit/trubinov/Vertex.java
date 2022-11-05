@@ -8,11 +8,11 @@ public class Vertex {
         obj = null;
     }
 
-    public Object getObject(Vertex v) {
-        return v.obj;
+    public Object getObject() {
+        return obj;
     }
 
-    public void changeObject(Vertex v, Object obj) {
-        v.obj = obj;
+    public void changeObject(Object obj) {
+        this.obj = obj;
     }
 }

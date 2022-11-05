@@ -8,6 +8,7 @@ public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<
 
     @Override
     public boolean addVertex(Vertex v) {
+        vertices.add(v);
         HashMap<Vertex, Boolean> map = new HashMap<>();
         matrix.put(v, map);
         return true;
@@ -18,6 +19,7 @@ public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v)) {
             throw new IllegalArgumentException();
         }
+        vertices.remove(v);
         matrix.remove(v);
         for (Vertex vertex : matrix.keySet()) {
             matrix.get(vertex).remove(v);
@@ -29,6 +31,9 @@ public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.add(e);
+        e.sourceVertex = v1;
+        e.destVertex = v2;
         matrix.get(v1).put(v2, true);
         return true;
     }
@@ -38,6 +43,7 @@ public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.remove(e);
         matrix.get(v1).put(v2, false);
         return false;
     }

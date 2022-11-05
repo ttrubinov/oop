@@ -10,6 +10,7 @@ public class AdjacencyList<V extends Vertex, E extends Edge> implements Graph<V,
 
     @Override
     public boolean addVertex(Vertex v) {
+        vertices.add(v);
         Set<Vertex> vertices = new HashSet<>();
         list.put(v, vertices);
         return true;
@@ -20,6 +21,7 @@ public class AdjacencyList<V extends Vertex, E extends Edge> implements Graph<V,
         if (!list.containsKey(v)) {
             throw new IllegalArgumentException();
         }
+        vertices.remove(v);
         list.remove(v);
         for (Vertex vertex : list.keySet()) {
             list.get(vertex).remove(v);
@@ -31,6 +33,9 @@ public class AdjacencyList<V extends Vertex, E extends Edge> implements Graph<V,
         if (!list.containsKey(v1) || !list.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.add(e);
+        e.sourceVertex = v1;
+        e.destVertex = v2;
         list.get(v1).add(v2);
         return true;
     }
@@ -40,6 +45,7 @@ public class AdjacencyList<V extends Vertex, E extends Edge> implements Graph<V,
         if (!list.containsKey(v1) || !list.containsKey(v2)) {
             throw new IllegalArgumentException();
         }
+        edges.remove(e);
         list.get(v1).remove(v2);
         return true;
     }
