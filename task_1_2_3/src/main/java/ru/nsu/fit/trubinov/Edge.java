@@ -1,5 +1,9 @@
 package ru.nsu.fit.trubinov;
 
+/**
+ * Weighted edge of a graph, it contains any object
+ * and 2 vertices (source and destination vertex).
+ */
 public class Edge {
     private Object obj;
     public Vertex sourceVertex;
