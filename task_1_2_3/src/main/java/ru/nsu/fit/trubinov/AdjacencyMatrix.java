@@ -2,16 +2,14 @@ package ru.nsu.fit.trubinov;
 
 import java.util.HashMap;
 
-@SuppressWarnings("unused")
-public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<V, E> {
+public class AdjacencyMatrix implements Graph {
     private final HashMap<Vertex, HashMap<Vertex, Boolean>> matrix = new HashMap<>();
 
     @Override
-    public boolean addVertex(Vertex v) {
+    public void addVertex(Vertex v) {
         vertices.add(v);
         HashMap<Vertex, Boolean> map = new HashMap<>();
         matrix.put(v, map);
-        return true;
     }
 
     @Override
@@ -27,29 +25,30 @@ public class AdjacencyMatrix<V extends Vertex, E extends Edge> implements Graph<
     }
 
     @Override
-    public boolean addEdge(Edge e, Vertex v1, Vertex v2) {
-        if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
+    public void addEdge(Edge e, Vertex v1, Vertex v2) {
+        if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
-        edges.add(e);
         e.sourceVertex = v1;
         e.destVertex = v2;
+        edges.add(e);
         matrix.get(v1).put(v2, true);
-        return true;
     }
 
     @Override
-    public boolean removeEdge(Edge e, Vertex v1, Vertex v2) {
-        if (!matrix.containsKey(v1) || !matrix.containsKey(v2)) {
+    public void removeEdge(Edge e, Vertex v1, Vertex v2) {
+        if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
         edges.remove(e);
         matrix.get(v1).put(v2, false);
-        return false;
     }
 
     @Override
     public boolean isEdge(Vertex v1, Vertex v2) {
+        if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
+            return false;
+        }
         return matrix.get(v1).get(v2);
     }
 }

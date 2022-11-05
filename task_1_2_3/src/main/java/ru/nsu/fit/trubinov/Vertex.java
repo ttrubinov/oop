@@ -1,8 +1,7 @@
 package ru.nsu.fit.trubinov;
 
-@SuppressWarnings("unused")
 public class Vertex {
-    Object obj;
+    private Object obj;
 
     public Vertex() {
         obj = null;

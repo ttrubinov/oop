@@ -1,6 +1,5 @@
 package ru.nsu.fit.trubinov;
 
-@SuppressWarnings("unused")
 public class Edge {
     private Object obj;
     public Vertex sourceVertex;
