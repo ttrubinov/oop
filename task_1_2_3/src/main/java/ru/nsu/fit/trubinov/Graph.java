@@ -2,13 +2,13 @@ package ru.nsu.fit.trubinov;
 
 @SuppressWarnings("unused")
 public interface Graph<V extends Vertex, E extends Edge> {
-    boolean addVertex(V v);
+    boolean addVertex(Vertex v);
 
-    void removeVertex(V v);
+    void removeVertex(Vertex v);
 
     boolean addEdge(Edge e, Vertex v1, Vertex v2);
 
-    boolean removeEdge(E e);
+    boolean removeEdge(Edge e, Vertex v1, Vertex v2);
 
-    boolean isEdge(V v1, V v2);
+    boolean isEdge(Vertex v1, Vertex v2);
 }
