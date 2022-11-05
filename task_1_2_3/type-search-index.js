@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ru.nsu.fit.trubinov","l":"AdjacencyList"},{"p":"ru.nsu.fit.trubinov","l":"AdjacencyMatrix"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.fit.trubinov","l":"Edge"},{"p":"ru.nsu.fit.trubinov","l":"Graph"},{"p":"ru.nsu.fit.trubinov","l":"IncidenceMatrix"},{"p":"ru.nsu.fit.trubinov","l":"Main"},{"p":"ru.nsu.fit.trubinov","l":"Vertex"}]
