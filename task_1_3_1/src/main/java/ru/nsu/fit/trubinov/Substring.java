@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
-
-@SuppressWarnings("unused")
 public class Substring {
     public File f;
     public String s;
@@ -18,23 +18,37 @@ public class Substring {
     }
 
     public ArrayList<Integer> SubstringFinder() throws IOException {
-        char[] input = new char[100500];
-        int offset = 0;
+        long hash_s = 0;
+        for (int i = 0; i < s.length(); i++)
+            hash_s += s.charAt(i);
+        long hash_f = 0;
+        int i = 0;
+        ArrayList<Integer> res = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(f));
-        while (true) {
-            try {
-                int a = reader.read(input, offset++, 100500);
-            } catch (Exception c) {
-                input[offset] = '\0';
-                break;
+        List<Character> buf = new LinkedList<>();
+        int a = reader.read();
+        do {
+            if (i >= s.length()) {
+                char c = buf.remove(0);
+                hash_f -= c;
             }
-        }
-        for (int i = 0; i < 100500; i++) {
-            if (input[i] == '\0') {
-                break;
+            buf.add((char) a);
+            hash_f += a;
+            if (hash_s == hash_f && s.length() == buf.size()) {
+                int flag = 0;
+                for (int j = 0; j < s.length(); j++) {
+                    if (s.charAt(j) != buf.get(j)) {
+                        flag = 1;
+                        break;
+                    }
+                }
+                if (flag == 0) {
+                    res.add(i - s.length() + 1);
+                }
             }
-            System.out.print(input[i]);
-        }
-        return null;
+            i++;
+            a = reader.read();
+        } while (a != -1);
+        return res;
     }
 }
