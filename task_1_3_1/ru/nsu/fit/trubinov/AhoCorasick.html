@@ -136,6 +136,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">AhoCorasick</span>
 extends java.lang.Object
 implements <a href="SubstringFinderInStream.html" title="interface in ru.nsu.fit.trubinov">SubstringFinderInStream</a></pre>
+<div class="block">Aho-Corasick algorithm of finding all occurrences
+ of a substring in a stream by constructing a finite-state machine.
+ Reads characters from a stream one by one, but requires a state
+ for every possible symbol in an alphabet, so memory consumption
+ doesn't exceed (size of an alphabet) * (length of a substring).</div>
 </li>
 </ul>
 </div>
@@ -180,8 +185,11 @@ implements <a href="SubstringFinderInStream.html" title="interface in ru.nsu.fit
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#find(java.io.InputStream,char%5B%5D)">find</a></span>&#8203;(java.io.InputStream&nbsp;input,
-    char[]&nbsp;string)</code></th>
-<td class="colLast">&nbsp;</td>
+    char[]&nbsp;substring)</code></th>
+<td class="colLast">
+<div class="block">Find indices of all occurrences of an input substring
+ in an input stream by Aho-Corasick algorithm.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -233,13 +241,21 @@ implements <a href="SubstringFinderInStream.html" title="interface in ru.nsu.fit
 <li class="blockList">
 <h4>find</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;java.lang.Integer&gt;&nbsp;find&#8203;(java.io.InputStream&nbsp;input,
-                                                   char[]&nbsp;string)
+                                                   char[]&nbsp;substring)
                                             throws java.io.IOException</pre>
+<div class="block">Find indices of all occurrences of an input substring
+ in an input stream by Aho-Corasick algorithm.
+ It constructs finite-state machine by a substring.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="SubstringFinderInStream.html#find(java.io.InputStream,char%5B%5D)">find</a></code>&nbsp;in interface&nbsp;<code><a href="SubstringFinderInStream.html" title="interface in ru.nsu.fit.trubinov">SubstringFinderInStream</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>input</code> - input stream</dd>
+<dd><code>substring</code> - substring to find in the stream</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>indices of all occurrences of the substring</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.io.IOException</code></dd>
+<dd><code>java.io.IOException</code> - if something went wrong with reading the stream</dd>
 </dl>
 </li>
 </ul>
