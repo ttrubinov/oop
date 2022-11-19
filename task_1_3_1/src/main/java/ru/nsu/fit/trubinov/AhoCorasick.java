@@ -7,16 +7,33 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Aho-Corasick algorithm of finding all occurrences
+ * of a substring in a stream by constructing a finite-state machine.
+ * Reads characters from a stream one by one, but requires a state
+ * for every possible symbol in an alphabet, so memory consumption
+ * doesn't exceed (size of an alphabet) * (length of a substring).
+ */
 public class AhoCorasick implements SubstringFinderInStream {
     private static final int alphabet = 256;
     private BufferedReader reader;
     private char[] s;
     private State[] states;
 
+    /**
+     * Find indices of all occurrences of an input substring
+     * in an input stream by Aho-Corasick algorithm.
+     * It constructs finite-state machine by a substring.
+     *
+     * @param input     input stream
+     * @param substring substring to find in the stream
+     * @return indices of all occurrences of the substring
+     * @throws IOException if something went wrong with reading the stream
+     */
     @Override
-    public ArrayList<Integer> find(InputStream input, char[] string) throws IOException {
+    public ArrayList<Integer> find(InputStream input, char[] substring) throws IOException {
         ArrayList<Integer> res = new ArrayList<>();
-        init(input, string);
+        init(input, substring);
         int v = 0;
         int cnt = 0;
         int a;
@@ -28,6 +45,15 @@ public class AhoCorasick implements SubstringFinderInStream {
             }
         }
         return res;
+    }
+
+    private static class State {
+        int[] next = new int[alphabet];
+        boolean isLeaf;
+        int parent;
+        char parentChar;
+        int link;
+        int[] go = new int[alphabet];
     }
 
     private void init(InputStream input, char[] string) {
@@ -76,14 +102,5 @@ public class AhoCorasick implements SubstringFinderInStream {
             }
         }
         return states[v].go[c];
-    }
-
-    private static class State {
-        int[] next = new int[alphabet];
-        boolean isLeaf;
-        int parent;
-        char parentChar;
-        int link;
-        int[] go = new int[alphabet];
     }
 }
