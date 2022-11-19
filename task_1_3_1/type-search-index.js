@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ru.nsu.fit.trubinov","l":"AhoCorasick"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.fit.trubinov","l":"KnuthMorrisPratt"},{"p":"ru.nsu.fit.trubinov","l":"Main"},{"p":"ru.nsu.fit.trubinov","l":"SubstringFinderInStream"}]
