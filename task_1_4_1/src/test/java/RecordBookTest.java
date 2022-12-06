@@ -30,13 +30,14 @@ public class RecordBookTest {
         assertEquals(a.averageMark(), 4.833333333333334);
         assertTrue(a.isScholarshipIncreased(semester2));
         assertTrue(a.isDiplomaRed());
+        System.out.println(a);
         // ====================================
         // |       Record book of Petya       |
         // |==================================|
         // |            Semester 1            |
         // |==================================|
         // | Physics = 5 | PhysicsTeacherName |
-        System.out.println(a);  // |    Math = 4 | MathTeacherName    |
+        // |    Math = 4 | MathTeacherName    |
         // | History = 5 | HistoryTeacherName |
         // |==================================|
         // |            Semester 2            |
