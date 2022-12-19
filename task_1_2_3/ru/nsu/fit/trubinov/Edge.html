@@ -6,15 +6,16 @@
 <title>Edge (task_1_2_3 1.0-SNAPSHOT API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../script.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -114,14 +115,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.fit.trubinov</a></div>
-<h2 title="Class Edge" class="title">Class Edge</h2>
+<h2 title="Class Edge" class="title">Class Edge&lt;V,&#8203;E&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>ru.nsu.fit.trubinov.Edge</li>
+<li>ru.nsu.fit.trubinov.Edge&lt;V,&#8203;E&gt;</li>
 </ul>
 </li>
 </ul>
@@ -129,7 +130,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <hr>
-<pre>public class <span class="typeNameLabel">Edge</span>
+<pre>public class <span class="typeNameLabel">Edge&lt;V,&#8203;E&gt;</span>
 extends java.lang.Object</pre>
 <div class="block">Weighted edge of a graph, it contains any object
  and 2 vertices (source and destination vertex).</div>
@@ -140,7 +141,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="field.summary">
 <!--   -->
@@ -154,12 +155,12 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a></code></td>
+<td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">V</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#destVertex">destVertex</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a></code></td>
+<td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">V</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sourceVertex">sourceVertex</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -168,7 +169,7 @@ extends java.lang.Object</pre>
 </ul>
 </section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.summary">
 <!--   -->
@@ -189,7 +190,7 @@ extends java.lang.Object</pre>
 </ul>
 </section>
 <!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.summary">
 <!--   -->
@@ -204,7 +205,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeObject(java.lang.Object)">changeObject</a></span>&#8203;(java.lang.Object&nbsp;obj)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeObject(E)">changeObject</a></span>&#8203;(<a href="Edge.html" title="type parameter in Edge">E</a>&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -240,7 +241,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="field.detail">
 <!--   -->
@@ -252,7 +253,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>sourceVertex</h4>
-<pre>public&nbsp;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a> sourceVertex</pre>
+<pre>public&nbsp;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">V</a>&gt; sourceVertex</pre>
 </li>
 </ul>
 <a id="destVertex">
@@ -261,14 +262,14 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>destVertex</h4>
-<pre>public&nbsp;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a> destVertex</pre>
+<pre>public&nbsp;<a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">V</a>&gt; destVertex</pre>
 </li>
 </ul>
 </li>
 </ul>
 </section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.detail">
 <!--   -->
@@ -287,7 +288,7 @@ extends java.lang.Object</pre>
 </ul>
 </section>
 <!-- ============ METHOD DETAIL ========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.detail">
 <!--   -->
@@ -304,11 +305,13 @@ extends java.lang.Object</pre>
 </ul>
 <a id="changeObject(java.lang.Object)">
 <!--   -->
+</a><a id="changeObject(E)">
+<!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>changeObject</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;changeObject&#8203;(java.lang.Object&nbsp;obj)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;changeObject&#8203;(<a href="Edge.html" title="type parameter in Edge">E</a>&nbsp;value)</pre>
 </li>
 </ul>
 <a id="getWeight()">

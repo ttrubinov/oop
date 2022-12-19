@@ -6,15 +6,16 @@
 <title>ru.nsu.fit.trubinov (task_1_2_3 1.0-SNAPSHOT API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../script.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -97,23 +98,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Interface</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></th>
-<td class="colLast">
-<div class="block">Interface of weighted oriented graph with the shortest path algorithm.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList">
-<table class="typeSummary">
 <caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
@@ -121,7 +105,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="AdjacencyList.html" title="class in ru.nsu.fit.trubinov">AdjacencyList</a></th>
+<th class="colFirst" scope="row"><a href="AdjacencyList.html" title="class in ru.nsu.fit.trubinov">AdjacencyList</a>&lt;V,&#8203;E&gt;</th>
 <td class="colLast">
 <div class="block">Two-dimensional list,
  each vertex corresponds to a list of vertices,
@@ -129,7 +113,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="AdjacencyMatrix.html" title="class in ru.nsu.fit.trubinov">AdjacencyMatrix</a></th>
+<th class="colFirst" scope="row"><a href="AdjacencyMatrix.html" title="class in ru.nsu.fit.trubinov">AdjacencyMatrix</a>&lt;V,&#8203;E&gt;</th>
 <td class="colLast">
 <div class="block">Square matrix(vertices x vertices) of booleans,
  matrix element Aij contains "true" if there is edge between Vi and Vj,
@@ -137,14 +121,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a></th>
+<th class="colFirst" scope="row"><a href="Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&lt;V,&#8203;E&gt;</th>
 <td class="colLast">
 <div class="block">Weighted edge of a graph, it contains any object
  and 2 vertices (source and destination vertex).</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="IncidenceMatrix.html" title="class in ru.nsu.fit.trubinov">IncidenceMatrix</a></th>
+<th class="colFirst" scope="row"><a href="Graph.html" title="class in ru.nsu.fit.trubinov">Graph</a>&lt;V,&#8203;E&gt;</th>
+<td class="colLast">
+<div class="block">Interface of weighted oriented graph with the shortest path algorithm.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="IncidenceMatrix.html" title="class in ru.nsu.fit.trubinov">IncidenceMatrix</a>&lt;V,&#8203;E&gt;</th>
 <td class="colLast">
 <div class="block">Matrix(vertices x edges) of Integers,
  matrix element Aij contains "1" if Vi is tail of Ej,
@@ -152,12 +142,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  "0" otherwise.</div>
 </td>
 </tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="Main.html" title="class in ru.nsu.fit.trubinov">Main</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a></th>
+<th class="colFirst" scope="row"><a href="Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;V&gt;</th>
 <td class="colLast">
 <div class="block">Vertex of a graph, it contains any object.</div>
 </td>

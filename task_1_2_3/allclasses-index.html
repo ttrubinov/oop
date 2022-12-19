@@ -6,15 +6,16 @@
 <title>All Classes (task_1_2_3 1.0-SNAPSHOT API)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -26,12 +27,6 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":2,"i2":2,"i3":1,"i4":2,"i5":2,"i6":2};
-var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -103,13 +98,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/AdjacencyList.html" title="class in ru.nsu.fit.trubinov">AdjacencyList</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/AdjacencyList.html" title="class in ru.nsu.fit.trubinov">AdjacencyList</a>&lt;<a href="ru/nsu/fit/trubinov/AdjacencyList.html" title="type parameter in AdjacencyList">V</a>,&#8203;<a href="ru/nsu/fit/trubinov/AdjacencyList.html" title="type parameter in AdjacencyList">E</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Two-dimensional list,
  each vertex corresponds to a list of vertices,
@@ -117,7 +112,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/AdjacencyMatrix.html" title="class in ru.nsu.fit.trubinov">AdjacencyMatrix</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/AdjacencyMatrix.html" title="class in ru.nsu.fit.trubinov">AdjacencyMatrix</a>&lt;<a href="ru/nsu/fit/trubinov/AdjacencyMatrix.html" title="type parameter in AdjacencyMatrix">V</a>,&#8203;<a href="ru/nsu/fit/trubinov/AdjacencyMatrix.html" title="type parameter in AdjacencyMatrix">E</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Square matrix(vertices x vertices) of booleans,
  matrix element Aij contains "true" if there is edge between Vi and Vj,
@@ -125,20 +120,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/Edge.html" title="class in ru.nsu.fit.trubinov">Edge</a>&lt;<a href="ru/nsu/fit/trubinov/Edge.html" title="type parameter in Edge">V</a>,&#8203;<a href="ru/nsu/fit/trubinov/Edge.html" title="type parameter in Edge">E</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Weighted edge of a graph, it contains any object
  and 2 vertices (source and destination vertex).</div>
 </th>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/Graph.html" title="interface in ru.nsu.fit.trubinov">Graph</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/Graph.html" title="class in ru.nsu.fit.trubinov">Graph</a>&lt;<a href="ru/nsu/fit/trubinov/Graph.html" title="type parameter in Graph">V</a>,&#8203;<a href="ru/nsu/fit/trubinov/Graph.html" title="type parameter in Graph">E</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Interface of weighted oriented graph with the shortest path algorithm.</div>
 </th>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/IncidenceMatrix.html" title="class in ru.nsu.fit.trubinov">IncidenceMatrix</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/IncidenceMatrix.html" title="class in ru.nsu.fit.trubinov">IncidenceMatrix</a>&lt;<a href="ru/nsu/fit/trubinov/IncidenceMatrix.html" title="type parameter in IncidenceMatrix">V</a>,&#8203;<a href="ru/nsu/fit/trubinov/IncidenceMatrix.html" title="type parameter in IncidenceMatrix">E</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Matrix(vertices x edges) of Integers,
  matrix element Aij contains "1" if Vi is tail of Ej,
@@ -147,11 +142,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/Main.html" title="class in ru.nsu.fit.trubinov">Main</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><a href="ru/nsu/fit/trubinov/Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a></td>
+<td class="colFirst"><a href="ru/nsu/fit/trubinov/Vertex.html" title="class in ru.nsu.fit.trubinov">Vertex</a>&lt;<a href="ru/nsu/fit/trubinov/Vertex.html" title="type parameter in Vertex">V</a>&gt;</td>
 <th class="colLast" scope="row">
 <div class="block">Vertex of a graph, it contains any object.</div>
 </th>
