@@ -1,5 +1,9 @@
 package ru.nsu.fit.trubinov;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
@@ -7,8 +11,8 @@ import java.util.HashMap;
  * matrix element Aij contains "true" if there is edge between Vi and Vj,
  * "false" otherwise.
  */
-public class AdjacencyMatrix implements Graph {
-    private final HashMap<Vertex, HashMap<Vertex, Boolean>> matrix = new HashMap<>();
+public class AdjacencyMatrix<V, E> extends Graph<V, E> {
+    private final HashMap<Vertex<V>, HashMap<Vertex<V>, Boolean>> matrix = new HashMap<>();
 
     /**
      * Adding vertex to the graph.
@@ -16,9 +20,9 @@ public class AdjacencyMatrix implements Graph {
      * @param v vertex to add
      */
     @Override
-    public void addVertex(Vertex v) {
+    public void addVertex(Vertex<V> v) {
         vertices.add(v);
-        HashMap<Vertex, Boolean> map = new HashMap<>();
+        HashMap<Vertex<V>, Boolean> map = new HashMap<>();
         matrix.put(v, map);
     }
 
@@ -29,13 +33,13 @@ public class AdjacencyMatrix implements Graph {
      * @throws IllegalArgumentException if there is no v in matrix
      */
     @Override
-    public void removeVertex(Vertex v) {
+    public void removeVertex(Vertex<V> v) {
         if (!matrix.containsKey(v)) {
             throw new IllegalArgumentException();
         }
         vertices.remove(v);
         matrix.remove(v);
-        for (Vertex vertex : matrix.keySet()) {
+        for (Vertex<V> vertex : matrix.keySet()) {
             matrix.get(vertex).remove(v);
         }
     }
@@ -50,7 +54,7 @@ public class AdjacencyMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void addEdge(Edge e, Vertex v1, Vertex v2) {
+    public void addEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
@@ -70,7 +74,7 @@ public class AdjacencyMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void removeEdge(Edge e, Vertex v1, Vertex v2) {
+    public void removeEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
@@ -88,10 +92,46 @@ public class AdjacencyMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public boolean isEdge(Vertex v1, Vertex v2) {
+    public boolean containsEdge(Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             return false;
         }
         return matrix.get(v1).get(v2);
+    }
+
+    /**
+     * Parsing input into graph.
+     *
+     * @param input input stream
+     * @throws IOException if I/O error occurs
+     */
+    @Override
+    public void inputParser(InputStream input) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        String line;
+        int i = 0;
+        while ((line = reader.readLine()) != null) {
+            String[] weights = line.split(" ");
+            int j = 0;
+            for (var weight : weights) {
+                Vertex<V> v1 = new Vertex<>();
+                v1.changeObject((V) (i + ""));
+                if (!containsVertex(v1)) {
+                    addVertex(v1);
+                }
+                Vertex<V> v2 = new Vertex<>();
+                v2.changeObject((V) (j + ""));
+                if (!containsVertex(v2)) {
+                    addVertex(v2);
+                }
+                Edge<V, E> e = new Edge<>();
+                if (Integer.parseInt(weight) != 0) {
+                    e.changeWeight(Integer.parseInt(weight));
+                    addEdge(e, v1, v2);
+                }
+                j++;
+            }
+            i++;
+        }
     }
 }

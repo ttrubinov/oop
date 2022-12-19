@@ -1,5 +1,9 @@
 package ru.nsu.fit.trubinov;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,8 +13,8 @@ import java.util.Set;
  * each vertex corresponds to a list of vertices,
  * adjacent to the vertex.
  */
-public class AdjacencyList implements Graph {
-    private final HashMap<Vertex, Set<Vertex>> list = new HashMap<>();
+public class AdjacencyList<V, E> extends Graph<V, E> {
+    private final HashMap<Vertex<V>, Set<Vertex<V>>> list = new HashMap<>();
 
     /**
      * Adding vertex to the graph.
@@ -18,9 +22,9 @@ public class AdjacencyList implements Graph {
      * @param v vertex to add
      */
     @Override
-    public void addVertex(Vertex v) {
+    public void addVertex(Vertex<V> v) {
         vertices.add(v);
-        Set<Vertex> vertices = new HashSet<>();
+        Set<Vertex<V>> vertices = new HashSet<>();
         list.put(v, vertices);
     }
 
@@ -31,13 +35,13 @@ public class AdjacencyList implements Graph {
      * @throws IllegalArgumentException if there is no v in matrix
      */
     @Override
-    public void removeVertex(Vertex v) {
+    public void removeVertex(Vertex<V> v) {
         if (!list.containsKey(v)) {
             throw new IllegalArgumentException();
         }
         vertices.remove(v);
         list.remove(v);
-        for (Vertex vertex : list.keySet()) {
+        for (Vertex<V> vertex : list.keySet()) {
             list.get(vertex).remove(v);
         }
     }
@@ -52,7 +56,7 @@ public class AdjacencyList implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void addEdge(Edge e, Vertex v1, Vertex v2) {
+    public void addEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!list.containsKey(v1) || !list.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
@@ -72,7 +76,7 @@ public class AdjacencyList implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void removeEdge(Edge e, Vertex v1, Vertex v2) {
+    public void removeEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!list.containsKey(v1) || !list.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
@@ -90,10 +94,43 @@ public class AdjacencyList implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public boolean isEdge(Vertex v1, Vertex v2) {
+    public boolean containsEdge(Vertex<V> v1, Vertex<V> v2) {
         if (!list.containsKey(v1) || !list.containsKey(v2) || v1 == v2) {
             return false;
         }
         return list.get(v1).contains(v2);
+    }
+
+    /**
+     * Parsing input into graph.
+     *
+     * @param input input stream
+     * @throws IOException if I/O error occurs
+     */
+    @Override
+    public void inputParser(InputStream input) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] a = line.split(" => ");
+            if (a.length != 2) {
+                throw new IOException("Invalid input");
+            }
+            Vertex<V> v1 = new Vertex<>();
+            v1.changeObject((V) a[0]);
+            if (!containsVertex(v1)) {
+                addVertex(v1);
+            }
+            String[] values = a[1].split(" ");
+            for (var val : values) {
+                Vertex<V> v2 = new Vertex<>();
+                v2.changeObject((V) val);
+                if (!containsVertex(v2)) {
+                    addVertex(v2);
+                }
+                Edge<V, E> e = new Edge<>();
+                addEdge(e, v1, v2);
+            }
+        }
     }
 }

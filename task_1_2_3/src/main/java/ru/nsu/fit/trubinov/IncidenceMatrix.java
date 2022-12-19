@@ -1,5 +1,9 @@
 package ru.nsu.fit.trubinov;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
@@ -8,8 +12,8 @@ import java.util.HashMap;
  * Aij contains "-1" if Vi is head of Ej,
  * "0" otherwise.
  */
-public class IncidenceMatrix implements Graph {
-    private final HashMap<Vertex, HashMap<Edge, Integer>> matrix = new HashMap<>();
+public class IncidenceMatrix<V, E> extends Graph<V, E> {
+    private final HashMap<Vertex<V>, HashMap<Edge<V, E>, Integer>> matrix = new HashMap<>();
 
     /**
      * Adding vertex to the graph.
@@ -17,9 +21,9 @@ public class IncidenceMatrix implements Graph {
      * @param v vertex to add
      */
     @Override
-    public void addVertex(Vertex v) {
+    public void addVertex(Vertex<V> v) {
         vertices.add(v);
-        HashMap<Edge, Integer> map = new HashMap<>();
+        HashMap<Edge<V, E>, Integer> map = new HashMap<>();
         matrix.put(v, map);
     }
 
@@ -30,13 +34,13 @@ public class IncidenceMatrix implements Graph {
      * @throws IllegalArgumentException if there is no v in matrix
      */
     @Override
-    public void removeVertex(Vertex v) {
+    public void removeVertex(Vertex<V> v) {
         if (!matrix.containsKey(v)) {
             throw new IllegalArgumentException();
         }
         vertices.remove(v);
-        for (Vertex vertex : matrix.keySet()) {
-            for (Edge edge : matrix.get(v).keySet()) {
+        for (Vertex<V> vertex : matrix.keySet()) {
+            for (Edge<V, E> edge : matrix.get(v).keySet()) {
                 matrix.get(vertex).remove(edge);
             }
         }
@@ -53,7 +57,7 @@ public class IncidenceMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void addEdge(Edge e, Vertex v1, Vertex v2) {
+    public void addEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
@@ -74,12 +78,12 @@ public class IncidenceMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public void removeEdge(Edge e, Vertex v1, Vertex v2) {
+    public void removeEdge(Edge<V, E> e, Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             throw new IllegalArgumentException();
         }
         edges.remove(e);
-        for (Vertex vertex : matrix.keySet()) {
+        for (Vertex<V> vertex : matrix.keySet()) {
             matrix.get(vertex).remove(e);
         }
     }
@@ -94,16 +98,50 @@ public class IncidenceMatrix implements Graph {
      *                                  or v1 and v2 are the same vertex
      */
     @Override
-    public boolean isEdge(Vertex v1, Vertex v2) {
+    public boolean containsEdge(Vertex<V> v1, Vertex<V> v2) {
         if (!matrix.containsKey(v1) || !matrix.containsKey(v2) || v1 == v2) {
             return false;
         }
-        HashMap<Edge, Integer> map = matrix.get(v1);
-        for (Edge edge : map.keySet()) {
+        HashMap<Edge<V, E>, Integer> map = matrix.get(v1);
+        for (Edge<V, E> edge : map.keySet()) {
             if (matrix.get(v1).get(edge) == 1 && matrix.get(v2).get(edge) == -1) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Parsing input into graph.
+     *
+     * @param input input stream
+     * @throws IOException if I/O error occurs
+     */
+    @Override
+    public void inputParser(InputStream input) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        String line;
+        int i = 0;
+        while ((line = reader.readLine()) != null) {
+            String[] weights = line.split(" ");
+            int j = 0;
+            for (var weight : weights) {
+                Vertex<V> v = new Vertex<>();
+                v.changeObject((V) (i + ""));
+                if (!containsVertex(v)) {
+                    addVertex(v);
+                }
+                Edge<V, E> e = new Edge<>();
+                e.changeObject((E) (j + ""));
+                if (Integer.parseInt(weight) > 0) {
+                    e.changeWeight(Integer.parseInt(weight));
+                    addEdge(e, v, null);
+                } else if (Integer.parseInt(weight) < 0) {
+                    e.destVertex = v;
+                }
+                j++;
+            }
+            i++;
+        }
     }
 }
