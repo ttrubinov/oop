@@ -3,18 +3,18 @@ package ru.nsu.fit.trubinov;
 /**
  * Vertex of a graph, it contains any object.
  */
-public class Vertex {
-    private Object obj;
+public class Vertex<V> {
+    private V value;
 
     public Vertex() {
-        obj = null;
+        value = null;
     }
 
     public Object getObject() {
-        return obj;
+        return value;
     }
 
-    public void changeObject(Object obj) {
-        this.obj = obj;
+    public void changeObject(V value) {
+        this.value = value;
     }
 }

@@ -4,23 +4,23 @@ package ru.nsu.fit.trubinov;
  * Weighted edge of a graph, it contains any object
  * and 2 vertices (source and destination vertex).
  */
-public class Edge {
-    private Object obj;
-    public Vertex sourceVertex;
-    public Vertex destVertex;
+public class Edge<V, E> {
+    public Vertex<V> sourceVertex;
+    public Vertex<V> destVertex;
+    private E value;
     private Integer weight;
 
     public Edge() {
-        obj = null;
+        value = null;
         weight = null;
     }
 
     public Object getObject() {
-        return obj;
+        return value;
     }
 
-    public void changeObject(Object obj) {
-        this.obj = obj;
+    public void changeObject(E value) {
+        this.value = value;
     }
 
     public Integer getWeight() {
