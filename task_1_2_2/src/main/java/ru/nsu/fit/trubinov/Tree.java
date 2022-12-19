@@ -245,7 +245,7 @@ public class Tree<T> implements Collection<T> {
      */
     public class DFS implements Iterator<T> {
         private final Stack<Integer> stackOfIDs = new Stack<>();
-        private final int expectedCntChanges = cntChanges;
+        private int expectedCntChanges = cntChanges;
         private Node<T> node = root;
         private int id = -1;
 
@@ -307,6 +307,7 @@ public class Tree<T> implements Collection<T> {
             }
             cnt--;
             cntChanges++;
+            expectedCntChanges++;
         }
     }
 
@@ -315,7 +316,7 @@ public class Tree<T> implements Collection<T> {
      */
     public class BFS implements Iterator<T> {
         private final Queue<Node<T>> queue = new LinkedList<>();
-        private final int expectedCntChanges = cntChanges;
+        private int expectedCntChanges = cntChanges;
         private Node<T> node = root;
 
 
@@ -369,6 +370,7 @@ public class Tree<T> implements Collection<T> {
             }
             cnt--;
             cntChanges++;
+            expectedCntChanges++;
         }
     }
 }
