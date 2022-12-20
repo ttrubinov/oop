@@ -1,14 +1,17 @@
 package ru.nsu.fit.trubinov;
 
-import ru.nsu.fit.trubinov.number.MyNumber;
+import ru.nsu.fit.trubinov.number.ComplexNumber;
 import ru.nsu.fit.trubinov.number.Number;
 
 import java.util.ArrayList;
 
+/**
+ * Possible function in calculator.
+ */
 public class Function {
     public String name;
     public int arity;
-    ArrayList<MyNumber> args;
+    ArrayList<ComplexNumber> args;
 
     public Function(String name) {
         this.name = name;
@@ -20,11 +23,21 @@ public class Function {
         args = new ArrayList<>();
     }
 
+    /**
+     * Checks if the function can be applied to its arguments.
+     *
+     * @return true if the function can be applied to its arguments
+     */
     public boolean applicable() {
         return arity == args.size();
     }
 
-    public Number<MyNumber> apply() {
+    /**
+     * Applying function to its arguments.
+     *
+     * @return result number
+     */
+    public Number<ComplexNumber> apply() {
         return switch (name) {
             case "+" -> args.get(0).add(args.get(1));
             case "-" -> args.get(0).sub(args.get(1));
