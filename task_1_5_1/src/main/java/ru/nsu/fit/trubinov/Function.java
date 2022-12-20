@@ -30,11 +30,9 @@ public class Function {
             case "-" -> args.get(0).sub(args.get(1));
             case "*" -> args.get(0).mul(args.get(1));
             case "/" -> args.get(0).div(args.get(1));
-            case "pow" -> args.get(0).pow(args.get(1));
             case "cos" -> args.get(0).cos();
             case "sin" -> args.get(0).sin();
             case "log" -> args.get(0).log();
-            case "sqrt" -> args.get(0).sqrt();
             default -> throw new IllegalArgumentException("Wrong function");
         };
     }

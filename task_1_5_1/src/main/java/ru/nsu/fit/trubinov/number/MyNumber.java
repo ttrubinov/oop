@@ -1,5 +1,7 @@
 package ru.nsu.fit.trubinov.number;
 
+import static java.lang.Math.atan;
+
 public class MyNumber implements Number<MyNumber> {
     public double real;
     public double imaginary;
@@ -46,23 +48,21 @@ public class MyNumber implements Number<MyNumber> {
                 (this.imaginary * b.real + this.real * b.imaginary) / (Math.pow(b.real, 2) + Math.pow(b.imaginary, 2)));
     }
 
-    public MyNumber pow(MyNumber b) {
-        return new MyNumber();
+    public MyNumber log() {
+        return new MyNumber(ln(Math.pow(this.real, 2) + Math.pow(this.imaginary, 2)), atan(this.real / this.imaginary));
     }
 
-    public MyNumber log() {
-        return new MyNumber();
+    private double ln(double a) {
+        return Math.log(a);
     }
 
     public MyNumber cos() {
-        return new MyNumber();
+        return new MyNumber(Math.cos(this.real) * Math.cosh(this.imaginary),
+                -Math.sin(this.real) * Math.sinh(this.imaginary));
     }
 
     public MyNumber sin() {
-        return new MyNumber();
-    }
-
-    public MyNumber sqrt() {
-        return new MyNumber();
+        return new MyNumber(Math.sin(this.real) * Math.cosh(this.imaginary),
+                Math.cos(this.real) * Math.sinh(this.imaginary));
     }
 }

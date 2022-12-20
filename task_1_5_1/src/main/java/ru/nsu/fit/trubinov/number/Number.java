@@ -12,4 +12,10 @@ public interface Number<T extends Number<T>> {
     T mul(T b);
 
     T div(T b);
+
+    T log();
+
+    T cos();
+
+    T sin();
 }
