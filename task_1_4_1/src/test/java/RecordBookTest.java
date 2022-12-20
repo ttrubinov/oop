@@ -9,9 +9,9 @@ public class RecordBookTest {
     @Test
     void testRecordBook() {
         RecordBook a = new RecordBook("Petya");
-        RecordBook.Subject math = new RecordBook.Subject("Math", "MathTeacherName");
-        RecordBook.Subject history = new RecordBook.Subject("History", "HistoryTeacherName");
-        RecordBook.Subject physics = new RecordBook.Subject("Physics", "PhysicsTeacherName");
+        RecordBook.Subject math = new RecordBook.Subject("Math", "MathTeacherName", 5);
+        RecordBook.Subject history = new RecordBook.Subject("History", "HistoryTeacherName", "FAILED");
+        RecordBook.Subject physics = new RecordBook.Subject("Physics", "PhysicsTeacherName", "String");
         RecordBook.Semester semester1 = new RecordBook.Semester(new HashMap<>(), 0);
         semester1.addSubject(math, 4);
         semester1.addSubject(history, 5);

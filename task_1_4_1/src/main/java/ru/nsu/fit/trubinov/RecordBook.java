@@ -54,10 +54,10 @@ public class RecordBook {
     public boolean isScholarshipIncreased(Semester semester) {
         int cnt4 = 0;
         for (Subject i : semester.marks.keySet()) {
-            if (semester.marks.get(i) == 4) {
+            if (semester.marks.get(i).val == 4) {
                 cnt4++;
             }
-            if (cnt4 == 2 || semester.marks.get(i) < 4) {
+            if (cnt4 == 2 || semester.marks.get(i).val < 4) {
                 return false;
             }
         }
@@ -74,13 +74,13 @@ public class RecordBook {
         int cnt5 = 0;
         for (Semester semester : semesters) {
             for (Subject subject : semester.marks.keySet()) {
-                if (semester.marks.get(subject) == 3) {
+                if (semester.marks.get(subject).val == 3) {
                     return false;
                 }
-                if (semester.marks.get(subject) == 4) {
+                if (semester.marks.get(subject).val == 4) {
                     cnt4++;
                 }
-                if (semester.marks.get(subject) == 5) {
+                if (semester.marks.get(subject).val == 5) {
                     cnt5++;
                 }
             }
@@ -153,14 +153,48 @@ public class RecordBook {
         return s.toString();
     }
 
+    public enum Mark {
+        UNSATISFACTORY(2), SATISFACTORY(3), GOOD(4), EXCELLENT(5), FAILED(2), PASSED(5);
+        public final Integer val;
+
+        Mark(Integer val) {
+            this.val = val;
+        }
+
+//        Mark(String val) {
+//            this.val = getMark(val);
+//        }
+
+        public static Mark getMark(String mark) {
+            return switch (mark) {
+                case "FAILED" -> FAILED;
+                case "PASSED" -> PASSED;
+                case "2" -> UNSATISFACTORY;
+                case "3" -> SATISFACTORY;
+                case "4" -> GOOD;
+                case "5" -> EXCELLENT;
+            };
+        }
+    }
+
     /**
      * Subject class.
      *
      * @param subjectName name of the subject
      * @param teacherName name of a teacher of the subject
      */
-    public record Subject(String subjectName, String teacherName) {
+    public record Subject(String subjectName, String teacherName, Mark mark) {
+        public Subject(String a, String b, int aa) {
+            this(a, b, Mark.getMark(String.valueOf(aa)));
+        }
 
+        public Subject(String a, String b, String aa) {
+            this(a, b, Mark.getMark(aa));
+        }
+
+        public static Subject of(String subjectName, String teacherName) {
+            return new Subject(subjectName, "a", mark)
+        }
     }
 
     /**
@@ -170,16 +204,16 @@ public class RecordBook {
      * @param marks      marks in all subjects
      * @param semesterId id of this semester.
      */
-    public record Semester(HashMap<Subject, Integer> marks, int semesterId) {
+    public record Semester(HashMap<Subject, Mark> marks, int semesterId) {
 
-        public void addSubject(Subject subject, int mark) {
-            marks.put(subject, mark);
+        public void addSubject(Subject subject, String newMark) {
+            marks.put(subject, Mark.getMark(newMark));
         }
 
         public double averageMarkInSemester() {
             double res = 0;
             for (Subject i : marks.keySet()) {
-                res += marks.get(i);
+                res += marks.get(i).val;
             }
             return res / marks.size();
         }
