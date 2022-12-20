@@ -1,7 +1,6 @@
 package ru.nsu.fit.trubinov;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.lang.Integer.max;
 
@@ -53,11 +52,11 @@ public class RecordBook {
      */
     public boolean isScholarshipIncreased(Semester semester) {
         int cnt4 = 0;
-        for (Subject i : semester.marks.keySet()) {
-            if (semester.marks.get(i).val == 4) {
+        for (Subject i : semester.subjects) {
+            if (i.mark.val == 4) {
                 cnt4++;
             }
-            if (cnt4 == 2 || semester.marks.get(i).val < 4) {
+            if (cnt4 == 2 || i.mark.val < 4) {
                 return false;
             }
         }
@@ -73,14 +72,14 @@ public class RecordBook {
         int cnt4 = 0;
         int cnt5 = 0;
         for (Semester semester : semesters) {
-            for (Subject subject : semester.marks.keySet()) {
-                if (semester.marks.get(subject).val == 3) {
+            for (Subject subject : semester.subjects) {
+                if (subject.mark.val == 3 || subject.mark.val == 2) {
                     return false;
                 }
-                if (semester.marks.get(subject).val == 4) {
+                if (subject.mark.val == 4) {
                     cnt4++;
                 }
-                if (semester.marks.get(subject).val == 5) {
+                if (subject.mark.val == 5) {
                     cnt5++;
                 }
             }
@@ -98,9 +97,9 @@ public class RecordBook {
         int maxSize = tmp.length();
 
         for (Semester semester : semesters) {
-            for (Subject subject : semester.marks.keySet()) {
+            for (Subject subject : semester.subjects) {
                 tmp = subject.teacherName + " |  = " + subject.subjectName
-                        + semester.marks.get(subject) + "\n";
+                        + subject.mark.val + "\n";
                 maxSize = max(maxSize, tmp.length());
             }
         }
@@ -133,9 +132,9 @@ public class RecordBook {
             s.append("| ").append(" ".repeat(sLen)).append("Semester ")
                     .append(cnt).append(" ".repeat(sLen1)).append("|\n");
             s.append("|").append("=".repeat(maxSize + 1)).append("|\n");
-            for (Subject subject : semester.marks.keySet()) {
+            for (Subject subject : semester.subjects) {
                 sLen = (maxSize - (subject.teacherName + " |  = "
-                        + subject.subjectName + semester.marks.get(subject)).length());
+                        + subject.subjectName + subject.mark.val).length());
                 if (sLen % 2 == 0) {
                     sLen /= 2;
                     sLen1 = sLen;
@@ -144,7 +143,7 @@ public class RecordBook {
                     sLen1 = sLen + 1;
                 }
                 s.append("| ").append(" ".repeat(sLen)).append(subject.subjectName)
-                        .append(" = ").append(semester.marks.get(subject)).append(" | ")
+                        .append(" = ").append(subject.mark.val).append(" | ")
                         .append(subject.teacherName).append(" ".repeat(sLen1)).append("|\n");
             }
             cnt++;
@@ -153,6 +152,9 @@ public class RecordBook {
         return s.toString();
     }
 
+    /**
+     * Possible marks.
+     */
     public enum Mark {
         UNSATISFACTORY(2), SATISFACTORY(3), GOOD(4), EXCELLENT(5), FAILED(2), PASSED(5);
         public final Integer val;
@@ -160,10 +162,6 @@ public class RecordBook {
         Mark(Integer val) {
             this.val = val;
         }
-
-//        Mark(String val) {
-//            this.val = getMark(val);
-//        }
 
         public static Mark getMark(String mark) {
             return switch (mark) {
@@ -173,6 +171,7 @@ public class RecordBook {
                 case "3" -> SATISFACTORY;
                 case "4" -> GOOD;
                 case "5" -> EXCELLENT;
+                default -> throw new IllegalArgumentException(mark);
             };
         }
     }
@@ -191,31 +190,47 @@ public class RecordBook {
         public Subject(String a, String b, String aa) {
             this(a, b, Mark.getMark(aa));
         }
-
-        public static Subject of(String subjectName, String teacherName) {
-            return new Subject(subjectName, "a", mark)
-        }
     }
 
     /**
      * Semester class, which can calculate average mark in this semester.
      * You can add new subject to the semester.
      *
-     * @param marks      marks in all subjects
+     * @param subjects   subjects
      * @param semesterId id of this semester.
      */
-    public record Semester(HashMap<Subject, Mark> marks, int semesterId) {
+    public record Semester(ArrayList<Subject> subjects, int semesterId) {
 
-        public void addSubject(Subject subject, String newMark) {
-            marks.put(subject, Mark.getMark(newMark));
+        public int getExamsCount() {
+            int cnt = 0;
+            for (Subject subject : subjects) {
+                if (subject.mark != Mark.PASSED && subject.mark != Mark.FAILED) {
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
+
+        public int getTestCount() {
+            int cnt = 0;
+            for (Subject subject : subjects) {
+                if (subject.mark == Mark.PASSED || subject.mark == Mark.FAILED) {
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
+
+        public void addSubject(Subject subject) {
+            subjects.add(subject);
         }
 
         public double averageMarkInSemester() {
             double res = 0;
-            for (Subject i : marks.keySet()) {
-                res += marks.get(i).val;
+            for (Subject i : subjects) {
+                res += i.mark.val;
             }
-            return res / marks.size();
+            return res / subjects.size();
         }
     }
 }
