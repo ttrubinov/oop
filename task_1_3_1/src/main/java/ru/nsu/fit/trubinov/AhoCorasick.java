@@ -15,9 +15,9 @@ import java.util.Arrays;
  * doesn't exceed (size of an alphabet) * (length of a substring).
  */
 public class AhoCorasick implements SubstringFinderInStream {
-    private static final int alphabet = 256;
+    private static final int ALPHABET = 256;
     private BufferedReader reader;
-    private char[] s;
+    private char[] substring;
     private State[] states;
 
     /**
@@ -41,25 +41,16 @@ public class AhoCorasick implements SubstringFinderInStream {
             v = go(v, c);
             cnt++;
             if (states[v].isLeaf) {
-                res.add(cnt - s.length);
+                res.add(cnt - this.substring.length);
             }
         }
         return res;
     }
 
-    private static class State {
-        int[] next = new int[alphabet];
-        boolean isLeaf;
-        int parent;
-        char parentChar;
-        int link;
-        int[] go = new int[alphabet];
-    }
-
     private void init(InputStream input, char[] string) {
-        s = string;
+        substring = string;
         reader = new BufferedReader(new InputStreamReader(input));
-        states = new State[s.length + 1];
+        states = new State[substring.length + 1];
         for (int i = 0; i < states.length; i++) {
             states[i] = new State();
         }
@@ -68,7 +59,7 @@ public class AhoCorasick implements SubstringFinderInStream {
         Arrays.fill(states[0].go, -1);
         int v = 0;
         int sz = 1;
-        for (char c : s) {
+        for (char c : substring) {
             Arrays.fill(states[sz].next, -1);
             Arrays.fill(states[sz].go, -1);
             states[sz].link = -1;
@@ -80,12 +71,12 @@ public class AhoCorasick implements SubstringFinderInStream {
         states[v].isLeaf = true;
     }
 
-    private int get_link(int v) {
+    private int getLink(int v) {
         if (states[v].link == -1) {
             if (states[v].parent == 0) {
                 states[v].link = 0;
             } else {
-                states[v].link = go(get_link(states[v].parent), states[v].parentChar);
+                states[v].link = go(getLink(states[v].parent), states[v].parentChar);
             }
         }
         return states[v].link;
@@ -98,9 +89,18 @@ public class AhoCorasick implements SubstringFinderInStream {
             } else if (v == 0) {
                 states[v].go[c] = 0;
             } else {
-                states[v].go[c] = go(get_link(v), c);
+                states[v].go[c] = go(getLink(v), c);
             }
         }
         return states[v].go[c];
+    }
+
+    private static class State {
+        int[] next = new int[ALPHABET];
+        boolean isLeaf;
+        int parent;
+        char parentChar;
+        int link;
+        int[] go = new int[ALPHABET];
     }
 }

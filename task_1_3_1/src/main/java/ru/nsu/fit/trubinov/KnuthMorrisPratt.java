@@ -38,7 +38,7 @@ public class KnuthMorrisPratt implements SubstringFinderInStream {
         int pos = s.length;
         int fileLen = 0;
         for (char c = (char) (a = reader.read()); a != -1; c = (char) (a = reader.read())) {
-            prefix_function(c, pos);
+            prefixFunction(c, pos);
             if (prefix.get(pos) == s.length - 1) {
                 res.add(fileLen - s.length + 2);
             }
@@ -64,11 +64,11 @@ public class KnuthMorrisPratt implements SubstringFinderInStream {
         prefix = new ArrayList<>();
         prefix.add(0);
         for (int i = 1; i < s.length; i++) {
-            prefix_function(s[i], i);
+            prefixFunction(s[i], i);
         }
     }
 
-    private void prefix_function(char c, int i) {
+    private void prefixFunction(char c, int i) {
         int j = prefix.get(i - 1);
         while (j > 0 && c != s[j]) {
             j = prefix.get(j - 1);
