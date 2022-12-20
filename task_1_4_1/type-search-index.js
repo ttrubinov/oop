@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Semester"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Student"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Subject"}]
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Mark"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Semester"},{"p":"ru.nsu.fit.trubinov","l":"RecordBook.Subject"}];updateSearchResults();
