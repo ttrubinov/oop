@@ -1,6 +1,5 @@
 package ru.nsu.fit.trubinov;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class Notebook {
@@ -15,10 +14,6 @@ public class Notebook {
     }
 
     void printNotes() {
-
-    }
-
-    void printNotesByTimeInterval(Time t1, Time t2) {
 
     }
 }
