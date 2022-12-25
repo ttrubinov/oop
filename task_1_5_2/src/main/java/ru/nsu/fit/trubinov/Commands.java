@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-@Command(name = "notebook", mixinStandardHelpOptions = true, description = "action with notes")
+@Command(name = "notebook", description = "action with notes")
 public class Commands implements Callable<Integer> {
     @Option(names = "-add", arity = "2", description = "add a note")
     private List<String> addNote;
@@ -23,14 +23,15 @@ public class Commands implements Callable<Integer> {
 
     @Override
     public Integer call() {
+        Notebook notebook = new Notebook();
         if (addNote != null) {
-            System.out.println(addNote);
-        } else if (removeNote != null) {
-            System.out.println(removeNote);
-        } else if (show) {
-            System.out.println("Show");
-        } else {
-            throw new IllegalArgumentException();
+            notebook.addNote(addNote.get(0), addNote.get(1));
+        }
+        if (removeNote != null) {
+            notebook.removeNote(removeNote);
+        }
+        if (show) {
+            notebook.printNotes();
         }
         return null;
     }

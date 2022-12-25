@@ -3,17 +3,18 @@ package ru.nsu.fit.trubinov;
 import java.util.ArrayList;
 
 public class Notebook {
-    ArrayList<Note> notes = new ArrayList<>();
+    private final ArrayList<Note> notes = new ArrayList<>();
 
-    void addNote(Note note) {
-
+    public void addNote(String name, String content) {
+        Note note = new Note(name, content);
+        notes.add(note);
     }
 
-    void deleteNote(Note note) {
-
+    public void removeNote(String name) {
+        notes.removeIf(note -> note.name.equals(name));
     }
 
-    void printNotes() {
-
+    public void printNotes() {
+        System.out.println(notes);
     }
 }
