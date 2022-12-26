@@ -31,9 +31,10 @@ public class AhoCorasick implements SubstringFinderInStream {
      * @throws IOException if something went wrong with reading the stream
      */
     @Override
-    public ArrayList<Integer> find(InputStream input, char[] substring) throws IOException {
+    public ArrayList<Integer> find(InputStream input, String substring) throws IOException {
+        char[] charSubstring = substring.toCharArray();
         ArrayList<Integer> res = new ArrayList<>();
-        init(input, substring);
+        init(input, charSubstring);
         int v = 0;
         int cnt = 0;
         int a;

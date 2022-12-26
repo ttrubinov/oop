@@ -26,15 +26,15 @@ public class SubstringTest {
         File stringToFind = new File("./src/main/java/ru/nsu/fit/trubinov/input2.txt");
         InputStream stream = new FileInputStream(f);
         String c = Files.readString(stringToFind.toPath());
-        assertEquals(s.find(stream, c.toCharArray()), List.of(5984668));
+        assertEquals(s.find(stream, c), List.of(5984668));
         f = new File("./src/main/java/ru/nsu/fit/trubinov/input3.txt");
         stream = new FileInputStream(f);
-        assertEquals(s.find(stream, "aaaaaa".toCharArray()), List.of(1, 2));
+        assertEquals(s.find(stream, "aaaaaa"), List.of(1, 2));
         stream = new FileInputStream(f);
-        assertEquals(s.find(stream, "a".toCharArray()), List.of(1, 2, 3, 4, 5, 6, 7));
+        assertEquals(s.find(stream, "a"), List.of(1, 2, 3, 4, 5, 6, 7));
         stream = new FileInputStream(f);
-        assertEquals(s.find(stream, "b".toCharArray()), List.of(0));
+        assertEquals(s.find(stream, "b"), List.of(0));
         stream = new FileInputStream(f);
-        assertEquals(s.find(stream, "g".toCharArray()), List.of(8));
+        assertEquals(s.find(stream, "g"), List.of(8));
     }
 }
