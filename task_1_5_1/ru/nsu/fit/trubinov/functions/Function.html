@@ -71,15 +71,20 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.fit.trubinov.functions</a></div>
-<h1 title="Interface Function" class="title">Interface Function&lt;T extends <a href="../number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&lt;T&gt;&gt;</h1>
+<h1 title="Interface Function" class="title">Interface Function&lt;T extends <a href="../number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&gt;</h1>
 </div>
 <section class="description">
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - type of Number</dd>
+</dl>
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
 <dd><code><a href="Add.html" title="class in ru.nsu.fit.trubinov.functions">Add</a></code>, <code><a href="Cosine.html" title="class in ru.nsu.fit.trubinov.functions">Cosine</a></code>, <code><a href="Divide.html" title="class in ru.nsu.fit.trubinov.functions">Divide</a></code>, <code><a href="Logarithm.html" title="class in ru.nsu.fit.trubinov.functions">Logarithm</a></code>, <code><a href="Multiply.html" title="class in ru.nsu.fit.trubinov.functions">Multiply</a></code>, <code><a href="Sinus.html" title="class in ru.nsu.fit.trubinov.functions">Sinus</a></code>, <code><a href="Subtract.html" title="class in ru.nsu.fit.trubinov.functions">Subtract</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Function&lt;T extends <a href="../number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&lt;T&gt;&gt;</span></div>
+<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Function&lt;T extends <a href="../number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&gt;</span></div>
+<div class="block">Function that can be used in calculator.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -96,16 +101,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code>default boolean</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table"><code><span class="member-name-link"><a href="#applicable()">applicable</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab5 method-summary-table">
+<div class="block">Checks if the function can be applied.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="Function.html" title="type parameter in Function">T</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#apply()">apply</a></span>()</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Applying of the function.</div>
+</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Function.html" title="type parameter in Function">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#getArgs()">getArgs</a></span>()</code></div>
-<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Get arguments that should be applied to the function.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3"><code><span class="member-name-link"><a href="#getArity()">getArity</a></span>()</code></div>
-<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table method-summary-table-tab3">
+<div class="block">Get arity of the function.</div>
+</div>
 </div>
 </div>
 </div>
@@ -124,24 +137,44 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getArity()">
 <h3>getArity</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">getArity</span>()</div>
+<div class="block">Get arity of the function.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>arity</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getArgs()">
 <h3>getArgs</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Function.html" title="type parameter in Function">T</a>&gt;</span>&nbsp;<span class="element-name">getArgs</span>()</div>
+<div class="block">Get arguments that should be applied to the function.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>list of arguments</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="applicable()">
 <h3>applicable</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">applicable</span>()</div>
+<div class="block">Checks if the function can be applied.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if the function can be applied</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="apply()">
 <h3>apply</h3>
 <div class="member-signature"><span class="return-type"><a href="Function.html" title="type parameter in Function">T</a></span>&nbsp;<span class="element-name">apply</span>()</div>
+<div class="block">Applying of the function.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>result of the function</dd>
+</dl>
 </section>
 </li>
 </ul>
