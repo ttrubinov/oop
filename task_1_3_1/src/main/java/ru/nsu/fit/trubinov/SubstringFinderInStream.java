@@ -17,5 +17,5 @@ public interface SubstringFinderInStream {
      * @return indices of all occurrences of the substring
      * @throws IOException if something went wrong with reading the stream
      */
-    List<Integer> find(InputStream input, char[] substring) throws IOException;
+    List<Integer> find(InputStream input, String substring) throws IOException;
 }
