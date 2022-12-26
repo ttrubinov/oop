@@ -32,8 +32,7 @@ public class KnuthMorrisPratt implements SubstringFinderInStream {
      */
     @Override
     public ArrayList<Integer> find(InputStream input, String substring) throws IOException {
-        char[] charSubstring = substring.toCharArray();
-        init(input, charSubstring);
+        init(input, substring.toCharArray());
         ArrayList<Integer> res = new ArrayList<>();
         int a;
         int pos = s.length;
