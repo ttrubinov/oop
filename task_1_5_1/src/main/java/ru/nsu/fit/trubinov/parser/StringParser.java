@@ -24,5 +24,4 @@ public class StringParser implements Parser {
         }
         return inputArr[cnt++];
     }
-
 }
