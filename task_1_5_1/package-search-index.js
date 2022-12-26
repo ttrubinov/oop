@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.fit.trubinov"},{"l":"ru.nsu.fit.trubinov.functions"},{"l":"ru.nsu.fit.trubinov.number"},{"l":"ru.nsu.fit.trubinov.parser"}];updateSearchResults();
