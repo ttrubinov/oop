@@ -1,7 +1,10 @@
 import org.junit.jupiter.api.Test;
 import ru.nsu.fit.trubinov.RecordBook;
+import ru.nsu.fit.trubinov.Semester;
+import ru.nsu.fit.trubinov.Subject;
 
 import java.util.ArrayList;
+import ru.nsu.fit.trubinov.RecordBook.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,10 +12,12 @@ public class RecordBookTest {
     @Test
     void testRecordBook() {
         RecordBook a = new RecordBook("Petya");
-        RecordBook.Subject math = new RecordBook.Subject("Math", "MathTeacherName", 5);
-        RecordBook.Subject history = new RecordBook.Subject("History", "HistoryTeacherName", "FAILED");
-        RecordBook.Subject physics = new RecordBook.Subject("Physics", "PhysicsTeacherName", "PASSED");
-        RecordBook.Semester semester1 = new RecordBook.Semester(new ArrayList<>(), 0);
+        Subject math = new Subject("Math", "MathTeacherName", Mark.EXCELLENT, Type.EXAM);
+        Subject history = new Subject("History", "HistoryTeacherName",
+                Mark.FAILED, Type.TEST);
+        Subject physics = new Subject("Physics", "PhysicsTeacherName",
+                Mark.PASSED, Type.TEST);
+        Semester semester1 = new Semester(new ArrayList<>(), 0);
         semester1.addSubject(math);
         semester1.addSubject(history);
         semester1.addSubject(physics);
@@ -23,12 +28,12 @@ public class RecordBookTest {
         assertFalse(a.isDiplomaRed());
         assertEquals(1, semester1.getExamsCount());
         assertEquals(2, semester1.getTestCount());
-        RecordBook.Semester semester2 = new RecordBook.Semester(new ArrayList<>(), 1);
-        math = new RecordBook.Subject("Math", "MathTeacherName", 5);
+        Semester semester2 = new Semester(new ArrayList<>(), 1);
+        math = new Subject("Math", "MathTeacherName", Mark.EXCELLENT, Type.EXAM);
         semester2.addSubject(math);
-        history = new RecordBook.Subject("History", "HistoryTeacherName", "PASSED");
+        history = new Subject("History", "HistoryTeacherName", Mark.PASSED, Type.TEST);
         semester2.addSubject(history);
-        physics = new RecordBook.Subject("Physics", "PhysicsTeacherName", "PASSED");
+        physics = new Subject("Physics", "PhysicsTeacherName", Mark.PASSED, Type.TEST);
         semester2.addSubject(physics);
         a.addSemester(semester2);
         assertEquals(semester2.averageMarkInSemester(), 5);
