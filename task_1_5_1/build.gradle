@@ -28,7 +28,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    "ru/nsu/fit/trubinov/Main.class",
+                    "ru/nsu/fit/trubinov/parser/InputParser.class",
             ])
         }))
     }

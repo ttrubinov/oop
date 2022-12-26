@@ -11,16 +11,31 @@ public class Logarithm implements Function<ComplexNumber> {
     int arity = 1;
     List<ComplexNumber> args = new ArrayList<>();
 
+    /**
+     * Get arity of the function.
+     *
+     * @return arity
+     */
     @Override
     public int getArity() {
         return arity;
     }
 
+    /**
+     * Get argument of logarithm.
+     *
+     * @return list of arguments
+     */
     @Override
     public List<ComplexNumber> getArgs() {
         return args;
     }
 
+    /**
+     * Logarithm calculating.
+     *
+     * @return result of logarithm
+     */
     @Override
     public ComplexNumber apply() {
         ComplexNumber a = args.get(0);

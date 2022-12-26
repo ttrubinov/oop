@@ -15,7 +15,7 @@ import static java.lang.Double.parseDouble;
  */
 public class Calculator {
     Parser parser;
-    Number<ComplexNumber> number = new ComplexNumber();
+    Number number = new ComplexNumber();
     Stack<Function<ComplexNumber>> stack = new Stack<>();
 
     public Calculator(String s) {
@@ -27,7 +27,7 @@ public class Calculator {
      *
      * @return result number
      */
-    public Number<ComplexNumber> calculate() {
+    public Number calculate() {
         String token;
         while ((token = parser.getToken()) != null) {
             if (isDouble(token)) {

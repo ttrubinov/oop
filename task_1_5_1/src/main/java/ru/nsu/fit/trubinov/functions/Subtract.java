@@ -9,16 +9,31 @@ public class Subtract implements Function<ComplexNumber> {
     int arity = 2;
     List<ComplexNumber> args = new ArrayList<>();
 
+    /**
+     * Get arity of the function.
+     *
+     * @return arity
+     */
     @Override
     public int getArity() {
         return arity;
     }
 
+    /**
+     * Get arguments that should be subtracted.
+     *
+     * @return list of arguments
+     */
     @Override
     public List<ComplexNumber> getArgs() {
         return args;
     }
 
+    /**
+     * Subtraction of arguments.
+     *
+     * @return result of the subtraction
+     */
     @Override
     public ComplexNumber apply() {
         ComplexNumber a = args.get(0);
