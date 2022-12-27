@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+/**
+ * Commands that can be used as console arguments.
+ */
 @Command(name = "notebook", description = "action with notes")
 public class Commands implements Callable<Integer> {
     @Option(names = "-add", arity = "2", description = "add a note")
@@ -22,9 +25,12 @@ public class Commands implements Callable<Integer> {
     @Parameters(index = "0..*")
     private List<String> parameters;
 
-    public Commands() {
-    }
-
+    /**
+     * Run commands coming from user console.
+     *
+     * @return result code of the call
+     * @throws IOException wrong input
+     */
     @Override
     public Integer call() throws IOException {
         Notebook notebook = new Notebook();

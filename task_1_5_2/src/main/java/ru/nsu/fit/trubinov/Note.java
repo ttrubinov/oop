@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
 
+/**
+ * Single note, that has name, content and date of creation.
+ */
 public class Note {
     @JsonSerialize
     public String name;
@@ -23,6 +26,13 @@ public class Note {
         this.date = new Date();
     }
 
+    /**
+     * Constructor for parsing from json file.
+     *
+     * @param name name of a note
+     * @param content content of a note
+     * @param date date of creation of a note
+     */
     @JsonCreator
     public Note(@JsonProperty("name") String name,
                 @JsonProperty("content") String content,
