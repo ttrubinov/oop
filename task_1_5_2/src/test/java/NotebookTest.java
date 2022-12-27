@@ -20,6 +20,7 @@ public class NotebookTest {
         commandLine.execute("notebook", "-add", "Note1", "Aboba");
         commandLine.execute("notebook", "-add", "Note2", "Aboba2");
         commandLine.execute("notebook", "-rm", "Note1");
+        commandLine.execute("notebook", "-rm", "Aboba2");
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<Note> notes;
         try {

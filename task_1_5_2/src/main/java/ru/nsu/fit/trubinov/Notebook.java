@@ -6,9 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Notebook {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String PATH = "";
     private static final String NAME = "data.txt";
     public static final File file = new File(PATH + NAME);
@@ -48,6 +49,7 @@ public class Notebook {
         catch (Exception e) {
             notes = new ArrayList<>();
         }
+        notes.sort(Comparator.comparing(o -> o.date));
         System.out.println(notes);
     }
 }
