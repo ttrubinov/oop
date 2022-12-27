@@ -4,6 +4,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -21,8 +22,11 @@ public class Commands implements Callable<Integer> {
     @Parameters(index = "0..*")
     private List<String> parameters;
 
+    public Commands() {
+    }
+
     @Override
-    public Integer call() {
+    public Integer call() throws IOException {
         Notebook notebook = new Notebook();
         if (addNote != null) {
             notebook.addNote(addNote.get(0), addNote.get(1));
