@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"ru.nsu.fit.trubinov","l":"Commands"},{"p":"ru.nsu.fit.trubinov","l":"Main"},{"p":"ru.nsu.fit.trubinov","l":"Note"},{"p":"ru.nsu.fit.trubinov","l":"Notebook"}];updateSearchResults();
