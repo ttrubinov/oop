@@ -13,12 +13,17 @@ import java.util.Comparator;
  * It saves data in json format in file.
  */
 public class Notebook {
+    public Integer id;
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String PATH = "";
-    private static final String NAME = "data.json";
-    public static final File file = new File(PATH + NAME);
+    private final String PATH = "";
+    private final String NAME = id + "data.json";
+    public final File file = new File(PATH + NAME);
     public static final JavaType type = (new ObjectMapper()).getTypeFactory().
             constructCollectionType(ArrayList.class, Note.class);
+
+    public Notebook(Integer id) {
+        this.id = id;
+    }
 
     /**
      * Add a note to the notebook.
