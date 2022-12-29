@@ -1,12 +1,12 @@
 package ru.nsu.fit.trubinov.parser;
 
-import ru.nsu.fit.trubinov.functions.*;
-import ru.nsu.fit.trubinov.number.ComplexNumber;
+import ru.nsu.fit.trubinov.functions.Function;
+import ru.nsu.fit.trubinov.number.Number;
 
 /**
  * Parsing expression.
  */
-public interface Parser {
+public interface Parser<N extends Number> {
     /**
      * Get next token in string.
      *
@@ -14,16 +14,9 @@ public interface Parser {
      */
     String getToken();
 
-    default Function<ComplexNumber> getFunction(String token) {
-        return switch (token) {
-            case "+" -> new Add();
-            case "-" -> new Subtract();
-            case "*" -> new Multiply();
-            case "/" -> new Divide();
-            case "log" -> new Logarithm();
-            case "sin" -> new Sinus();
-            case "cos" -> new Cosine();
-            default -> throw new IllegalArgumentException();
-        };
-    }
+    N getNumber(String s);
+
+    boolean isNumber(String s);
+
+    Function<N> getFunction(String token);
 }

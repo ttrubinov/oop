@@ -1,26 +1,23 @@
 package ru.nsu.fit.trubinov;
 
 import ru.nsu.fit.trubinov.functions.Function;
-import ru.nsu.fit.trubinov.number.ComplexNumber;
 import ru.nsu.fit.trubinov.number.Number;
 import ru.nsu.fit.trubinov.parser.Parser;
-import ru.nsu.fit.trubinov.parser.StringParser;
 
 import java.util.Stack;
-
-import static java.lang.Double.parseDouble;
 
 /**
  * Calculator class, which can calculate result of expression by parser of this expression.
  */
-public class Calculator {
-    Parser parser;
-    Number number = new ComplexNumber();
-    Stack<Function<ComplexNumber>> stack = new Stack<>();
+public class Calculator<P extends Parser<N>, N extends Number> {
+    P parser;
+    N number;
 
-    public Calculator(String s) {
-        this.parser = new StringParser(s);
+    public Calculator(P parser) {
+        this.parser = parser;
     }
+
+    Stack<Function<N>> stack = new Stack<>();
 
     /**
      * Calculation of the expression by functions storage in stack.
@@ -30,18 +27,18 @@ public class Calculator {
     public Number calculate() {
         String token;
         while ((token = parser.getToken()) != null) {
-            if (isDouble(token)) {
+            if (parser.isNumber(token)) {
                 if (stack.empty() || stack.peek().getArity() == stack.peek().getArgs().size()) {
                     throw new IllegalArgumentException("Wrong input");
                 }
-                stack.peek().getArgs().add(new ComplexNumber(parseDouble(token), 0));
+                stack.peek().getArgs().add((parser.getNumber(token)));
                 while (stack.peek().applicable()) {
                     number = stack.peek().apply();
                     stack.pop();
                     if (stack.empty()) {
                         return number;
                     }
-                    stack.peek().getArgs().add((ComplexNumber) number);
+                    stack.peek().getArgs().add(number);
                 }
             } else {
                 stack.push(parser.getFunction(token));
@@ -51,14 +48,5 @@ public class Calculator {
             throw new IllegalArgumentException("Wrong input");
         }
         return null;
-    }
-
-    private boolean isDouble(String s) {
-        try {
-            parseDouble(s);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
     }
 }
