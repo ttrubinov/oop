@@ -7,23 +7,6 @@ package ru.nsu.fit.trubinov;
  * @param teacherName name of a teacher of the subject
  */
 public record Subject(String subjectName, String teacherName, Mark mark, Type type) {
-
-    public String subjectName() {
-        return subjectName;
-    }
-
-    public String teacherName() {
-        return teacherName;
-    }
-
-    public Mark mark() {
-        return mark;
-    }
-
-    public Type type() {
-        return type;
-    }
-
     /**
      * Possible marks.
      */
