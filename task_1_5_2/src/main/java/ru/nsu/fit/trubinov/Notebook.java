@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Notebook class, that can apply operations to notes.
@@ -67,7 +69,7 @@ public class Notebook {
     /**
      * Print all the notes of the notebook, sorted by date of creation.
      */
-    public void printNotes() {
+    public void printNotes(Date from, Date by, List<String> keyWords) {
         ArrayList<Note> notes;
         try {
             notes = objectMapper.readValue(file, type);
@@ -76,6 +78,34 @@ public class Notebook {
             notes = new ArrayList<>();
         }
         notes.sort(Comparator.comparing(o -> o.date));
-        System.out.println(notes);
+        if (from == null && by == null) {
+            for (Note note : notes) {
+                if (keyWords == null || keyWords.contains(note.name)) {
+                    System.out.println(note);
+                }
+            }
+        }
+        else if (by == null) {
+            for (Note note : notes) {
+                if ((keyWords == null || keyWords.contains(note.name)) && note.date.compareTo(from) >= 0) {
+                    System.out.println(note);
+                }
+            }
+        }
+        else if (from == null) {
+            for (Note note : notes) {
+                if ((keyWords == null || keyWords.contains(note.name)) && note.date.compareTo(by) <= 0) {
+                    System.out.println(note);
+                }
+            }
+        }
+        else {
+            for (Note note : notes) {
+                if ((keyWords == null || keyWords.contains(note.name)) &&
+                        note.date.compareTo(from) >= 0 && note.date.compareTo(by) <= 0) {
+                    System.out.println(note);
+                }
+            }
+        }
     }
 }
