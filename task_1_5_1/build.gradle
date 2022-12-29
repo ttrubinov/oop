@@ -13,7 +13,6 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
 }
 
 test {
@@ -29,7 +28,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    "**/src/main/java/ru/nsu/fit/trubinov/**/InputParser.java",
+                    "ru/nsu/fit/trubinov/parser/InputParser.class",
             ])
         }))
     }
