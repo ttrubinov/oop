@@ -43,7 +43,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -84,12 +84,32 @@ loadScripts(document, 'script');</script>
 <dd><code><span id="param-teacherName">teacherName</span></code> - name of a teacher of the subject</dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Subject</span>(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subjectName, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teacherName, <a href="RecordBook.Mark.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Mark</a>&nbsp;mark, <a href="RecordBook.Type.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Type</a>&nbsp;type)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Subject</span>(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subjectName, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teacherName, <a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a>&nbsp;mark, <a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a>&nbsp;type)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Subject class.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li>
+<section class="nested-class-summary" id="nested.class.summary">
+<h2>Nested Class Summary</h2>
+<div class="caption"><span>Nested Classes</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><span class="member-name-link"><a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a></span></code></div>
+<div class="col-last even-row-color">
+<div class="block">Possible marks.</div>
+</div>
+<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><span class="member-name-link"><a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a></span></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor.summary">
@@ -98,10 +118,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,ru.nsu.fit.trubinov.RecordBook.Mark,ru.nsu.fit.trubinov.RecordBook.Type)">Subject</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subjectName,
+<div class="col-constructor-name even-row-color"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,ru.nsu.fit.trubinov.Subject.Mark,ru.nsu.fit.trubinov.Subject.Type)">Subject</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subjectName,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teacherName,
- <a href="RecordBook.Mark.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Mark</a>&nbsp;mark,
- <a href="RecordBook.Type.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Type</a>&nbsp;type)</code></div>
+ <a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a>&nbsp;mark,
+ <a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a>&nbsp;type)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>Subject</code> record class.</div>
 </div>
@@ -129,7 +149,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
 <div class="block">Returns a hash code value for this object.</div>
 </div>
-<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="RecordBook.Mark.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Mark</a></code></div>
+<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#mark()">mark</a></span>()</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
 <div class="block">Returns the value of the <code>mark</code> record component.</div>
@@ -149,7 +169,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
 <div class="block">Returns a string representation of this record class.</div>
 </div>
-<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="RecordBook.Type.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Type</a></code></div>
+<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#type()">type</a></span>()</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
 <div class="block">Returns the value of the <code>type</code> record component.</div>
@@ -172,12 +192,12 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.String,ru.nsu.fit.trubinov.RecordBook.Mark,ru.nsu.fit.trubinov.RecordBook.Type)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.String,ru.nsu.fit.trubinov.Subject.Mark,ru.nsu.fit.trubinov.Subject.Type)">
 <h3>Subject</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Subject</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subjectName,
  <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teacherName,
- <a href="RecordBook.Mark.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Mark</a>&nbsp;mark,
- <a href="RecordBook.Type.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Type</a>&nbsp;type)</span></div>
+ <a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a>&nbsp;mark,
+ <a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a>&nbsp;type)</span></div>
 <div class="block">Creates an instance of a <code>Subject</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -221,7 +241,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="mark()">
 <h3>mark</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="RecordBook.Mark.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Mark</a></span>&nbsp;<span class="element-name">mark</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Subject.Mark.html" title="enum class in ru.nsu.fit.trubinov">Subject.Mark</a></span>&nbsp;<span class="element-name">mark</span>()</div>
 <div class="block">Returns the value of the <code>mark</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -232,7 +252,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="type()">
 <h3>type</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="RecordBook.Type.html" title="enum class in ru.nsu.fit.trubinov">RecordBook.Type</a></span>&nbsp;<span class="element-name">type</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Subject.Type.html" title="enum class in ru.nsu.fit.trubinov">Subject.Type</a></span>&nbsp;<span class="element-name">type</span>()</div>
 <div class="block">Returns the value of the <code>type</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
