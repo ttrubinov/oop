@@ -104,11 +104,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Calculation of the expression by functions storage in stack.</div>
 </dd>
-<dt><a href="ru/nsu/fit/trubinov/Calculator.html" title="class in ru.nsu.fit.trubinov"><span class="type-name-link">Calculator</span></a> - Class in <a href="ru/nsu/fit/trubinov/package-summary.html">ru.nsu.fit.trubinov</a></dt>
+<dt><a href="ru/nsu/fit/trubinov/Calculator.html" title="class in ru.nsu.fit.trubinov"><span class="type-name-link">Calculator</span></a>&lt;<a href="ru/nsu/fit/trubinov/Calculator.html" title="type parameter in Calculator">P</a> extends <a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="ru/nsu/fit/trubinov/Calculator.html" title="type parameter in Calculator">N</a>&gt;,&#8203;<a href="ru/nsu/fit/trubinov/Calculator.html" title="type parameter in Calculator">N</a> extends <a href="ru/nsu/fit/trubinov/number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&gt; - Class in <a href="ru/nsu/fit/trubinov/package-summary.html">ru.nsu.fit.trubinov</a></dt>
 <dd>
 <div class="block">Calculator class, which can calculate result of expression by parser of this expression.</div>
 </dd>
-<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/Calculator.html#%3Cinit%3E(java.lang.String)">Calculator(String)</a></span> - Constructor for class ru.nsu.fit.trubinov.<a href="ru/nsu/fit/trubinov/Calculator.html" title="class in ru.nsu.fit.trubinov">Calculator</a></dt>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/Calculator.html#%3Cinit%3E(P)">Calculator(P)</a></span> - Constructor for class ru.nsu.fit.trubinov.<a href="ru/nsu/fit/trubinov/Calculator.html" title="class in ru.nsu.fit.trubinov">Calculator</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/fit/trubinov/number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number"><span class="type-name-link">ComplexNumber</span></a> - Class in <a href="ru/nsu/fit/trubinov/number/package-summary.html">ru.nsu.fit.trubinov.number</a></dt>
 <dd>
@@ -207,7 +207,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Get arity of the function.</div>
 </dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/InputParser.html#getFunction(java.lang.String)">getFunction(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/InputParser.html" title="class in ru.nsu.fit.trubinov.parser">InputParser</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/Parser.html#getFunction(java.lang.String)">getFunction(String)</a></span> - Method in interface ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/StringParser.html#getFunction(java.lang.String)">getFunction(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/StringParser.html" title="class in ru.nsu.fit.trubinov.parser">StringParser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/InputParser.html#getNumber(java.lang.String)">getNumber(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/InputParser.html" title="class in ru.nsu.fit.trubinov.parser">InputParser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/Parser.html#getNumber(java.lang.String)">getNumber(String)</a></span> - Method in interface ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/StringParser.html#getNumber(java.lang.String)">getNumber(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/StringParser.html" title="class in ru.nsu.fit.trubinov.parser">StringParser</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/InputParser.html#getToken()">getToken()</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/InputParser.html" title="class in ru.nsu.fit.trubinov.parser">InputParser</a></dt>
 <dd>
@@ -231,6 +241,12 @@ loadScripts(document, 'script');</script>
 <div class="block">Parsing expression from input.</div>
 </dd>
 <dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/InputParser.html#%3Cinit%3E()">InputParser()</a></span> - Constructor for class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/InputParser.html" title="class in ru.nsu.fit.trubinov.parser">InputParser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/InputParser.html#isNumber(java.lang.String)">isNumber(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/InputParser.html" title="class in ru.nsu.fit.trubinov.parser">InputParser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/Parser.html#isNumber(java.lang.String)">isNumber(String)</a></span> - Method in interface ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="ru/nsu/fit/trubinov/parser/StringParser.html#isNumber(java.lang.String)">isNumber(String)</a></span> - Method in class ru.nsu.fit.trubinov.parser.<a href="ru/nsu/fit/trubinov/parser/StringParser.html" title="class in ru.nsu.fit.trubinov.parser">StringParser</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:L">L</h2>
@@ -256,7 +272,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser"><span class="type-name-link">Parser</span></a> - Interface in <a href="ru/nsu/fit/trubinov/parser/package-summary.html">ru.nsu.fit.trubinov.parser</a></dt>
+<dt><a href="ru/nsu/fit/trubinov/parser/Parser.html" title="interface in ru.nsu.fit.trubinov.parser"><span class="type-name-link">Parser</span></a>&lt;<a href="ru/nsu/fit/trubinov/parser/Parser.html" title="type parameter in Parser">N</a> extends <a href="ru/nsu/fit/trubinov/number/Number.html" title="interface in ru.nsu.fit.trubinov.number">Number</a>&gt; - Interface in <a href="ru/nsu/fit/trubinov/parser/package-summary.html">ru.nsu.fit.trubinov.parser</a></dt>
 <dd>
 <div class="block">Parsing expression.</div>
 </dd>

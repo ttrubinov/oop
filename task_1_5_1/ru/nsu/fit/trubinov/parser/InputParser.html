@@ -79,12 +79,12 @@ loadScripts(document, 'script');</script>
 <section class="description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></code></dd>
+<dd><code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InputParser</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></span></div>
+implements <a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</span></div>
 <div class="block">Parsing expression from input.</div>
 </section>
 <section class="summary">
@@ -113,20 +113,26 @@ implements <a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser"
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="../functions/Function.html" title="interface in ru.nsu.fit.trubinov.functions">Function</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getFunction(java.lang.String)">getFunction</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a></code></div>
+<div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getNumber(java.lang.String)">getNumber</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getToken()">getToken</a></span>()</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
 <div class="block">Get next token in string.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#isNumber(java.lang.String)">isNumber</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
+<div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">&nbsp;</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
-<div class="inherited-list">
-<h3 id="methods.inherited.from.class.ru.nsu.fit.trubinov.parser.Parser">Methods inherited from interface&nbsp;ru.nsu.fit.trubinov.parser.<a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></h3>
-<code><a href="Parser.html#getFunction(java.lang.String)">getFunction</a></code></div>
 </section>
 </li>
 </ul>
@@ -159,9 +165,39 @@ implements <a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser"
 <div class="block">Get next token in string.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Parser.html#getToken()">getToken</a></code>&nbsp;in interface&nbsp;<code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a></code></dd>
+<dd><code><a href="Parser.html#getToken()">getToken</a></code>&nbsp;in interface&nbsp;<code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>next token</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getNumber(java.lang.String)">
+<h3>getNumber</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a></span>&nbsp;<span class="element-name">getNumber</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</span></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Parser.html#getNumber(java.lang.String)">getNumber</a></code>&nbsp;in interface&nbsp;<code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="isNumber(java.lang.String)">
+<h3>isNumber</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isNumber</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</span></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Parser.html#isNumber(java.lang.String)">isNumber</a></code>&nbsp;in interface&nbsp;<code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getFunction(java.lang.String)">
+<h3>getFunction</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../functions/Function.html" title="interface in ru.nsu.fit.trubinov.functions">Function</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</span>&nbsp;<span class="element-name">getFunction</span>&#8203;<span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</span></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="Parser.html#getFunction(java.lang.String)">getFunction</a></code>&nbsp;in interface&nbsp;<code><a href="Parser.html" title="interface in ru.nsu.fit.trubinov.parser">Parser</a>&lt;<a href="../number/ComplexNumber.html" title="class in ru.nsu.fit.trubinov.number">ComplexNumber</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
