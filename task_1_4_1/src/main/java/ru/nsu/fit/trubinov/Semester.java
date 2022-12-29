@@ -14,7 +14,7 @@ public record Semester(ArrayList<Subject> subjects, int semesterId) {
     public int getExamsCount() {
         int cnt = 0;
         for (Subject subject : subjects) {
-            if (subject.mark() != RecordBook.Mark.PASSED && subject.mark() != RecordBook.Mark.FAILED) {
+            if (subject.mark() != Subject.Mark.PASSED && subject.mark() != Subject.Mark.FAILED) {
                 cnt++;
             }
         }
@@ -24,7 +24,7 @@ public record Semester(ArrayList<Subject> subjects, int semesterId) {
     public int getTestCount() {
         int cnt = 0;
         for (Subject subject : subjects) {
-            if (subject.mark() == RecordBook.Mark.PASSED || subject.mark() == RecordBook.Mark.FAILED) {
+            if (subject.mark() == Subject.Mark.PASSED || subject.mark() == Subject.Mark.FAILED) {
                 cnt++;
             }
         }
@@ -43,12 +43,10 @@ public record Semester(ArrayList<Subject> subjects, int semesterId) {
         return res / subjects.size();
     }
 
-    @Override
     public ArrayList<Subject> subjects() {
         return subjects;
     }
 
-    @Override
     public int semesterId() {
         return semesterId;
     }

@@ -151,21 +151,5 @@ public class RecordBook {
         s.append("=".repeat(maxSize + 3)).append("\n");
         return s.toString();
     }
-
-    /**
-     * Possible marks.
-     */
-    public enum Mark {
-        UNSATISFACTORY(2), SATISFACTORY(3), GOOD(4), EXCELLENT(5), FAILED(2), PASSED(5);
-        public final Integer val;
-
-        Mark(Integer val) {
-            this.val = val;
-        }
-    }
-
-    public enum Type {
-        EXAM, TEST, DiffTEST;
-    }
 }
 

@@ -4,7 +4,7 @@ import ru.nsu.fit.trubinov.Semester;
 import ru.nsu.fit.trubinov.Subject;
 
 import java.util.ArrayList;
-import ru.nsu.fit.trubinov.RecordBook.*;
+import ru.nsu.fit.trubinov.Subject.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

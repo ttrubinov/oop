@@ -1,7 +1,5 @@
 package ru.nsu.fit.trubinov;
 
-import ru.nsu.fit.trubinov.RecordBook.*;
-
 /**
  * Subject class.
  *
@@ -10,23 +8,35 @@ import ru.nsu.fit.trubinov.RecordBook.*;
  */
 public record Subject(String subjectName, String teacherName, Mark mark, Type type) {
 
-    @Override
     public String subjectName() {
         return subjectName;
     }
 
-    @Override
     public String teacherName() {
         return teacherName;
     }
 
-    @Override
     public Mark mark() {
         return mark;
     }
 
-    @Override
     public Type type() {
         return type;
+    }
+
+    /**
+     * Possible marks.
+     */
+    public enum Mark {
+        UNSATISFACTORY(2), SATISFACTORY(3), GOOD(4), EXCELLENT(5), FAILED(2), PASSED(5);
+        public final Integer val;
+
+        Mark(Integer val) {
+            this.val = val;
+        }
+    }
+
+    public enum Type {
+        EXAM, TEST, DiffTEST;
     }
 }
