@@ -22,8 +22,8 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
         for (int j = 0; j < threadCount; j++) {
             threads[j] = new Thread(() -> {
                 while (!returnVal.get() && ind.get() < arr.length) {
-                    ind.incrementAndGet();
-                    if (isComposite(arr[ind.get() - 1])) {
+                    int curIndex = ind.incrementAndGet() - 1;
+                    if (isComposite(arr[curIndex])) {
                         returnVal.set(true);
                     }
                 }
