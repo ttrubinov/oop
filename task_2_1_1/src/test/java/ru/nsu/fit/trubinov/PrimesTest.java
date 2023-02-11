@@ -2,7 +2,6 @@ package ru.nsu.fit.trubinov;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openjdk.jmh.annotations.*;
 import ru.nsu.fit.trubinov.primalityChecking.ArrayPrimalityChecker;
 import ru.nsu.fit.trubinov.primalityChecking.MultithreadingChecker;
 import ru.nsu.fit.trubinov.primalityChecking.ParallelStreamChecker;
@@ -15,15 +14,12 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@State(Scope.Benchmark)
-@BenchmarkMode(Mode.Throughput)
 public class PrimesTest {
     static long[] primes;
     static long[] primesWithComposite;
     static long[] randomNumbers;
 
     @BeforeAll
-    @Setup
     public static void setUp() throws FileNotFoundException {
         int n = 100000;
         String path = "./src/test/java/ru/nsu/fit/trubinov/testData/";
@@ -45,7 +41,6 @@ public class PrimesTest {
     }
 
     @Test
-    @Benchmark
     public void SequentialTest() throws InterruptedException {
         ArrayPrimalityChecker s = new SequentialChecker();
         assertTrue(s.isArrayPrime(primes));
@@ -54,16 +49,14 @@ public class PrimesTest {
     }
 
     @Test
-    @Benchmark
-    public void MultithreadingChecker1Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(1);
+    public void MultithreadingChecker4Test() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(4);
         assertTrue(s.isArrayPrime(primes));
         assertFalse(s.isArrayPrime(primesWithComposite));
         assertFalse(s.isArrayPrime(randomNumbers));
     }
 
     @Test
-    @Benchmark
     public void MultithreadingChecker12Test() throws InterruptedException {
         ArrayPrimalityChecker s = new MultithreadingChecker();
         assertTrue(s.isArrayPrime(primes));
@@ -72,7 +65,6 @@ public class PrimesTest {
     }
 
     @Test
-    @Benchmark
     public void ParallelTest() throws InterruptedException {
         ArrayPrimalityChecker s = new ParallelStreamChecker();
         assertTrue(s.isArrayPrime(primes));
