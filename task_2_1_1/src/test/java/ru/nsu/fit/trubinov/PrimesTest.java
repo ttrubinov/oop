@@ -3,10 +3,13 @@ package ru.nsu.fit.trubinov;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.*;
+import ru.nsu.fit.trubinov.primalityChecking.ArrayPrimalityChecker;
+import ru.nsu.fit.trubinov.primalityChecking.MultithreadingChecker;
+import ru.nsu.fit.trubinov.primalityChecking.ParallelStreamChecker;
+import ru.nsu.fit.trubinov.primalityChecking.SequentialChecker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,9 +26,7 @@ public class PrimesTest {
     @Setup
     public static void setUp() throws FileNotFoundException {
         int n = 100000;
-        String path = "./src/test/java/ru/nsu/fit/trubinov/";
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println(Paths.get(""));
+        String path = "./src/test/java/ru/nsu/fit/trubinov/testData/";
         Scanner scanner = new Scanner(new File(path + "primes.txt"));
         primes = new long[n];
         for (int i = 0; i < n; i++) {
@@ -54,8 +55,8 @@ public class PrimesTest {
 
     @Test
     @Benchmark
-    public void Threads4Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new ThreadsChecker(4);
+    public void MultithreadingChecker1Test() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(1);
         assertTrue(s.isArrayPrime(primes));
         assertFalse(s.isArrayPrime(primesWithComposite));
         assertFalse(s.isArrayPrime(randomNumbers));
@@ -63,8 +64,8 @@ public class PrimesTest {
 
     @Test
     @Benchmark
-    public void Threads12Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new ThreadsChecker();
+    public void MultithreadingChecker12Test() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker();
         assertTrue(s.isArrayPrime(primes));
         assertFalse(s.isArrayPrime(primesWithComposite));
         assertFalse(s.isArrayPrime(randomNumbers));
