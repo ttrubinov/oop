@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.primalityChecking;
 
 import java.util.ArrayList;
 import java.util.List;

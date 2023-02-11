@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.primalityChecking;
 
 public interface ArrayPrimalityChecker {
     default boolean isComposite(long number) {

@@ -1,37 +1,30 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.primalityChecking;
 
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadsChecker implements ArrayPrimalityChecker {
+public class MultithreadingChecker implements ArrayPrimalityChecker {
     public int threadCount;
 
-    public ThreadsChecker() {
+    public MultithreadingChecker() {
         this.threadCount = 12;
     }
 
-    public ThreadsChecker(int threadCount) {
+    public MultithreadingChecker(int threadCount) {
         this.threadCount = threadCount;
     }
 
     @Override
     public boolean isArrayPrime(long[] arr) throws InterruptedException {
-        Arrays.sort(arr);
-        int size = arr.length;
         Thread[] threads = new Thread[threadCount];
         AtomicBoolean returnVal = new AtomicBoolean(false);
+        AtomicInteger ind = new AtomicInteger(0);
         for (int j = 0; j < threadCount; j++) {
-            int finalN = j;
             threads[j] = new Thread(() -> {
-                for (int i = finalN; i < size; i += threadCount) {
-                    if (isComposite(arr[i])) {
+                while (!returnVal.get() && ind.get() < arr.length) {
+                    ind.incrementAndGet();
+                    if (isComposite(arr[ind.get() - 1])) {
                         returnVal.set(true);
-                        for (Thread thread : threads) {
-                            if (thread != null) {
-                                thread.interrupt();
-                            }
-                        }
-                        break;
                     }
                 }
             });
