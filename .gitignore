@@ -145,3 +145,5 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij+all
 /task_1_3_1/src/main/java/ru/nsu/fit/trubinov/Main.java
+/task_2_1_1/src/main/java/ru/nsu/fit/trubinov/Main.java
+/task_2_1_1/src/main/java/ru/nsu/fit/trubinov/benchmark.txt
