@@ -20,9 +20,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.openjfx:javafx:11'
-    implementation 'org.openjfx:javafx-controls:11.0.2'
-    testImplementation 'org.openjfx:javafx:11'
     testImplementation 'org.openjdk.jmh:jmh-core:1.35'
     testImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
