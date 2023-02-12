@@ -28,7 +28,7 @@ with open('benchmarkResults.txt', 'w') as out:
     print("Threads Result", file=out)
     for threads, value in d.items():
         print(f'{threads:7d}', f'{value:6.3f}', file=out)
-    print(f'\nParallel: {parallel}', file=out)
+    print(f'\nParallel stream: {parallel}', file=out)
     print(f'\nSequential: {sequential}', file=out)
 
 axeX = d.keys()
