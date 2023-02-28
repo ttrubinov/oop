@@ -7,7 +7,7 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
     public int threadCount;
 
     public MultithreadingChecker() {
-        this.threadCount = 12;
+        this.threadCount = Runtime.getRuntime().availableProcessors();
     }
 
     public MultithreadingChecker(int threadCount) {
@@ -21,8 +21,8 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
         AtomicInteger ind = new AtomicInteger(0);
         for (int j = 0; j < threadCount; j++) {
             threads[j] = new Thread(() -> {
-                while (!returnVal.get() && ind.get() < arr.length) {
-                    int curIndex = ind.incrementAndGet() - 1;
+                int curIndex;
+                while (!returnVal.get() && ((curIndex = ind.incrementAndGet() - 1) < arr.length)) {
                     if (isComposite(arr[curIndex])) {
                         returnVal.set(true);
                     }
