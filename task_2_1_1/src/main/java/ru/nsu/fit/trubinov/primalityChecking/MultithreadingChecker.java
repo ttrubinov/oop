@@ -12,6 +12,7 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
     public MultithreadingChecker(int threadCount) {
         this.threadCount = threadCount;
     }
+
     @Override
     public boolean isArrayPrime(long[] arr) throws InterruptedException {
         Thread[] threads = new Thread[threadCount];
@@ -39,8 +40,6 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
             if (thread != null) {
                 if (!returnVal.get()) {
                     thread.join();
-                } else {
-                    thread.interrupt();
                 }
             }
         }
