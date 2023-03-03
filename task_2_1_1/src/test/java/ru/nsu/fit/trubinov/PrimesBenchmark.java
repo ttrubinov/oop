@@ -13,140 +13,78 @@ import java.util.Scanner;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.Throughput)
 public class PrimesBenchmark {
-    static long[] primes;
-    static long[] primesWithComposite;
-    static long[] randomNumbers;
+    @Param({"10", "100", "1000", "10000", "100000", "1000000"})
+    public static int arrSize;
+
+    static long[] arr;
 
     @Setup
     public static void setUp() throws FileNotFoundException {
-        int n = 100000;
         String path = "./src/test/java/ru/nsu/fit/trubinov/testData/";
-        Scanner scanner = new Scanner(new File(path + "primes.txt"));
-        primes = new long[n];
-        for (int i = 0; i < n; i++) {
-            primes[i] = scanner.nextLong();
-        }
-        scanner = new Scanner(new File(path + "primesAndComposite.txt"));
-        primesWithComposite = new long[n];
-        for (int i = 0; i < n; i++) {
-            primesWithComposite[i] = scanner.nextLong();
-        }
-        scanner = new Scanner(new File(path + "randomNumbers.txt"));
-        randomNumbers = new long[n];
-        for (int i = 0; i < n; i++) {
-            randomNumbers[i] = scanner.nextLong();
+        Scanner scanner = new Scanner(new File(path + arrSize + ".txt"));
+        arr = new long[arrSize];
+        for (int i = 0; i < arrSize; i++) {
+            arr[i] = scanner.nextLong();
         }
     }
 
     @Benchmark
-    public void SequentialTest() throws InterruptedException {
-        ArrayPrimalityChecker s = new SequentialChecker();
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker1Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(1);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker2Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(2);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker3Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(3);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker4Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(4);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker5Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(5);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker6Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(6);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker7Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(7);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker8Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(8);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker9Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(9);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker10Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(10);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker11Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker(11);
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void MultithreadingChecker12Test() throws InterruptedException {
-        ArrayPrimalityChecker s = new MultithreadingChecker();
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
-    }
-
-    @Benchmark
-    public void ParallelTest() throws InterruptedException {
+    public void parallelStreamChecker() throws InterruptedException {
         ArrayPrimalityChecker s = new ParallelStreamChecker();
-        s.isArrayPrime(primes);
-        s.isArrayPrime(primesWithComposite);
-        s.isArrayPrime(randomNumbers);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void sequentialChecker() throws InterruptedException {
+        ArrayPrimalityChecker s = new SequentialChecker();
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker2() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(2);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker3() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(3);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker4() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(4);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker5() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(5);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker6() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(6);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker8() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(8);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker10() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(10);
+        s.isArrayPrime(arr);
+    }
+
+    @Benchmark
+    public void multithreadingChecker12() throws InterruptedException {
+        ArrayPrimalityChecker s = new MultithreadingChecker(12);
+        s.isArrayPrime(arr);
     }
 }
