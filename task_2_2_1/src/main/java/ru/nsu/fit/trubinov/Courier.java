@@ -1,11 +1,14 @@
 package ru.nsu.fit.trubinov;
 
-import java.util.function.Supplier;
+public class Courier {
+    private int deliveryTime;
 
-public class Courier<Pizza> implements Supplier<Pizza> {
-
-    @Override
     public Pizza get() {
-        return null;
+        try {
+            wait(deliveryTime);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return new Pizza();
     }
 }
