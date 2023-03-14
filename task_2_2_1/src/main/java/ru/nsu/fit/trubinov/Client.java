@@ -12,21 +12,21 @@ public class Client implements Runnable {
     }
 
     public void order(Pizza t) {
-        synchronized (orders) {
-            orders.add(t);
-            orders.notifyAll();
+        try {
+            wait(ThreadLocalRandom.current().nextInt(minTimeBetweenOrders, maxTimeBetweenOrders + 1));
+            synchronized (orders) {
+                orders.add(t);
+                orders.notifyAll();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void run() {
         while (true) {
-            try {
-                wait(ThreadLocalRandom.current().nextInt(minTimeBetweenOrders, maxTimeBetweenOrders + 1));
-                order(new Pizza());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            order(new Pizza());
         }
     }
 }
