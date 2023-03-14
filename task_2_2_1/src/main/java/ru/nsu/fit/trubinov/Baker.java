@@ -25,16 +25,17 @@ public class Baker implements Runnable {
             try {
                 synchronized (orders) {
                     while (orders.isEmpty()) {
-                        wait();
+                        orders.wait();
                     }
                     orders.take();
                     orders.notifyAll();
                 }
+                Pizza pizza = get();
                 synchronized (storage) {
                     while (storage.isFull()) {
-                        wait();
+                        storage.wait();
                     }
-                    storage.add(get());
+                    storage.add(pizza);
                     storage.notifyAll();
                 }
             } catch (InterruptedException e) {
