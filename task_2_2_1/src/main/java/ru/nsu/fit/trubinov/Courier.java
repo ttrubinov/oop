@@ -23,12 +23,12 @@ public class Courier implements Runnable {
             try {
                 synchronized (storage) {
                     while (storage.isEmpty()) {
-                        wait();
+                        storage.wait();
                     }
                     storage.take();
                     storage.notifyAll();
-                    get();
                 }
+                get();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
