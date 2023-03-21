@@ -61,21 +61,21 @@ public class Main {
     private static void startPizzeria() throws InterruptedException {
         int n = couriers.size() + bakers.size() + clients.size();
         Thread[] threads = new Thread[n];
-        int thread = 0;
+        int threadIdx = 0;
         for (Baker baker : bakers) {
-            threads[thread] = new Thread(baker);
-            thread++;
+            threads[threadIdx] = new Thread(baker);
+            threadIdx++;
         }
         for (Client client : clients) {
-            threads[thread] = new Thread(client);
-            thread++;
+            threads[threadIdx] = new Thread(client);
+            threadIdx++;
         }
         for (Courier courier : couriers) {
-            threads[thread] = new Thread(courier);
-            thread++;
+            threads[threadIdx] = new Thread(courier);
+            threadIdx++;
         }
-        for (int i = 0; i < n; i++) {
-            threads[i].start();
+        for (Thread thread : threads) {
+            thread.start();
         }
         log.info("Pizzeria started working!");
         while (signal == Signal.Work) {
@@ -102,7 +102,7 @@ public class Main {
                 synchronized (storage) {
                     storage.notifyAll();
                 }
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < n; i++) {
                     synchronized (threads[i]) {
                         threads[i].notifyAll();
                     }
@@ -110,7 +110,7 @@ public class Main {
             }
         }
         log.info("Closing pizzeria");
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < n; i++) {
             threads[i].join();
             log.info("Thread №" + i + " joined");
         }
