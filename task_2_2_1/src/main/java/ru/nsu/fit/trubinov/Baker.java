@@ -1,21 +1,41 @@
 package ru.nsu.fit.trubinov;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Baker implements Runnable {
-
     private final int id;
     private final int cookingTime;
     private Signal signal;
-    private final Orders orders;
-    private final Storage storage;
+    private Orders orders;
+    private Storage storage;
 
-    public Baker(int id, Signal signal, int cookingTime, Orders orders, Storage storage) {
+    public Baker(@JsonProperty("id") int id, @JsonProperty("cookingTime") int cookingTime) {
         this.id = id;
-        this.signal = signal;
         this.cookingTime = cookingTime;
+        this.signal = null;
+        this.orders = null;
+        this.storage = null;
+    }
+
+    public Baker(int id, int cookingTime, Signal signal, Orders orders, Storage storage) {
+        this.id = id;
+        this.cookingTime = cookingTime;
+        this.signal = signal;
         this.orders = orders;
+        this.storage = storage;
+    }
+
+    public void setSignal(Signal signal) {
+        this.signal = signal;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
@@ -78,5 +98,13 @@ public class Baker implements Runnable {
             }
         }
         log.info("Baker №" + id + " finished his job");
+    }
+
+    @Override
+    public String toString() {
+        return "Baker{" +
+                "id=" + id +
+                ", cookingTime=" + cookingTime +
+                '}';
     }
 }

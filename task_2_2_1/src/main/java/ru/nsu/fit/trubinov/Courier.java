@@ -1,5 +1,6 @@
 package ru.nsu.fit.trubinov;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -7,12 +8,27 @@ public class Courier implements Runnable {
     private final int id;
     private final int deliveryTime;
     private Signal signal;
-    private final Storage storage;
+    private Storage storage;
 
-    public Courier(int id, Signal signal, int deliveryTime, Storage storage) {
+    public Courier(@JsonProperty("id") int id, @JsonProperty("deliveryTime") int deliveryTime) {
         this.id = id;
-        this.signal = signal;
         this.deliveryTime = deliveryTime;
+        this.signal = null;
+        this.storage = null;
+    }
+
+    public Courier(int id, int deliveryTime, Signal signal, Storage storage) {
+        this.id = id;
+        this.deliveryTime = deliveryTime;
+        this.signal = signal;
+        this.storage = storage;
+    }
+
+    public void setSignal(Signal signal) {
+        this.signal = signal;
+    }
+
+    public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
@@ -67,5 +83,13 @@ public class Courier implements Runnable {
             }
         }
         log.info("Courier №" + id + " finished his job");
+    }
+
+    @Override
+    public String toString() {
+        return "Courier{" +
+                "id=" + id +
+                ", deliveryTime=" + deliveryTime +
+                "}";
     }
 }

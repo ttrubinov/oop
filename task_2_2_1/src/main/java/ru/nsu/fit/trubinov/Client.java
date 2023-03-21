@@ -1,5 +1,6 @@
 package ru.nsu.fit.trubinov;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,16 +9,34 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Client implements Runnable {
     private final int id;
     private final int minTimeBetweenOrders;
-    private final Orders orders;
     private final int maxTimeBetweenOrders;
+    private Orders orders;
     private Signal signal;
 
-    public Client(int id, Signal signal, Orders orders, int minTimeBetweenOrders, int maxTimeBetweenOrders) {
+    public Client(@JsonProperty("id") int id,
+                  @JsonProperty("minTimeBetweenOrders") int minTimeBetweenOrders,
+                  @JsonProperty("maxTimeBetweenOrders") int maxTimeBetweenOrders) {
         this.id = id;
-        this.signal = signal;
-        this.orders = orders;
         this.minTimeBetweenOrders = minTimeBetweenOrders;
         this.maxTimeBetweenOrders = maxTimeBetweenOrders;
+        this.signal = null;
+        this.orders = null;
+    }
+
+    public Client(int id, int minTimeBetweenOrders, int maxTimeBetweenOrders, Signal signal, Orders orders) {
+        this.id = id;
+        this.minTimeBetweenOrders = minTimeBetweenOrders;
+        this.maxTimeBetweenOrders = maxTimeBetweenOrders;
+        this.signal = signal;
+        this.orders = orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public void setSignal(Signal signal) {
+        this.signal = signal;
     }
 
     public void changeWorkingType(Signal signal) {
@@ -48,5 +67,14 @@ public class Client implements Runnable {
             order(new Pizza());
         }
         log.info("Client №" + id + " stopped doing orders");
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", minTimeBetweenOrders=" + minTimeBetweenOrders +
+                ", maxTimeBetweenOrders=" + maxTimeBetweenOrders +
+                '}';
     }
 }

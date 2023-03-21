@@ -1,31 +1,80 @@
 package ru.nsu.fit.trubinov;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.BasicConfigurator;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    private static Orders orders;
+    private static Storage storage;
+    private static Signal signal;
+    private static List<Courier> couriers;
+    private static List<Baker> bakers;
+    private static List<Client> clients;
+
+    public static void main(String[] args) throws IOException, InterruptedException {
         BasicConfigurator.configure();
-        Orders orders = new Orders();
-        Storage storage = new Storage(5);
-        Signal signal = Signal.Work;
-        Baker baker1 = new Baker(1, signal, 5, orders, storage);
-        Baker baker2 = new Baker(2, signal, 6, orders, storage);
-        Courier courier1 = new Courier(1, signal, 4, storage);
-        Courier courier2 = new Courier(2, signal, 7, storage);
-        Client client1 = new Client(1, signal, orders, 2, 3);
-        Client client2 = new Client(2, signal, orders, 4, 5);
-        Thread[] threads = new Thread[6];
-        threads[0] = new Thread(baker1);
-        threads[1] = new Thread(courier1);
-        threads[2] = new Thread(client1);
-        threads[3] = new Thread(baker2);
-        threads[4] = new Thread(courier2);
-        threads[5] = new Thread(client2);
-        for (int i = 0; i < 6; i++) {
+        initialize();
+        startPizzeria();
+    }
+
+    private static void initialize() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        orders = new Orders();
+        storage = mapper.readValue(new File("C:\\Users\\TTrubinov\\IdeaProjects\\oop\\task_2_2_1\\src\\main\\resources\\storage.json"), new TypeReference<>() {
+        });
+        signal = Signal.Work;
+
+        couriers = mapper.readValue(new File("C:\\Users\\TTrubinov\\IdeaProjects\\oop\\task_2_2_1\\src\\main\\resources\\couriers.json"), new TypeReference<>() {
+        });
+        for (Courier courier : couriers) {
+            courier.setSignal(signal);
+            courier.setStorage(storage);
+        }
+        log.info("Initialized couriers:\n" + couriers);
+
+        bakers = mapper.readValue(new File("C:\\Users\\TTrubinov\\IdeaProjects\\oop\\task_2_2_1\\src\\main\\resources\\bakers.json"), new TypeReference<>() {
+        });
+        for (Baker baker : bakers) {
+            baker.setSignal(signal);
+            baker.setStorage(storage);
+            baker.setOrders(orders);
+        }
+        log.info("Initialized bakers:\n" + bakers);
+
+        clients = mapper.readValue(new File("C:\\Users\\TTrubinov\\IdeaProjects\\oop\\task_2_2_1\\src\\main\\resources\\clients.json"), new TypeReference<>() {
+        });
+        for (Client client : clients) {
+            client.setSignal(signal);
+            client.setOrders(orders);
+        }
+        log.info("Initialized clients:\n" + clients);
+    }
+
+    private static void startPizzeria() throws InterruptedException {
+        int n = couriers.size() + bakers.size() + clients.size();
+        Thread[] threads = new Thread[n];
+        int thread = 0;
+        for (Baker baker : bakers) {
+            threads[thread] = new Thread(baker);
+            thread++;
+        }
+        for (Client client : clients) {
+            threads[thread] = new Thread(client);
+            thread++;
+        }
+        for (Courier courier : couriers) {
+            threads[thread] = new Thread(courier);
+            thread++;
+        }
+        for (int i = 0; i < n; i++) {
             threads[i].start();
         }
         log.info("Pizzeria started working!");
@@ -37,12 +86,15 @@ public class Main {
             } catch (Exception e) {
                 log.error("Wrong signal");
             }
-            baker1.changeWorkingType(signal);
-            courier1.changeWorkingType(signal);
-            client1.changeWorkingType(signal);
-            baker2.changeWorkingType(signal);
-            courier2.changeWorkingType(signal);
-            client2.changeWorkingType(signal);
+            for (Baker baker : bakers) {
+                baker.changeWorkingType(signal);
+            }
+            for (Courier courier : couriers) {
+                courier.changeWorkingType(signal);
+            }
+            for (Client client : clients) {
+                client.changeWorkingType(signal);
+            }
             if (signal == Signal.EmergencyInterrupt) {
                 synchronized (orders) {
                     orders.notifyAll();
@@ -60,6 +112,7 @@ public class Main {
         log.info("Closing pizzeria");
         for (int i = 0; i < 6; i++) {
             threads[i].join();
+            log.info("Thread №" + i + " joined");
         }
         log.info("Done closing pizzeria");
     }

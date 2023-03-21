@@ -1,5 +1,7 @@
 package ru.nsu.fit.trubinov;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,7 +9,7 @@ public class Storage {
     private final Queue<Pizza> pizzas = new LinkedList<>();
     private final int maxSize;
 
-    public Storage(int maxSize) {
+    public Storage(@JsonProperty("maxSize") int maxSize) {
         this.maxSize = maxSize;
     }
 
