@@ -10,6 +10,10 @@ public class Orders {
         return orders.isEmpty();
     }
 
+    public int size() {
+        return orders.size();
+    }
+
     public void add(Pizza pizza) {
         orders.add(pizza);
     }
