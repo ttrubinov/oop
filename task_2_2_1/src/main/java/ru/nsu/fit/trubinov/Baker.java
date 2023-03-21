@@ -39,10 +39,6 @@ public class Baker implements Runnable {
         this.storage = storage;
     }
 
-    public void changeWorkingType(Signal signal) {
-        this.signal = signal;
-    }
-
     public Pizza get() {
         try {
             synchronized (Thread.currentThread()) {

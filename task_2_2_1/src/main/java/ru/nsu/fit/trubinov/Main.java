@@ -87,7 +87,7 @@ public class Main {
                 log.error("Wrong signal");
             }
             for (Baker baker : bakers) {
-                baker.changeWorkingType(signal);
+                baker.setSignal(signal);
             }
             for (Courier courier : couriers) {
                 courier.changeWorkingType(signal);
