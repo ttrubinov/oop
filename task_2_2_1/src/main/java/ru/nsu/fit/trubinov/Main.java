@@ -4,6 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.BasicConfigurator;
+import ru.nsu.fit.trubinov.baker.Baker;
+import ru.nsu.fit.trubinov.client.Client;
+import ru.nsu.fit.trubinov.courier.Courier;
+import ru.nsu.fit.trubinov.queues.Orders;
+import ru.nsu.fit.trubinov.queues.Storage;
+import ru.nsu.fit.trubinov.signal.Signal;
 
 import java.io.File;
 import java.io.IOException;

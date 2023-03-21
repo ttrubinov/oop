@@ -1,7 +1,11 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.baker;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
+import ru.nsu.fit.trubinov.pizza.Pizza;
+import ru.nsu.fit.trubinov.queues.Orders;
+import ru.nsu.fit.trubinov.queues.Storage;
+import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
 public class Baker implements Runnable {

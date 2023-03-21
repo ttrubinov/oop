@@ -1,7 +1,9 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.courier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
+import ru.nsu.fit.trubinov.queues.Storage;
+import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
 public class Courier implements Runnable {

@@ -1,7 +1,10 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
+import ru.nsu.fit.trubinov.pizza.Pizza;
+import ru.nsu.fit.trubinov.queues.Orders;
+import ru.nsu.fit.trubinov.signal.Signal;
 
 import java.util.concurrent.ThreadLocalRandom;
 

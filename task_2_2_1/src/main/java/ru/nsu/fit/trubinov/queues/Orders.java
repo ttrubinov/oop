@@ -1,4 +1,6 @@
-package ru.nsu.fit.trubinov;
+package ru.nsu.fit.trubinov.queues;
+
+import ru.nsu.fit.trubinov.pizza.Pizza;
 
 import java.util.LinkedList;
 import java.util.Queue;
