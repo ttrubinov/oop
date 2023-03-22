@@ -6,7 +6,7 @@ import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
-public class Courier extends Worker {
+public class Courier implements Worker {
     private final int id;
     private final int deliveryTime;
     private Signal signal;
@@ -58,10 +58,10 @@ public class Courier extends Worker {
             try {
                 synchronized (storage) {
                     while (storage.isEmpty()) {
-                        storage.wait();
                         if (signal == Signal.EmergencyInterrupt) {
                             return;
                         }
+                        storage.wait();
                     }
                     storage.take();
                     log.info("Courier №" + id + " took pizza from storage, there are " +

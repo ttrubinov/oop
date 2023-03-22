@@ -8,7 +8,7 @@ import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
-public class Baker extends Worker {
+public class Baker implements Worker {
     private final int id;
     private final int cookingTime;
     private Signal signal;
@@ -55,11 +55,11 @@ public class Baker extends Worker {
             try {
                 synchronized (orders) {
                     while (orders.isEmpty()) {
-                        orders.wait();
                         if (signal != Signal.Work) {
                             log.info("Baker №" + id + " finished his job");
                             return;
                         }
+                        orders.wait();
                     }
                     orders.take();
                     log.info("Baker №" + id + " took order and started baking pizza, there are " +
@@ -74,11 +74,11 @@ public class Baker extends Worker {
                 synchronized (storage) {
                     while (storage.isFull()) {
                         log.info("Baker №" + id + " cooked pizza, but storage is full");
-                        storage.wait();
                         if (signal == Signal.EmergencyInterrupt) {
                             log.info("Baker №" + id + " urgently finished his job");
                             return;
                         }
+                        storage.wait();
                     }
                     storage.add(pizza);
                     log.info("Baker №" + id + " cooked pizza and put it into storage, there are " +

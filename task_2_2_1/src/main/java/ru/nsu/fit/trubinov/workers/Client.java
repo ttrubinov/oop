@@ -9,7 +9,7 @@ import ru.nsu.fit.trubinov.signal.Signal;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-public class Client extends Worker {
+public class Client implements Worker {
     private final int id;
     private final int minTimeBetweenOrders;
     private final int maxTimeBetweenOrders;
