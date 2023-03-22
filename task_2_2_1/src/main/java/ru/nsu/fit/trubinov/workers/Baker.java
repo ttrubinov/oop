@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.baker;
+package ru.nsu.fit.trubinov.workers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
-public class Baker implements Runnable {
+public class Baker extends Worker {
     private final int id;
     private final int cookingTime;
     private Signal signal;
@@ -21,14 +21,6 @@ public class Baker implements Runnable {
         this.signal = null;
         this.orders = null;
         this.storage = null;
-    }
-
-    public Baker(int id, int cookingTime, Signal signal, Orders orders, Storage storage) {
-        this.id = id;
-        this.cookingTime = cookingTime;
-        this.signal = signal;
-        this.orders = orders;
-        this.storage = storage;
     }
 
     public void setSignal(Signal signal) {

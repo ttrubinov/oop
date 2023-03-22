@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.client;
+package ru.nsu.fit.trubinov.workers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import ru.nsu.fit.trubinov.signal.Signal;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-public class Client implements Runnable {
+public class Client extends Worker {
     private final int id;
     private final int minTimeBetweenOrders;
     private final int maxTimeBetweenOrders;
@@ -26,23 +26,11 @@ public class Client implements Runnable {
         this.orders = null;
     }
 
-    public Client(int id, int minTimeBetweenOrders, int maxTimeBetweenOrders, Signal signal, Orders orders) {
-        this.id = id;
-        this.minTimeBetweenOrders = minTimeBetweenOrders;
-        this.maxTimeBetweenOrders = maxTimeBetweenOrders;
-        this.signal = signal;
-        this.orders = orders;
-    }
-
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
 
     public void setSignal(Signal signal) {
-        this.signal = signal;
-    }
-
-    public void changeWorkingType(Signal signal) {
         this.signal = signal;
     }
 

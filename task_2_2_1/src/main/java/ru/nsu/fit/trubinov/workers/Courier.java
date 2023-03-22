@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.courier;
+package ru.nsu.fit.trubinov.workers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.signal.Signal;
 
 @Slf4j
-public class Courier implements Runnable {
+public class Courier extends Worker {
     private final int id;
     private final int deliveryTime;
     private Signal signal;
@@ -19,23 +19,12 @@ public class Courier implements Runnable {
         this.storage = null;
     }
 
-    public Courier(int id, int deliveryTime, Signal signal, Storage storage) {
-        this.id = id;
-        this.deliveryTime = deliveryTime;
-        this.signal = signal;
-        this.storage = storage;
-    }
-
     public void setSignal(Signal signal) {
         this.signal = signal;
     }
 
     public void setStorage(Storage storage) {
         this.storage = storage;
-    }
-
-    public void changeWorkingType(Signal signal) {
-        this.signal = signal;
     }
 
     public void get() {
