@@ -1,26 +1,51 @@
 package ru.nsu.fit.trubinov.queues;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.nsu.fit.trubinov.pizza.Pizza;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Orders {
+@Slf4j
+public class Orders implements BlockingQueue {
     private final Queue<Pizza> orders = new LinkedList<>();
 
     public boolean isEmpty() {
-        return orders.isEmpty();
+        synchronized (orders) {
+            return orders.isEmpty();
+        }
     }
 
-    public int size() {
+    public int size1() {
+        synchronized (orders) {
+            return orders.size();
+        }
+    }
+
+    public synchronized int size2() {
         return orders.size();
     }
 
-    public void add(Pizza pizza) {
-        orders.add(pizza);
+    public int size() {
+        synchronized (orders) {
+            return orders.size();
+        }
     }
 
-    public void take() {
-        orders.poll();
+    public void add(Pizza pizza) {
+        synchronized (orders) {
+            orders.add(pizza);
+            orders.notifyAll();
+        }
+    }
+
+    public void take() throws InterruptedException {
+        synchronized (orders) {
+            while (isEmpty()) {
+                orders.wait();
+            }
+            orders.poll();
+            orders.notifyAll();
+        }
     }
 }
