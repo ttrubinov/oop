@@ -16,16 +16,6 @@ public class Orders implements BlockingQueue {
         }
     }
 
-    public int size1() {
-        synchronized (orders) {
-            return orders.size();
-        }
-    }
-
-    public synchronized int size2() {
-        return orders.size();
-    }
-
     public int size() {
         synchronized (orders) {
             return orders.size();
