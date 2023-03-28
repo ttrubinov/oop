@@ -5,26 +5,26 @@ import lombok.extern.slf4j.Slf4j;
 import ru.nsu.fit.trubinov.pizza.Pizza;
 import ru.nsu.fit.trubinov.queues.Orders;
 import ru.nsu.fit.trubinov.queues.Storage;
-import ru.nsu.fit.trubinov.signal.Signal;
+import ru.nsu.fit.trubinov.state.State;
 
 @Slf4j
-public class Baker implements Worker {
+public class Baker implements Stateful {
     private final int id;
     private final int cookingTime;
-    private Signal signal;
+    private State state;
     private Orders orders;
     private Storage storage;
 
     public Baker(@JsonProperty("id") int id, @JsonProperty("cookingTime") int cookingTime) {
         this.id = id;
         this.cookingTime = cookingTime;
-        this.signal = null;
+        this.state = null;
         this.orders = null;
         this.storage = null;
     }
 
-    public void setSignal(Signal signal) {
-        this.signal = signal;
+    public void changeState(State state) {
+        this.state = state;
     }
 
     public void setOrders(Orders orders) {
@@ -40,7 +40,7 @@ public class Baker implements Worker {
             synchronized (Thread.currentThread()) {
                 Thread.currentThread().wait(1000L * cookingTime);
             }
-            if (signal == Signal.EmergencyInterrupt) {
+            if (state == State.EmergencyInterrupt) {
                 return null;
             }
         } catch (InterruptedException e) {
@@ -51,40 +51,19 @@ public class Baker implements Worker {
 
     @Override
     public void run() {
-        while (signal != Signal.EmergencyInterrupt && !(signal == Signal.Finish && orders.isEmpty())) {
+        while (state != State.EmergencyInterrupt && !(state == State.Finish && orders.isEmpty())) {
             try {
-                synchronized (orders) {
-                    while (orders.isEmpty()) {
-                        if (signal != Signal.Work) {
-                            log.info("Baker №" + id + " finished his job");
-                            return;
-                        }
-                        orders.wait();
-                    }
-                    orders.take();
-                    log.info("Baker №" + id + " took order and started baking pizza, there are " +
-                            orders.size() + " orders left");
-                    orders.notifyAll();
-                }
+                orders.take();
+                log.info("Baker №" + id + " took order and started baking pizza, there are " +
+                        orders.size() + " orders left");
                 Pizza pizza = get();
-                if (signal == Signal.EmergencyInterrupt) {
+                if (state == State.EmergencyInterrupt) {
                     log.info("Baker №" + id + " urgently finished his job");
                     return;
                 }
-                synchronized (storage) {
-                    while (storage.isFull()) {
-                        log.info("Baker №" + id + " cooked pizza, but storage is full");
-                        if (signal == Signal.EmergencyInterrupt) {
-                            log.info("Baker №" + id + " urgently finished his job");
-                            return;
-                        }
-                        storage.wait();
-                    }
-                    storage.add(pizza);
-                    log.info("Baker №" + id + " cooked pizza and put it into storage, there are " +
-                            storage.size() + " pizzas in storage");
-                    storage.notifyAll();
-                }
+                storage.add(pizza);
+                log.info("Baker №" + id + " cooked pizza and put it into storage, there are " +
+                        storage.size() + " pizzas in storage");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

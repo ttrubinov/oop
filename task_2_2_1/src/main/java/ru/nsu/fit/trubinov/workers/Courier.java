@@ -3,24 +3,24 @@ package ru.nsu.fit.trubinov.workers;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 import ru.nsu.fit.trubinov.queues.Storage;
-import ru.nsu.fit.trubinov.signal.Signal;
+import ru.nsu.fit.trubinov.state.State;
 
 @Slf4j
-public class Courier implements Worker {
+public class Courier implements Stateful {
     private final int id;
     private final int deliveryTime;
-    private Signal signal;
+    private State state;
     private Storage storage;
 
     public Courier(@JsonProperty("id") int id, @JsonProperty("deliveryTime") int deliveryTime) {
         this.id = id;
         this.deliveryTime = deliveryTime;
-        this.signal = null;
+        this.state = null;
         this.storage = null;
     }
 
-    public void setSignal(Signal signal) {
-        this.signal = signal;
+    public void changeState(State state) {
+        this.state = state;
     }
 
     public void setStorage(Storage storage) {
@@ -32,7 +32,7 @@ public class Courier implements Worker {
             synchronized (Thread.currentThread()) {
                 Thread.currentThread().wait(1000L * deliveryTime);
             }
-            if (signal == Signal.EmergencyInterrupt) {
+            if (state == State.EmergencyInterrupt) {
                 return;
             }
         } catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class Courier implements Worker {
             synchronized (this) {
                 Thread.sleep(1000L * deliveryTime);
             }
-            if (signal == Signal.EmergencyInterrupt) {
+            if (state == State.EmergencyInterrupt) {
                 return;
             }
         } catch (InterruptedException e) {
@@ -54,20 +54,11 @@ public class Courier implements Worker {
 
     @Override
     public void run() {
-        while (signal != Signal.EmergencyInterrupt && !(signal == Signal.Finish && storage.isEmpty())) {
+        while (state != State.EmergencyInterrupt && !(state == State.Finish && storage.isEmpty())) {
             try {
-                synchronized (storage) {
-                    while (storage.isEmpty()) {
-                        if (signal == Signal.EmergencyInterrupt) {
-                            return;
-                        }
-                        storage.wait();
-                    }
-                    storage.take();
-                    log.info("Courier №" + id + " took pizza from storage, there are " +
-                            storage.size() + " pizzas left");
-                    storage.notifyAll();
-                }
+                storage.take();
+                log.info("Courier №" + id + " took pizza from storage, there are " +
+                        storage.size() + " pizzas left");
                 get();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

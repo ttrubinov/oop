@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.extern.slf4j.Slf4j;
 import ru.nsu.fit.trubinov.pizza.Pizza;
 import ru.nsu.fit.trubinov.queues.Orders;
-import ru.nsu.fit.trubinov.signal.Signal;
+import ru.nsu.fit.trubinov.state.State;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-public class Client implements Worker {
+public class Client implements Stateful {
     private final int id;
     private final int minTimeBetweenOrders;
     private final int maxTimeBetweenOrders;
     private Orders orders;
-    private Signal signal;
+    private State state;
 
     public Client(@JsonProperty("id") int id,
                   @JsonProperty("minTimeBetweenOrders") int minTimeBetweenOrders,
@@ -22,7 +22,7 @@ public class Client implements Worker {
         this.id = id;
         this.minTimeBetweenOrders = minTimeBetweenOrders;
         this.maxTimeBetweenOrders = maxTimeBetweenOrders;
-        this.signal = null;
+        this.state = null;
         this.orders = null;
     }
 
@@ -30,8 +30,8 @@ public class Client implements Worker {
         this.orders = orders;
     }
 
-    public void setSignal(Signal signal) {
-        this.signal = signal;
+    public void changeState(State state) {
+        this.state = state;
     }
 
     public void order(Pizza t) {
@@ -39,14 +39,11 @@ public class Client implements Worker {
             synchronized (Thread.currentThread()) {
                 Thread.currentThread().wait(1000L * ThreadLocalRandom.current().nextInt(minTimeBetweenOrders, maxTimeBetweenOrders + 1));
             }
-            if (signal != Signal.Work) {
+            if (state != State.Work) {
                 return;
             }
-            synchronized (orders) {
-                orders.add(t);
-                log.info("Client №" + id + " ordered a pizza, there are " + orders.size() + " orders");
-                orders.notifyAll();
-            }
+            orders.add(t);
+            log.info("Client №" + id + " ordered a pizza, there are " + orders.size() + " orders");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +51,7 @@ public class Client implements Worker {
 
     @Override
     public void run() {
-        while (signal == Signal.Work) {
+        while (state == State.Work) {
             order(new Pizza());
         }
         log.info("Client №" + id + " stopped doing orders");
