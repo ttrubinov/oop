@@ -1,7 +1,9 @@
 package ru.nsu.fit.trubinov.primalityChecking;
 
+/**
+ * Checking array primality.
+ */
 public class SequentialChecker implements ArrayPrimalityChecker {
-    @Override
     public boolean isArrayPrime(long[] arr) {
         boolean returnVal = false;
         for (long number : arr) {

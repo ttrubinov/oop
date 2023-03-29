@@ -2,6 +2,9 @@ package ru.nsu.fit.trubinov.primalityChecking;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Checking array primality in parallel threads
+ */
 public class MultithreadingChecker implements ArrayPrimalityChecker {
     public int threadCount;
 
@@ -13,8 +16,7 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
         this.threadCount = threadCount;
     }
 
-    @Override
-    public boolean isArrayPrime(long[] arr) throws InterruptedException {
+    public boolean isArrayPrime(long[] arr) {
         Thread[] threads = new Thread[threadCount];
         AtomicBoolean returnVal = new AtomicBoolean(false);
         for (int j = 0; j < threadCount; j++) {
@@ -39,7 +41,11 @@ public class MultithreadingChecker implements ArrayPrimalityChecker {
         for (Thread thread : threads) {
             if (thread != null) {
                 if (!returnVal.get()) {
-                    thread.join();
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
