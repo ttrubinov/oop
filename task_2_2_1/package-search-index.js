@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.fit.trubinov"},{"l":"ru.nsu.fit.trubinov.pizza"},{"l":"ru.nsu.fit.trubinov.queues"},{"l":"ru.nsu.fit.trubinov.state"},{"l":"ru.nsu.fit.trubinov.workers"}];updateSearchResults();
