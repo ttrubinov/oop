@@ -27,44 +27,26 @@ public class Courier implements Stateful {
         this.storage = storage;
     }
 
-    public void get() {
-        try {
-            synchronized (Thread.currentThread()) {
-                Thread.currentThread().wait(1000L * deliveryTime);
-            }
-            if (state == State.EmergencyInterrupt) {
-                return;
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public void get() throws InterruptedException {
+        Thread.sleep(1000L * deliveryTime);
         log.info("Courier №" + id + " delivered a pizza");
-        try {
-            synchronized (this) {
-                Thread.sleep(1000L * deliveryTime);
-            }
-            if (state == State.EmergencyInterrupt) {
-                return;
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(1000L * deliveryTime);
         log.info("Courier №" + id + " came back to a storage");
     }
 
     @Override
     public void run() {
-        while (state != State.EmergencyInterrupt && !(state == State.Finish && storage.isEmpty())) {
-            try {
+        try {
+            while (state != State.EmergencyInterrupt && !(state == State.Finish && storage.isEmpty())) {
                 storage.take();
                 log.info("Courier №" + id + " took pizza from storage, there are " +
                         storage.size() + " pizzas left");
                 get();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
+            log.info("Courier №" + id + " finished his job");
+        } catch (InterruptedException e) {
+            log.info("Courier №" + id + " urgently finished his job");
         }
-        log.info("Courier №" + id + " finished his job");
     }
 
     @Override

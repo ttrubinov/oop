@@ -34,27 +34,25 @@ public class Client implements Stateful {
         this.state = state;
     }
 
-    public void order(Pizza t) {
-        try {
-            synchronized (Thread.currentThread()) {
-                Thread.currentThread().wait(1000L * ThreadLocalRandom.current().nextInt(minTimeBetweenOrders, maxTimeBetweenOrders + 1));
-            }
-            if (state != State.Work) {
-                return;
-            }
-            orders.add(t);
-            log.info("Client №" + id + " ordered a pizza, there are " + orders.size() + " orders");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    public void order(Pizza t) throws InterruptedException {
+        Thread.sleep(1000L * ThreadLocalRandom.current().nextInt(minTimeBetweenOrders, maxTimeBetweenOrders + 1));
+        if (state != State.Work) {
+            return;
         }
+        orders.add(t);
+        log.info("Client №" + id + " ordered a pizza, there are " + orders.size() + " orders");
     }
 
     @Override
     public void run() {
-        while (state == State.Work) {
-            order(new Pizza());
+        try {
+            while (state == State.Work) {
+                order(new Pizza());
+            }
+        } catch (InterruptedException ignored) {
+        } finally {
+            log.info("Client №" + id + " stopped doing orders");
         }
-        log.info("Client №" + id + " stopped doing orders");
     }
 
     @Override

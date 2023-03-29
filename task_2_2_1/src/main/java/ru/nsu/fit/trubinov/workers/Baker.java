@@ -35,17 +35,8 @@ public class Baker implements Stateful {
         this.storage = storage;
     }
 
-    public Pizza get() {
-        try {
-            synchronized (Thread.currentThread()) {
-                Thread.currentThread().wait(1000L * cookingTime);
-            }
-            if (state == State.EmergencyInterrupt) {
-                return null;
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public Pizza get() throws InterruptedException {
+        Thread.sleep(1000L * cookingTime);
         return new Pizza();
     }
 
@@ -57,15 +48,12 @@ public class Baker implements Stateful {
                 log.info("Baker №" + id + " took order and started baking pizza, there are " +
                         orders.size() + " orders left");
                 Pizza pizza = get();
-                if (state == State.EmergencyInterrupt) {
-                    log.info("Baker №" + id + " urgently finished his job");
-                    return;
-                }
                 storage.add(pizza);
                 log.info("Baker №" + id + " cooked pizza and put it into storage, there are " +
                         storage.size() + " pizzas in storage");
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.info("Baker №" + id + " urgently finished his job");
+                return;
             }
         }
         log.info("Baker №" + id + " finished his job");

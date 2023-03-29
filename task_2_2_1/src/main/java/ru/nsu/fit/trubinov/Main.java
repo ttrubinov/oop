@@ -20,9 +20,9 @@ import java.util.Scanner;
 
 @Slf4j
 public class Main {
+    private static final List<Stateful> workers = new ArrayList<>();
     private static Orders orders;
     private static Storage storage;
-    private static final List<Stateful> workers = new ArrayList<>();
     private static State state;
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -101,7 +101,7 @@ public class Main {
                 }
                 for (int i = 0; i < threads.length; i++) {
                     synchronized (threads[i]) {
-                        threads[i].notifyAll();
+                        threads[i].interrupt();
                     }
                 }
             }
