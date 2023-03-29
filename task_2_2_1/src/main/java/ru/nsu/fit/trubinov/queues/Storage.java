@@ -16,12 +16,6 @@ public class Storage implements BlockingQueue {
         this.maxSize = maxSize;
     }
 
-    public boolean isFull() {
-        synchronized (storage) {
-            return storage.size() == maxSize;
-        }
-    }
-
     public boolean isEmpty() {
         synchronized (storage) {
             return storage.isEmpty();
@@ -36,7 +30,7 @@ public class Storage implements BlockingQueue {
 
     public void add(Pizza pizza) throws InterruptedException {
         synchronized (storage) {
-            while (isFull()) {
+            while (storage.size() == maxSize) {
                 storage.wait();
             }
             storage.add(pizza);
