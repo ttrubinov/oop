@@ -7,6 +7,9 @@ import ru.nsu.fit.trubinov.queues.Orders;
 import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.state.State;
 
+/**
+ * Baker of pizzeria.
+ */
 @Slf4j
 public class Baker implements Stateful {
     private final int id;
@@ -27,19 +30,29 @@ public class Baker implements Stateful {
         this.state = state;
     }
 
+    /**
+     * Bind orders queue to current baker.
+     *
+     * @param orders queue to bind.
+     */
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
 
+    /**
+     * Bind storage to current baker.
+     *
+     * @param storage storage to bind.
+     */
     public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
-    public Pizza get() throws InterruptedException {
-        Thread.sleep(1000L * cookingTime);
-        return new Pizza();
-    }
-
+    /**
+     * Cycle of baker's work.
+     * Baker immediately stops working on Emergency state
+     * and stops working after finishing all the orders on Finish state.
+     */
     @Override
     public void run() {
         while (state != State.EmergencyInterrupt && !(state == State.Finish && orders.isEmpty())) {
@@ -47,8 +60,8 @@ public class Baker implements Stateful {
                 orders.take();
                 log.info("Baker №" + id + " took order and started baking pizza, there are " +
                         orders.size() + " orders left");
-                Pizza pizza = get();
-                storage.add(pizza);
+                Thread.sleep(1000L * cookingTime);
+                storage.add(new Pizza());
                 log.info("Baker №" + id + " cooked pizza and put it into storage, there are " +
                         storage.size() + " pizzas in storage");
             } catch (InterruptedException e) {

@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import ru.nsu.fit.trubinov.queues.Storage;
 import ru.nsu.fit.trubinov.state.State;
 
+/**
+ * Courier of pizzeria.
+ */
 @Slf4j
 public class Courier implements Stateful {
     private final int id;
@@ -23,17 +26,20 @@ public class Courier implements Stateful {
         this.state = state;
     }
 
+    /**
+     * Bind storage to current courier.
+     *
+     * @param storage storage to bind.
+     */
     public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
-    public void get() throws InterruptedException {
-        Thread.sleep(1000L * deliveryTime);
-        log.info("Courier №" + id + " delivered a pizza");
-        Thread.sleep(1000L * deliveryTime);
-        log.info("Courier №" + id + " came back to a storage");
-    }
-
+    /**
+     * Cycle of courier's work.
+     * Courier immediately stops working on Emergency state
+     * and stops working after delivering everything from the storage.
+     */
     @Override
     public void run() {
         try {
@@ -41,7 +47,10 @@ public class Courier implements Stateful {
                 storage.take();
                 log.info("Courier №" + id + " took pizza from storage, there are " +
                         storage.size() + " pizzas left");
-                get();
+                Thread.sleep(1000L * deliveryTime);
+                log.info("Courier №" + id + " delivered a pizza");
+                Thread.sleep(1000L * deliveryTime);
+                log.info("Courier №" + id + " came back to a storage");
             }
             log.info("Courier №" + id + " finished his job");
         } catch (InterruptedException e) {

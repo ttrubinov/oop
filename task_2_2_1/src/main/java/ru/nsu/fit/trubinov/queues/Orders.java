@@ -6,6 +6,9 @@ import ru.nsu.fit.trubinov.pizza.Pizza;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Pizzeria synchronized orders for client and baker interaction.
+ */
 @Slf4j
 public class Orders implements BlockingQueue {
     private final Queue<Pizza> orders = new LinkedList<>();

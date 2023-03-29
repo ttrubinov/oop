@@ -7,6 +7,9 @@ import ru.nsu.fit.trubinov.pizza.Pizza;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Pizzeria synchronized storage for baker and courier interaction.
+ */
 @Slf4j
 public class Storage implements BlockingQueue {
     private final Queue<Pizza> storage = new LinkedList<>();
