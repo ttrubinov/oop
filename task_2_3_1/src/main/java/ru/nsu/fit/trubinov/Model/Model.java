@@ -44,7 +44,7 @@ public class Model {
             allSnakes.removeIf(snake ->
                     snake.intersectsItself() || this.intersectsWithWall(snake) || this.intersectsWithGrid(snake));
             for (int i = 0; i < allSnakes.size() - 1; i++) {
-                for (int j = i; j < allSnakes.size(); j++) {
+                for (int j = i + 1; j < allSnakes.size(); j++) {
                     Integer intersection = allSnakes.get(i).intersects(allSnakes.get(j));
                     if (intersection != null) {
                         allSnakes.get(i).setLength(allSnakes.get(i).length + intersection);
