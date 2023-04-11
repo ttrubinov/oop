@@ -54,7 +54,7 @@ public class Model {
                 }
             }
             allSnakes.forEach(this::collectApples);
-        }, 0, 10 - (speed % 10), TimeUnit.MILLISECONDS);
+        }, 0, 10 - (speed % 10), TimeUnit.SECONDS);
     }
 
     private boolean intersectsWithGrid(Snake snake) {
