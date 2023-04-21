@@ -17,7 +17,7 @@ public class Coordinates {
         return Y;
     }
 
-    public Coordinates addCoordinates(Coordinates coordinates) {
+    public Coordinates add(Coordinates coordinates) {
         return new Coordinates(this.X + coordinates.X, this.Y + coordinates.Y);
     }
 
