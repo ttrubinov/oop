@@ -4,20 +4,27 @@ import ru.nsu.fit.trubinov.Model.Field.Coordinates;
 import ru.nsu.fit.trubinov.Model.Field.Direction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Snake {
-    private final ArrayList<Coordinates> bodyCoordinates;
+    private final List<Coordinates> bodyCoordinates;
     public Integer length;
     private Direction direction;
 
-    public Snake() {
+    public Snake(Coordinates coordinates) {
         this.length = 1;
         this.bodyCoordinates = new ArrayList<>();
-        bodyCoordinates.add(new Coordinates(0, 0));
-        this.direction = Direction.DOWN;
+        bodyCoordinates.add(coordinates);
+        this.direction = Direction.getRandomDirection();
     }
 
-    public ArrayList<Coordinates> getBodyCoordinates() {
+    public Snake(List<Coordinates> bodyCoordinates, Direction direction) {
+        this.bodyCoordinates = bodyCoordinates;
+        this.length = bodyCoordinates.size();
+        this.direction = direction;
+    }
+
+    public List<Coordinates> getBodyCoordinates() {
         return bodyCoordinates;
     }
 
@@ -25,30 +32,41 @@ public class Snake {
         return bodyCoordinates.get(bodyCoordinates.size() - 1);
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
     public void move() {
-        bodyCoordinates.add(getHead().addCoordinates(direction.getShiftByDirection()));
-        if (length == bodyCoordinates.size()) {
+        if (bodyCoordinates.size() == length) {
+            bodyCoordinates.add(getHead().add(direction.getShiftByDirection()));
+            bodyCoordinates.remove(0);
+        } else if (bodyCoordinates.size() < length) {
+            bodyCoordinates.add(getHead().add(direction.getShiftByDirection()));
+        } else {
             bodyCoordinates.remove(0);
         }
     }
 
-    public boolean intersectsItself() {
+    public Snake possibleMove(Direction direction) {
+        List<Coordinates> newBodyCoordinates = new ArrayList<>(bodyCoordinates);
+        newBodyCoordinates.remove(0);
+        newBodyCoordinates.add(getHead().add(direction.getShiftByDirection()));
+        return new Snake(newBodyCoordinates, this.direction);
+    }
+
+    public Coordinates intersectsItself() {
         for (int i = 0; i < bodyCoordinates.size() - 1; i++) {
             for (int j = i + 1; j < bodyCoordinates.size(); j++) {
                 if (bodyCoordinates.get(i).equals(bodyCoordinates.get(j))) {
-                    return true;
+                    return bodyCoordinates.get(i);
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public Integer intersects(Snake snake) {
