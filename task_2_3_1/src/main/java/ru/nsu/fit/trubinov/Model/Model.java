@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 // TODO: Optimization, especially wall spawning; Bot snakes movement
-@SuppressWarnings("unused")
 public class Model {
     private final Snake userSnake;
     private final List<Snake> botSnakes;
@@ -21,7 +20,6 @@ public class Model {
     private final List<Wall> walls;
     private final List<Apple> apples;
     private Grid grid;
-    private int gameSpeed;
 
     public Model(int width, int height) {
         grid = new Grid(width, height);
@@ -32,7 +30,6 @@ public class Model {
         allSnakes.addAll(botSnakes);
         walls = new ArrayList<>();
         apples = new ArrayList<>();
-        gameSpeed = 1;
     }
 
     public static Coordinates intersectsWithGrid(Snake snake, Grid grid) {
@@ -53,20 +50,8 @@ public class Model {
         return null;
     }
 
-    public Grid getGrid() {
-        return grid;
-    }
-
     public void setGrid(Grid grid) {
         this.grid = grid;
-    }
-
-    public int getGameSpeed() {
-        return gameSpeed;
-    }
-
-    public void setGameSpeed(int gameSpeed) {
-        this.gameSpeed = gameSpeed;
     }
 
     public Snake getUserSnake() {
@@ -121,6 +106,7 @@ public class Model {
                 snake.getHead().add(snake.getDirection().getShiftByDirection())
                         .equals(apple.coordinates())).findFirst().ifPresent(apple -> {
             apples.remove(apple);
+//            field.addEmptyCell(apple.coordinates());
             snake.length++;
         });
     }
@@ -199,17 +185,17 @@ public class Model {
     }
 
     public boolean isPossibleTurn(Direction newDirection) {
-        return userSnake.getBodyCoordinates().size() <= 1 ||
+        return userSnake.getCoordinates().size() <= 1 ||
                 !userSnake.getHead().add(newDirection.getShiftByDirection()).
-                        equals(userSnake.getBodyCoordinates().get(userSnake.getBodyCoordinates().size() - 2));
+                        equals(userSnake.getCoordinates().get(userSnake.getCoordinates().size() - 2));
     }
 
     private List<Coordinates> getAllEmptyCells() {
         List<Coordinates> allCells = grid.arrayOfCells();
         List<Coordinates> filledCells = new ArrayList<>();
-        walls.forEach(wall -> filledCells.addAll(wall.wallCoordinates()));
+        walls.forEach(wall -> filledCells.addAll(wall.coordinates()));
         apples.forEach(apple -> filledCells.add(apple.coordinates()));
-        allSnakes.forEach(snake -> filledCells.addAll(snake.getBodyCoordinates()));
+        allSnakes.forEach(snake -> filledCells.addAll(snake.getCoordinates()));
         for (int i = 0; i < allCells.size(); i++) {
             for (Coordinates coordinates : filledCells) {
                 if (allCells.get(i).equals(coordinates)) {
