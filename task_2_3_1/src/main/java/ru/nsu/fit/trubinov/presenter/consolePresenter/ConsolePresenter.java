@@ -1,18 +1,18 @@
-package ru.nsu.fit.trubinov.Presenter.ConsolePresenter;
+package ru.nsu.fit.trubinov.presenter.consolePresenter;
 
 import com.googlecode.lanterna.TerminalSize;
-import ru.nsu.fit.trubinov.Model.Field.Coordinates;
-import ru.nsu.fit.trubinov.Model.Field.Direction;
-import ru.nsu.fit.trubinov.Model.Field.Grid;
-import ru.nsu.fit.trubinov.Model.Model;
-import ru.nsu.fit.trubinov.View.ConsoleViewer;
+import ru.nsu.fit.trubinov.model.Model;
+import ru.nsu.fit.trubinov.model.field.Direction;
+import ru.nsu.fit.trubinov.presenter.Presenter;
+import ru.nsu.fit.trubinov.utils.Coordinates;
+import ru.nsu.fit.trubinov.view.ConsoleViewer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 // TODO: game speed and resolution settings
-public class ConsolePresenter {
+public class ConsolePresenter implements Presenter {
     private static final int gameSpeed = 400;
     private static int width = 40;
     private static int height = 20;
@@ -31,6 +31,7 @@ public class ConsolePresenter {
             pollInput();
             Coordinates intersection;
             if ((intersection = model.makeMove()) != null) {
+                doResizeIfNecessary();
                 draw();
                 consoleViewer.drawIntersection(intersection);
                 consoleViewer.drawDieMessage();
@@ -44,21 +45,27 @@ public class ConsolePresenter {
                 }
                 consoleViewer.exit();
             } else {
+                doResizeIfNecessary();
                 draw();
             }
         }, 0, gameSpeed, TimeUnit.MILLISECONDS);
     }
 
     private static void draw() {
-        consoleViewer.doResizeIfNecessary();
-        TerminalSize terminalSize = consoleViewer.getResizedTerminal();
-        model.setGrid(new Grid(terminalSize.getColumns(), terminalSize.getRows()));
         consoleViewer.drawField();
         consoleViewer.drawApples(model.getApples());
         consoleViewer.drawWalls(model.getWalls());
         consoleViewer.drawGrid();
-        consoleViewer.drawSnakes(model.getAllSnakes());
+        consoleViewer.drawSnakes(model.getUserSnake(), model.getBotSnakes());
         consoleViewer.refresh();
+    }
+
+    private static void doResizeIfNecessary() {
+        consoleViewer.doResizeIfNecessary();
+        TerminalSize terminalSize = consoleViewer.getResizedTerminal();
+        if (terminalSize.getColumns() != model.getMaxCoordinates().X() || terminalSize.getRows() != model.getMaxCoordinates().Y()) {
+            model.resize(terminalSize.getColumns(), terminalSize.getRows());
+        }
     }
 
     private static void pollInput() {
