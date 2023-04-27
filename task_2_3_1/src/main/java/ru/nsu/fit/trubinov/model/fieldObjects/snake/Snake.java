@@ -1,7 +1,8 @@
-package ru.nsu.fit.trubinov.model.fieldObjects;
+package ru.nsu.fit.trubinov.model.fieldObjects.snake;
 
 import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.model.field.Field;
+import ru.nsu.fit.trubinov.model.fieldObjects.FieldObject;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 
 import java.util.ArrayList;
@@ -31,15 +32,6 @@ public class Snake implements FieldObject {
         this.direction = direction;
     }
 
-    public Snake(List<Coordinates> bodyCoordinates, Field field, Direction direction) {
-        this.field = field;
-        this.bodyCoordinates = new ArrayList<>();
-        this.bodyCoordinates.addAll(bodyCoordinates);
-        bodyCoordinates.forEach(field::addFieldObjectWithCollision);
-        this.length = bodyCoordinates.size();
-        this.direction = direction;
-    }
-
     public List<Coordinates> getCoordinates() {
         return bodyCoordinates;
     }
@@ -60,15 +52,39 @@ public class Snake implements FieldObject {
         return getHead().sum(direction.getShiftByDirection());
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    /**
+     * Snake movement by deleting 1 cell from a tail and adding 1 cell in front of head.
+     * If actual snake length is less that it should be, then deleting 1 cell from a tail doesn't happen.
+     * If actual snake length is more that it should be, then adding 1 cell in front of head doesn't happen.
+     */
     public void move() {
-        if (bodyCoordinates.size() == length) {
+        if (bodyCoordinates.size() == length) { // Standard movement
             bodyCoordinates.add(this.getNextHeadPosition());
             field.addFieldObjectWithCollision(this.getHead());
             field.addEmptyCell(bodyCoordinates.get(0));
             bodyCoordinates.remove(0);
-        } else if (bodyCoordinates.size() < length) {
+        } else if (bodyCoordinates.size() < length) { // Snake collected an apple or bit off a tail of other snake
             bodyCoordinates.add(this.getNextHeadPosition());
             field.addFieldObjectWithCollision(this.getHead());
+        } else { // Any snake bit off a tail of this snake, so length decreased
+            field.addEmptyCell(bodyCoordinates.get(0));
+            bodyCoordinates.remove(0);
         }
+    }
+
+    /**
+     * Check if snake can do a turn in the direction (snake can't turn 180°).
+     *
+     * @param direction Direction to turn
+     * @return true if snake can do a turn in the direction
+     */
+    public boolean isPossibleTurn(Direction direction) {
+        return this.getCoordinates().size() <= 1 ||
+                !this.getHead().sum(direction.getShiftByDirection()).
+                        equals(this.getCoordinates().get(this.getCoordinates().size() - 2));
     }
 }
