@@ -1,77 +1,54 @@
 package ru.nsu.fit.trubinov.presenter.consolePresenter;
 
-import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.terminal.TerminalResizeListener;
 import ru.nsu.fit.trubinov.model.Model;
-import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.presenter.Presenter;
-import ru.nsu.fit.trubinov.utils.Coordinates;
-import ru.nsu.fit.trubinov.view.ConsoleViewer;
+import ru.nsu.fit.trubinov.view.consoleViewer.ConsoleViewer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-// TODO: game speed and resolution settings
+import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsoleSettingsPresenter.settings;
+
+
 public class ConsolePresenter implements Presenter {
-    private static final int gameSpeed = 400;
-    private static int width = 40;
-    private static int height = 20;
-    public static final Model model = new Model(width, height);
-    private static final ConsoleViewer consoleViewer = new ConsoleViewer(width, height);
+    protected static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    protected static int width = 40;
+    protected static int height = 20;
+    protected static final ConsoleViewer consoleViewer = new ConsoleViewer(width, height);
+    protected static int difficultyLevel = 5;
+    protected static int gameSpeed = 400;
+    protected static boolean exitFlag = true;
+    protected static Model model = new Model(width, height, difficultyLevel);
 
     public ConsolePresenter(int width, int height) {
         ConsolePresenter.width = width;
         ConsolePresenter.height = height;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         consoleViewer.start();
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(() -> {
-            pollInput();
-            Coordinates intersection;
-            if ((intersection = model.makeMove()) != null) {
-                doResizeIfNecessary();
-                draw();
-                consoleViewer.drawIntersection(intersection);
-                consoleViewer.drawDieMessage();
-                consoleViewer.refresh();
-                executor.shutdown();
-                System.out.println("Shutdown");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                consoleViewer.exit();
-            } else {
-                doResizeIfNecessary();
-                draw();
+        while (exitFlag) {
+            settings();
+            if (!exitFlag) {
+                break;
             }
-        }, 0, gameSpeed, TimeUnit.MILLISECONDS);
-    }
-
-    private static void draw() {
-        consoleViewer.drawField();
-        consoleViewer.drawApples(model.getApples());
-        consoleViewer.drawWalls(model.getWalls());
-        consoleViewer.drawGrid();
-        consoleViewer.drawSnakes(model.getUserSnake(), model.getBotSnakes());
-        consoleViewer.refresh();
-    }
-
-    private static void doResizeIfNecessary() {
-        consoleViewer.doResizeIfNecessary();
-        TerminalSize terminalSize = consoleViewer.getResizedTerminal();
-        if (terminalSize.getColumns() != model.getMaxCoordinates().X() || terminalSize.getRows() != model.getMaxCoordinates().Y()) {
-            model.resize(terminalSize.getColumns(), terminalSize.getRows());
+            TerminalResizeListener resizeListener = (terminal, newSize) -> {
+                ConsoleGamePresenter.doResizeIfNecessary();
+                ConsoleGamePresenter.draw();
+            };
+            consoleViewer.terminal.addResizeListener(resizeListener);
+            executor = Executors.newSingleThreadScheduledExecutor();
+            executor.scheduleAtFixedRate(ConsoleGamePresenter::game, 0, gameSpeed, TimeUnit.MILLISECONDS);
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+            consoleViewer.terminal.removeResizeListener(resizeListener);
         }
     }
 
-    private static void pollInput() {
-        Direction newDirection = Direction.getDirectionByKey(consoleViewer.pollInput());
-        if (newDirection != null && model.isPossibleTurn(newDirection)) {
-            model.getUserSnake().setDirection(newDirection);
-        }
+    protected static void exit() {
+        executor.shutdown();
+        consoleViewer.exit();
+        exitFlag = false;
     }
 }
