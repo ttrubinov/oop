@@ -7,6 +7,7 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -66,6 +67,7 @@ public class JavaFXPresenter implements Presenter {
     protected int height;
     private GraphicsContext gc;
     private Group root;
+    @FXML
     private Canvas canvas;
     private Model model;
     private int difficultyLevel = 5;
