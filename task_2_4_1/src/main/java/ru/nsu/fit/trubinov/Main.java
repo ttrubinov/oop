@@ -1,7 +1,7 @@
 package ru.nsu.fit.trubinov;
 
 import picocli.CommandLine;
-import ru.nsu.fit.trubinov.сommands.Commands;
+import ru.nsu.fit.trubinov.commands.Commands;
 
 public class Main {
     public static void main(String[] args) {
