@@ -175,10 +175,10 @@ public class Model {
                 return coordinates;
             }
         }
-        botSnakes.removeIf(botSnake -> !botSnake.isInbounds(width, height));
-        allSnakes.removeIf(snake -> !snake.isInbounds(width, height));
-        walls.removeIf(wall -> !wall.isInbounds(width, height));
-        apples.removeIf(apple -> !apple.isInbounds(width, height));
+        botSnakes.removeIf(botSnake -> botSnake.isOutOfBounds(width, height));
+        allSnakes.removeIf(snake -> snake.isOutOfBounds(width, height));
+        walls.removeIf(wall -> wall.isOutOfBounds(width, height));
+        apples.removeIf(apple -> apple.isOutOfBounds(width, height));
         return null;
     }
 }
