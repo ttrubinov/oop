@@ -23,7 +23,7 @@ public enum Movement {
 
     private static void doNoCollisionMovement(BotSnake botSnake, Field field) {
         List<Direction> randomDirections = Direction.getAllDirectionsRandomly();
-        while (randomDirections.size() > 0 && botSnake.getField().deathIntersection(botSnake) != null) {
+        while (randomDirections.size() > 0 && botSnake.getField().deathIntersectionCoordinates(botSnake) != null) {
             if (!botSnake.isPossibleTurn(randomDirections.get(0))) {
                 continue;
             }
@@ -40,7 +40,7 @@ public enum Movement {
                 continue;
             }
             botSnake.setDirection(randomDirection);
-            if (botSnake.getField().deathIntersection(botSnake) == null) {
+            if (botSnake.getField().deathIntersectionCoordinates(botSnake) == null) {
                 break;
             }
         }
