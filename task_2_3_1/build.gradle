@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
@@ -17,14 +18,18 @@ java {
 }
 
 javafx {
-    version = '18.0.1'
+    version = '17.0.2'
     modules = ['javafx.controls', 'javafx.fxml']
+}
+
+application {
+    mainModule = "ru.nsu.fit.trubinov.view.javaFXViewer"
+    mainClassName = 'ru.nsu.fit.trubinov.view.javaFXViewer.MyApp'
 }
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation group: 'org.openjfx', name: 'javafx', version: '11', ext: 'pom'
     implementation 'com.googlecode.lanterna:lanterna:3.1.1'
 }
 
