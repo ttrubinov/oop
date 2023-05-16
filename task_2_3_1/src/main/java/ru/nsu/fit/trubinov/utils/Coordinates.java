@@ -1,6 +1,8 @@
 package ru.nsu.fit.trubinov.utils;
 
 
+import java.util.Objects;
+
 public record Coordinates(int X, int Y) {
     public static int getAngle(Coordinates coords1, Coordinates coords2) {
         if (coords1.Y == coords2.Y) {
@@ -41,6 +43,11 @@ public record Coordinates(int X, int Y) {
         } else {
             return 270;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.X, this.Y);
     }
 
     public Coordinates sum(Coordinates coordinates) {

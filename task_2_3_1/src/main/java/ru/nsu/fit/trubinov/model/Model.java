@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Model {
+    public final Field field;
     private final Snake userSnake;
     private final List<BotSnake> botSnakes;
     private final List<Snake> allSnakes;
     private final List<Wall> walls;
     private final List<Apple> apples;
-    private final Field field;
     private final int difficultyLevel;
     private final int botsCount;
 
@@ -58,18 +58,29 @@ public class Model {
     }
 
     public Coordinates makeMove() {
+        System.out.println();
+        if (userSnake.getCoordinates().size() != userSnake.snakeCeilDirections.size()) {
+            System.out.println(userSnake.getCoordinates());
+            System.out.println(userSnake.snakeCeilDirections.keySet());
+        }
         collectApples(userSnake);
         moveBots();
         Coordinates intersection = deathIntersectionCoordinates(userSnake);
         userSnake.move();
+        System.out.println(field);
+        for (Coordinates coordinate : userSnake.getCoordinates()) {
+            if (!field.isDeath(coordinate)) {
+                System.out.println("Not eq: " + coordinate);
+            }
+        }
         if (intersection != null) {
             return intersection;
         }
         allSnakes.removeIf(snake -> snake.length <= 0);
-        spawnWalls();
+//        spawnWalls();
         spawnApples();
-        spawnBots();
-        System.out.println(field);
+//        spawnBots();
+//        System.out.println(field);
         return null;
     }
 
@@ -108,6 +119,7 @@ public class Model {
 
     private void collectApples(Snake snake) {
         if (field.intersectionWithApple(snake)) {
+            System.out.println("Collected");
             snake.length++;
         }
         apples.stream().filter(apple ->
@@ -127,6 +139,11 @@ public class Model {
             if (!field.isEmpty(emptyCells.get(0))) {
                 continue;
             }
+            for (Coordinates coordinate : userSnake.getCoordinates()) {
+                if (coordinate.equals(emptyCells.get(0))) {
+                    System.out.println("XDD APPLE");
+                }
+            }
             apples.add(new Apple(emptyCells.get(0)));
             field.addNoCollisionFieldObject(emptyCells.get(0));
             emptyCells.remove(0);
@@ -135,6 +152,7 @@ public class Model {
     }
 
     private void spawnWalls() {
+        System.out.println("Spawn");
         int maxDifficultyLevel = 11;
         int neededWallsSize = field.size() / 10 / (maxDifficultyLevel - difficultyLevel);
         if (walls.size() >= neededWallsSize) {
@@ -148,7 +166,13 @@ public class Model {
                 int randomCord = ThreadLocalRandom.current().nextInt(1, 9 + 1);
                 wallCoordinates.add(new Coordinates(emptyCells.get(0).X() - 1 + randomCord % 3,
                         emptyCells.get(0).Y() - 1 + randomCord / 3));
-
+                for (Coordinates coordinate : userSnake.getCoordinates()) {
+                    if (coordinate.equals(new Coordinates(emptyCells.get(0).X() - 1 + randomCord % 3,
+                            emptyCells.get(0).Y() - 1 + randomCord / 3))) {
+                        System.out.println("XDD WALL");
+                        System.out.println(userSnake.getCoordinates());
+                    }
+                }
                 field.addFieldObjectWithCollision(wallCoordinates.get(i));
             }
             walls.add(new Wall(wallCoordinates));

@@ -6,11 +6,14 @@ import ru.nsu.fit.trubinov.model.fieldObjects.FieldObject;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Snake implements FieldObject {
+    public final Map<Coordinates, Direction> snakeCeilDirections;
     private final List<Coordinates> bodyCoordinates;
-    private final Field field;
+    public Field field;
     public Integer length;
     private Direction direction;
 
@@ -21,6 +24,8 @@ public class Snake implements FieldObject {
         bodyCoordinates.add(coordinates);
         field.addFieldObjectWithCollision(coordinates);
         this.direction = Direction.getRandomDirection();
+        snakeCeilDirections = new HashMap<>();
+        snakeCeilDirections.put(coordinates, this.direction);
     }
 
     public Snake(Coordinates coordinates, Field field, Direction direction) {
@@ -30,6 +35,8 @@ public class Snake implements FieldObject {
         bodyCoordinates.add(coordinates);
         field.addFieldObjectWithCollision(coordinates);
         this.direction = direction;
+        snakeCeilDirections = new HashMap<>();
+        snakeCeilDirections.put(coordinates, this.direction);
     }
 
     public List<Coordinates> getCoordinates() {
@@ -48,6 +55,10 @@ public class Snake implements FieldObject {
         this.direction = direction;
     }
 
+    public Direction getSnakeCeilDirection(Coordinates ceil) {
+        return snakeCeilDirections.get(ceil);
+    }
+
     public Coordinates getNextHeadPosition() {
         return getHead().sum(direction.getShiftByDirection());
     }
@@ -56,23 +67,31 @@ public class Snake implements FieldObject {
         return field;
     }
 
+
     /**
      * Snake movement by deleting 1 cell from a tail and adding 1 cell in front of head.
      * If actual snake length is less that it should be, then deleting 1 cell from a tail doesn't happen.
      * If actual snake length is more that it should be, then adding 1 cell in front of head doesn't happen.
      */
     public void move() {
+        if (bodyCoordinates.size() == 1) {
+            field.addFieldObjectWithCollision(bodyCoordinates.get(0));
+        }
         if (bodyCoordinates.size() == length) { // Standard movement
             bodyCoordinates.add(this.getNextHeadPosition());
-            field.addFieldObjectWithCollision(this.getHead());
+            snakeCeilDirections.remove(bodyCoordinates.get(0));
+            snakeCeilDirections.put(this.getHead(), this.getDirection());
             field.addEmptyCell(bodyCoordinates.get(0));
+            field.addFieldObjectWithCollision(this.getHead());
             bodyCoordinates.remove(0);
         } else if (bodyCoordinates.size() < length) { // Snake collected an apple or bit off a tail of other snake
             bodyCoordinates.add(this.getNextHeadPosition());
+            snakeCeilDirections.put(this.getHead(), this.getDirection());
             field.addFieldObjectWithCollision(this.getHead());
         } else { // Any snake bit off a tail of this snake, so length decreased
-            field.addEmptyCell(bodyCoordinates.get(0));
-            bodyCoordinates.remove(0);
+//            field.addEmptyCell(bodyCoordinates.get(0));
+//            snakeCeilDirections.remove(bodyCoordinates.get(0));
+//            bodyCoordinates.remove(0);
         }
     }
 

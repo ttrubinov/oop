@@ -1,9 +1,7 @@
 package ru.nsu.fit.trubinov.presenter.javaFXPresenter;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -60,60 +58,66 @@ public class JavaFXPresenter implements Presenter {
             JavaFXViewer.class.getResourceAsStream("/textures/bedrock.png")),
             64, 64, false, false);
 
-    private final ImageView snakeImageView = new ImageView(snakeHeadImage);
     private final Stage stage;
-    private final Group player = new Group(snakeImageView);
     protected int width;
     protected int height;
+    private Model model;
     private GraphicsContext gc;
     private Group root;
     @FXML
     private Canvas canvas;
-    private Model model;
     private int difficultyLevel = 5;
-    private int angle = 270;
+    private Direction lastDirection;
 
     public JavaFXPresenter(Stage stage) {
         this.stage = stage;
         width = 512;
         height = 512;
         model = new Model(width / 64, height / 64, difficultyLevel);
+        lastDirection = model.getUserSnake().getDirection();
     }
 
     protected void start() {
         initScene();
-//        root.getChildren().add(player);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5),
+        EventHandler<ActionEvent> eventHandler = null;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500),
                 new EventHandler<>() {
-                    @Override
+                    final List<Long> listOfTimes = new ArrayList<>();
+                    long prevTime = System.currentTimeMillis();
+
                     public void handle(ActionEvent event) {
-                        // pollInput
-                        draw();
+                        changeDirection();
                         Coordinates intersection = model.makeMove();
                         draw();
+                        long curTime = System.currentTimeMillis();
+                        long sum = 0;
+                        listOfTimes.add(curTime - prevTime);
+                        for (long val : listOfTimes) {
+                            sum += val;
+                        }
+//                        System.out.println(sum / listOfTimes.size());
+                        prevTime = curTime;
+                        if (listOfTimes.size() > 30) {
+                            listOfTimes.remove(0);
+                        }
                         if (intersection != null) {
                             stage.close();
+                            System.out.println("AAA");
                         }
                     }
-
-                }
-        ));
+                }));
+//        eventHandler.handle(eventHandler);
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
     private void draw() {
         drawField();
-        drawUserSnake(model.getUserSnake());
-        model.getBotSnakes().forEach(this::drawBotSnake);
+        drawSnake(model.getUserSnake());
+        model.getBotSnakes().forEach(this::drawSnake);
         drawWalls(model.getWalls());
         drawApples(model.getApples());
         drawGrid();
-//        int fromX = model.getUserSnake().getPrevHeadPosition().multiply(64).X();
-//        int toX = model.getUserSnake().getHead().multiply(64).X();
-//        int fromY = model.getUserSnake().getPrevHeadPosition().multiply(64).Y();
-//        int toY = model.getUserSnake().getHead().multiply(64).Y();
-//        doTransitionAnimation(fromX, toX, fromY, toY, player, Duration.millis(500));
     }
 
 
@@ -130,31 +134,44 @@ public class JavaFXPresenter implements Presenter {
         stage.setScene(scene);
         setResizeListener();
         stage.show();
+        model = new Model(width / 64, height / 64, difficultyLevel);
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-            case UP, W:
-                if (model.getUserSnake().isPossibleTurn(Direction.UP)) {
-                    model.getUserSnake().setDirection(Direction.UP);
-                }
-                break;
-            case DOWN, S:
-                if (model.getUserSnake().isPossibleTurn(Direction.DOWN)) {
-                    model.getUserSnake().setDirection(Direction.DOWN);
-                }
-                break;
-            case LEFT, A:
-                if (model.getUserSnake().isPossibleTurn(Direction.LEFT)) {
-                    model.getUserSnake().setDirection(Direction.LEFT);
-                }
-                break;
-            case RIGHT, D:
-                if (model.getUserSnake().isPossibleTurn(Direction.RIGHT)) {
-                    model.getUserSnake().setDirection(Direction.RIGHT);
-                }
-                break;
+        Direction direction = getDirectionByKeyEvent(keyEvent);
+        if (direction != null) {
+            lastDirection = direction;
         }
+    }
+
+    private Direction getDirectionByKeyEvent(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+            case UP, W -> {
+                if (model.getUserSnake().isPossibleTurn(Direction.UP)) {
+                    return Direction.UP;
+                }
+            }
+            case DOWN, S -> {
+                if (model.getUserSnake().isPossibleTurn(Direction.DOWN)) {
+                    return Direction.DOWN;
+                }
+            }
+            case LEFT, A -> {
+                if (model.getUserSnake().isPossibleTurn(Direction.LEFT)) {
+                    return Direction.LEFT;
+                }
+            }
+            case RIGHT, D -> {
+                if (model.getUserSnake().isPossibleTurn(Direction.RIGHT)) {
+                    return Direction.RIGHT;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void changeDirection() {
+        model.getUserSnake().setDirection(lastDirection);
     }
 
     private void drawField() {
@@ -170,60 +187,43 @@ public class JavaFXPresenter implements Presenter {
         }
     }
 
-    private void drawUserSnake(Snake snake) {
+    private void drawSnake(Snake snake) {
         gc.drawImage(getRotatedSnake(snake.getDirection().angle), snake.getHead().X() * 64, snake.getHead().Y() * 64);
-        List<Integer> angles = new ArrayList<>();
-        for (int i = 1; i < snake.getCoordinates().size() - 1; i++) {
-            angles.add(Coordinates.getAngle2(snake.getCoordinates().get(i - 1), snake.getCoordinates().get(i + 1),
-                    snake.getCoordinates().get(i)));
-        }
-
         if (snake.getCoordinates().size() > 1) {
-            for (int i = 1; i < snake.getCoordinates().size() - 1; i++) {
-                if (angles.get(i - 1) != null) {
-                    gc.drawImage(getRotatedImage(angles.get(i - 1), snakeAngledTailImage),
-                            snake.getCoordinates().get(i).X() * 64,
-                            snake.getCoordinates().get(i).Y() * 64);
-                } else {
-                    gc.drawImage(getRotatedImage(Coordinates.getAngle(snake.getCoordinates().get(i),
-                                    snake.getCoordinates().get(i - 1)), snakeTailImage),
-                            snake.getCoordinates().get(i).X() * 64,
-                            snake.getCoordinates().get(i).Y() * 64);
-                }
-            }
-            gc.drawImage(getRotatedImage(
-                            Coordinates.getAngle(snake.getCoordinates().get(0), snake.getCoordinates().get(1)),
+            gc.drawImage(getRotatedImage(snake.getSnakeCeilDirection(snake.getCoordinates().get(1)).angle,
                             snakeEndOfTailImage),
                     snake.getCoordinates().get(0).X() * 64, snake.getCoordinates().get(0).Y() * 64);
         }
-    }
-
-    private void drawBotSnake(Snake snake) {
-        gc.drawImage(getRotatedImage(snake.getDirection().angle, botSnakeHeadImage),
-                snake.getHead().X() * 64, snake.getHead().Y() * 64);
-        List<Integer> angles = new ArrayList<>();
         for (int i = 1; i < snake.getCoordinates().size() - 1; i++) {
-            angles.add(Coordinates.getAngle2(snake.getCoordinates().get(i - 1), snake.getCoordinates().get(i + 1),
-                    snake.getCoordinates().get(i)));
-        }
-
-        if (snake.getCoordinates().size() > 1) {
-            for (int i = 1; i < snake.getCoordinates().size() - 1; i++) {
-                if (angles.get(i - 1) != null) {
-                    gc.drawImage(getRotatedImage(angles.get(i - 1), snakeAngledTailImage),
-                            snake.getCoordinates().get(i).X() * 64,
-                            snake.getCoordinates().get(i).Y() * 64);
-                } else {
-                    gc.drawImage(getRotatedImage(Coordinates.getAngle(snake.getCoordinates().get(i),
-                                    snake.getCoordinates().get(i - 1)), botSnakeTailImage),
-                            snake.getCoordinates().get(i).X() * 64,
-                            snake.getCoordinates().get(i).Y() * 64);
-                }
+            Coordinates coordinates = snake.getCoordinates().get(i);
+            int fstAngle;
+            int sndAngle;
+            try {
+                fstAngle = snake.getSnakeCeilDirection(coordinates).angle;
+                sndAngle = snake.getSnakeCeilDirection(snake.getCoordinates().get(i + 1)).angle;
+            } catch (Exception e) {
+                System.out.println(snake.length + " " + snake.getCoordinates().size() + " " + snake.getCoordinates());
+                System.out.println(snake.snakeCeilDirections);
+                System.out.println(model.field);
+                throw new RuntimeException();
             }
-            gc.drawImage(getRotatedImage(
-                            Coordinates.getAngle(snake.getCoordinates().get(0), snake.getCoordinates().get(1)),
-                            snakeEndOfTailImage),
-                    snake.getCoordinates().get(0).X() * 64, snake.getCoordinates().get(0).Y() * 64);
+            if (fstAngle == sndAngle) {
+                gc.drawImage(getRotatedImage(snake.getSnakeCeilDirection(coordinates).angle, snakeTailImage),
+                        coordinates.X() * 64, coordinates.Y() * 64);
+                continue;
+            }
+            if ((fstAngle == 180 && sndAngle == 270) || (fstAngle == 90 && sndAngle == 0)) {
+                gc.drawImage(snakeAngledTailImage, coordinates.X() * 64, coordinates.Y() * 64);
+            } else if ((fstAngle == 270 && sndAngle == 0) || (fstAngle == 180 && sndAngle == 90)) {
+                gc.drawImage(getRotatedImage(90, snakeAngledTailImage),
+                        coordinates.X() * 64, coordinates.Y() * 64);
+            } else if ((fstAngle == 0 && sndAngle == 90) || (fstAngle == 270 && sndAngle == 180)) {
+                gc.drawImage(getRotatedImage(180, snakeAngledTailImage),
+                        coordinates.X() * 64, coordinates.Y() * 64);
+            } else if ((fstAngle == 90 && sndAngle == 180) || (fstAngle == 0 && sndAngle == 270)) {
+                gc.drawImage(getRotatedImage(270, snakeAngledTailImage),
+                        coordinates.X() * 64, coordinates.Y() * 64);
+            }
         }
     }
 
@@ -251,23 +251,6 @@ public class JavaFXPresenter implements Presenter {
                 }
             }
         }
-    }
-
-    private void doTransitionAnimation(int fromX, int toX, int fromY, int toY, Group group, Duration duration) {
-        root.getChildren().set(1, group);
-        TranslateTransition transition = new TranslateTransition(duration, group);
-        transition.setFromX(fromX);
-        transition.setToX(toX);
-        transition.setFromY(fromY);
-        transition.setToY(toY);
-        transition.play();
-    }
-
-    private void doRotationAnimation(int angle, Group group, Duration duration) {
-        root.getChildren().set(1, group);
-        RotateTransition transition = new RotateTransition(duration, group);
-        transition.setByAngle(angle);
-        transition.play();
     }
 
     private Image getRotatedSnake(int angle) {

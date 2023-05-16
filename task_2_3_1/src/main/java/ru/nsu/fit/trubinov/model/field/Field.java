@@ -31,6 +31,18 @@ public class Field {
         return new Coordinates(width, height);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int[][] getField() {
+        return field;
+    }
+
     public int size() {
         return width * height;
     }
@@ -42,7 +54,9 @@ public class Field {
             for (int i = 0; i < width; i++) {
                 s.append(field[i][j]);
             }
-            s.append('\n');
+            if (j != height - 1) {
+                s.append('\n');
+            }
         }
         return String.valueOf(s);
     }
@@ -104,16 +118,20 @@ public class Field {
 
     public Coordinates deathIntersectionCoordinates(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
-        addEmptyCell(snake.getCoordinates().get(0)); // Tail moved
         try {
             if (field[coordinates.X()][coordinates.Y()] != 0 &&
-                    field[coordinates.X()][coordinates.Y()] != 1) {
+                    field[coordinates.X()][coordinates.Y()] != 1 &&
+                    !coordinates.equals(snake.getCoordinates().get(0))) {
                 return coordinates;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
             return coordinates;
         }
         return null;
+    }
+
+    public boolean isDeath(Coordinates coordinates) {
+        return field[coordinates.X()][coordinates.Y()] == 2;
     }
 
     public boolean isEmpty(Coordinates coordinates) {
@@ -138,6 +156,8 @@ public class Field {
      * @return List of coordinates of empty cells
      */
     public List<Coordinates> getAllEmptyCells(int emptySpace) {
+//        System.out.println(this);
+//        System.out.println();
         List<Coordinates> emptyCells = new ArrayList<>();
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -153,7 +173,9 @@ public class Field {
                     }
                 }
                 if (cnt == (2 * emptySpace + 1) * (2 * emptySpace + 1)) {
-                    emptyCells.add(new Coordinates(i, j));
+                    if (field[i][j] == 0) {
+                        emptyCells.add(new Coordinates(i, j));
+                    }
                 }
             }
         }
