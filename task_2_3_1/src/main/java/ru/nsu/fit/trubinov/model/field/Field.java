@@ -31,18 +31,6 @@ public class Field {
         return new Coordinates(width, height);
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int[][] getField() {
-        return field;
-    }
-
     public int size() {
         return width * height;
     }
@@ -156,8 +144,6 @@ public class Field {
      * @return List of coordinates of empty cells
      */
     public List<Coordinates> getAllEmptyCells(int emptySpace) {
-//        System.out.println(this);
-//        System.out.println();
         List<Coordinates> emptyCells = new ArrayList<>();
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {

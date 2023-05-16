@@ -26,7 +26,6 @@ import ru.nsu.fit.trubinov.presenter.Presenter;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.view.javaFXViewer.JavaFXViewer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -82,27 +81,13 @@ public class JavaFXPresenter implements Presenter {
         EventHandler<ActionEvent> eventHandler = null;
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500),
                 new EventHandler<>() {
-                    final List<Long> listOfTimes = new ArrayList<>();
-                    long prevTime = System.currentTimeMillis();
 
                     public void handle(ActionEvent event) {
                         changeDirection();
                         Coordinates intersection = model.makeMove();
                         draw();
-                        long curTime = System.currentTimeMillis();
-                        long sum = 0;
-                        listOfTimes.add(curTime - prevTime);
-                        for (long val : listOfTimes) {
-                            sum += val;
-                        }
-//                        System.out.println(sum / listOfTimes.size());
-                        prevTime = curTime;
-                        if (listOfTimes.size() > 30) {
-                            listOfTimes.remove(0);
-                        }
                         if (intersection != null) {
                             stage.close();
-                            System.out.println("AAA");
                         }
                     }
                 }));
@@ -198,15 +183,8 @@ public class JavaFXPresenter implements Presenter {
             Coordinates coordinates = snake.getCoordinates().get(i);
             int fstAngle;
             int sndAngle;
-            try {
-                fstAngle = snake.getSnakeCeilDirection(coordinates).angle;
-                sndAngle = snake.getSnakeCeilDirection(snake.getCoordinates().get(i + 1)).angle;
-            } catch (Exception e) {
-                System.out.println(snake.length + " " + snake.getCoordinates().size() + " " + snake.getCoordinates());
-                System.out.println(snake.snakeCeilDirections);
-                System.out.println(model.field);
-                throw new RuntimeException();
-            }
+            fstAngle = snake.getSnakeCeilDirection(coordinates).angle;
+            sndAngle = snake.getSnakeCeilDirection(snake.getCoordinates().get(i + 1)).angle;
             if (fstAngle == sndAngle) {
                 gc.drawImage(getRotatedImage(snake.getSnakeCeilDirection(coordinates).angle, snakeTailImage),
                         coordinates.X() * 64, coordinates.Y() * 64);
