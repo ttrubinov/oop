@@ -1,9 +1,9 @@
 package ru.nsu.fit.trubinov.model.fieldObjects.snake;
 
-import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.model.field.Field;
 import ru.nsu.fit.trubinov.model.fieldObjects.FieldObject;
 import ru.nsu.fit.trubinov.utils.Coordinates;
+import ru.nsu.fit.trubinov.utils.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class Snake implements FieldObject {
         this.field = field;
         this.bodyCoordinates = new ArrayList<>();
         bodyCoordinates.add(coordinates);
-        field.addFieldObjectWithCollision(coordinates);
+        field.addSnake(coordinates);
         this.direction = Direction.getRandomDirection();
         snakeCeilDirections = new HashMap<>();
         snakeCeilDirections.put(coordinates, this.direction);
@@ -33,7 +33,7 @@ public class Snake implements FieldObject {
         this.field = field;
         this.bodyCoordinates = new ArrayList<>();
         bodyCoordinates.add(coordinates);
-        field.addFieldObjectWithCollision(coordinates);
+        field.addSnake(coordinates);
         this.direction = direction;
         snakeCeilDirections = new HashMap<>();
         snakeCeilDirections.put(coordinates, this.direction);
@@ -75,23 +75,24 @@ public class Snake implements FieldObject {
      */
     public void move() {
         if (bodyCoordinates.size() == 1) {
-            field.addFieldObjectWithCollision(bodyCoordinates.get(0));
+//            field.addFieldObjectWithCollision(bodyCoordinates.get(0));
+            field.addSnake(bodyCoordinates.get(0));
         }
         if (bodyCoordinates.size() == length) { // Standard movement
             bodyCoordinates.add(this.getNextHeadPosition());
             snakeCeilDirections.remove(bodyCoordinates.get(0));
             snakeCeilDirections.put(this.getHead(), this.getDirection());
             field.addEmptyCell(bodyCoordinates.get(0));
-            field.addFieldObjectWithCollision(this.getHead());
+            field.addSnake(this.getHead());
             bodyCoordinates.remove(0);
         } else if (bodyCoordinates.size() < length) { // Snake collected an apple or bit off a tail of other snake
             bodyCoordinates.add(this.getNextHeadPosition());
             snakeCeilDirections.put(this.getHead(), this.getDirection());
-            field.addFieldObjectWithCollision(this.getHead());
+            field.addSnake(this.getHead());
         } else { // Any snake bit off a tail of this snake, so length decreased
-//            field.addEmptyCell(bodyCoordinates.get(0));
-//            snakeCeilDirections.remove(bodyCoordinates.get(0));
-//            bodyCoordinates.remove(0);
+            field.addEmptyCell(bodyCoordinates.get(0));
+            snakeCeilDirections.remove(bodyCoordinates.get(0));
+            bodyCoordinates.remove(0);
         }
     }
 
@@ -105,5 +106,14 @@ public class Snake implements FieldObject {
         return this.getCoordinates().size() <= 1 ||
                 !this.getHead().sum(direction.getShiftByDirection()).
                         equals(this.getCoordinates().get(this.getCoordinates().size() - 2));
+    }
+
+    @Override
+    public String toString() {
+        return "Snake{" +
+                "bodyCoordinates=" + bodyCoordinates +
+                ", length=" + length +
+                ", direction=" + direction +
+                '}';
     }
 }
