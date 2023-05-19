@@ -1,8 +1,7 @@
-package ru.nsu.fit.trubinov.model.field;
+package ru.nsu.fit.trubinov.utils;
 
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import ru.nsu.fit.trubinov.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Arrays;
