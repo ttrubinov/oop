@@ -49,30 +49,16 @@ public class JavaFXViewer {
         root.getChildren().set(0, canvas);
     }
 
-    public void drawImage(Image image, Coordinates coordinates) {
+    public void drawDefaultImage(Image image, Coordinates coordinates) {
         gc.drawImage(image, coordinates.X(), coordinates.Y());
     }
 
-    public void drawRotatedImage(Image image, int angle, Coordinates coordinates) {
+    public void drawImage(Image image, int angle, Color color, Coordinates coordinates) {
         ImageView imageView = new ImageView(image);
         imageView.setRotate(angle);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        gc.drawImage(imageView.snapshot(params, null), coordinates.X(), coordinates.Y());
-    }
-
-    public void drawColoredImage(Image image, Color color, Coordinates coordinates) {
-        ImageView imageView = new ImageView(image);
-        imageView.setEffect(new ColorAdjust(color.getHue() / 180 - 1, 0, 0, 0.2));
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        gc.drawImage(imageView.snapshot(params, null), coordinates.X(), coordinates.Y());
-    }
-
-    public void drawRotatedColoredImage(Image image, int angle, Color color, Coordinates coordinates) {
-        ImageView imageView = new ImageView(image);
-        imageView.setRotate(angle);
-        imageView.setEffect(new ColorAdjust(color.getHue() / 180 - 1, 0, 0, 0.2));
+        if (color != Color.GREEN) {
+            imageView.setEffect(new ColorAdjust(color.getHue() / 180 - 1, 0, 0, 0.2));
+        }
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
         gc.drawImage(imageView.snapshot(params, null), coordinates.X(), coordinates.Y());
