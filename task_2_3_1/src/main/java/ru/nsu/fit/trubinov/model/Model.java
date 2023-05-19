@@ -1,17 +1,18 @@
 package ru.nsu.fit.trubinov.model;
 
-import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.model.field.Field;
 import ru.nsu.fit.trubinov.model.fieldObjects.Apple;
 import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
 import ru.nsu.fit.trubinov.utils.Coordinates;
+import ru.nsu.fit.trubinov.utils.Direction;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Consumer;
 
 public class Model {
     public final Field field;
@@ -22,6 +23,7 @@ public class Model {
     private final List<Apple> apples;
     private final int difficultyLevel;
     private final int botsCount;
+    private Consumer<BotSnake> func;
 
     public Model(int width, int height, int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
@@ -29,7 +31,6 @@ public class Model {
         field = new Field(width, height);
         userSnake = new Snake(new Coordinates(width / 2, height / 2), field, Direction.RIGHT);
         botSnakes = new ArrayList<>();
-        spawnBots();
         allSnakes = new ArrayList<>();
         allSnakes.add(userSnake);
         allSnakes.addAll(botSnakes);
@@ -59,9 +60,9 @@ public class Model {
 
     public Coordinates makeMove() {
         collectApples(userSnake);
-        moveBots();
         Coordinates intersection = deathIntersectionCoordinates(userSnake);
         userSnake.move();
+        moveBots();
         if (intersection != null) {
             return intersection;
         }
@@ -83,7 +84,7 @@ public class Model {
             botSnake.move();
             if (botIntersection != null) {
                 botSnake.getCoordinates().forEach(field::addEmptyCell);
-                field.addFieldObjectWithCollision(botSnake.getHead());
+                field.addSnake(botSnake.getHead());
                 iterator.remove();
                 botsToDelete.add(botSnake);
             }
@@ -96,13 +97,22 @@ public class Model {
         if ((double) botSnakes.size() >= botsCount) {
             return;
         }
-        List<Coordinates> emptyCells = field.getAllEmptyCells(2);
+        List<Coordinates> emptyCells = field.getAllEmptyCells(1);
         while ((double) botSnakes.size() < botsCount && emptyCells.size() > 0) {
             botSnakes.add(new BotSnake(emptyCells.get(0), field));
-            field.addFieldObjectWithCollision(emptyCells.get(0));
+            field.addSnake(emptyCells.get(0));
             emptyCells.remove(0);
-            emptyCells = field.getAllEmptyCells(2);
+            emptyCells = field.getAllEmptyCells(1);
+            spawnBotsListener(botSnakes.get(botSnakes.size() - 1));
         }
+    }
+
+    public void setSpawnBotsListener(Consumer<BotSnake> func) {
+        this.func = func;
+    }
+
+    public void spawnBotsListener(BotSnake botSnake) {
+        func.accept(botSnake);
     }
 
     private void collectApples(Snake snake) {
@@ -121,7 +131,7 @@ public class Model {
         if ((double) apples.size() >= Math.sqrt(field.size()) / (difficultyLevel)) {
             return;
         }
-        List<Coordinates> emptyCells = field.getAllEmptyCells(1);
+        List<Coordinates> emptyCells = field.getAllEmptyCells(0);
         while ((double) apples.size() < Math.sqrt(field.size()) / (difficultyLevel) && emptyCells.size() > 0) {
             if (!field.isEmpty(emptyCells.get(0))) {
                 continue;
@@ -129,13 +139,13 @@ public class Model {
             apples.add(new Apple(emptyCells.get(0)));
             field.addNoCollisionFieldObject(emptyCells.get(0));
             emptyCells.remove(0);
-            emptyCells = field.getAllEmptyCells(1);
+            emptyCells = field.getAllEmptyCells(0);
         }
     }
 
     private void spawnWalls() {
         int maxDifficultyLevel = 11;
-        int neededWallsSize = field.size() / 20 / (maxDifficultyLevel - difficultyLevel);
+        int neededWallsSize = (int) Math.sqrt(field.size()) / (maxDifficultyLevel - difficultyLevel);
         if (walls.size() >= neededWallsSize) {
             return;
         }
@@ -147,7 +157,7 @@ public class Model {
                 int randomCord = ThreadLocalRandom.current().nextInt(1, 9 + 1);
                 wallCoordinates.add(new Coordinates(emptyCells.get(0).X() - 1 + randomCord % 3,
                         emptyCells.get(0).Y() - 1 + randomCord / 3));
-                field.addFieldObjectWithCollision(wallCoordinates.get(i));
+                field.addWall(wallCoordinates.get(i));
             }
             walls.add(new Wall(wallCoordinates));
             emptyCells.remove(0);
