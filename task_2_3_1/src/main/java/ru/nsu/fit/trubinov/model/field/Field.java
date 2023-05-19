@@ -41,6 +41,7 @@ public class Field {
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
                 s.append(field[i][j]);
+                s.append(' ');
             }
             if (j != height - 1) {
                 s.append('\n');
@@ -72,13 +73,24 @@ public class Field {
     }
 
     /**
-     * Add a field object with collision (like snake or wall) to the field.
+     * Add a wall to the field.
      *
-     * @param coordinates Coordinates of a field object with collision
+     * @param coordinates Coordinates of a wall
      */
-    public void addFieldObjectWithCollision(Coordinates coordinates) {
+    public void addWall(Coordinates coordinates) {
         if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
             field[coordinates.X()][coordinates.Y()] = 2;
+        }
+    }
+
+    /**
+     * Add a snake to the field.
+     *
+     * @param coordinates Coordinates of a snake
+     */
+    public void addSnake(Coordinates coordinates) {
+        if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
+            field[coordinates.X()][coordinates.Y()] = 3;
         }
     }
 
@@ -119,7 +131,7 @@ public class Field {
     }
 
     public boolean isDeath(Coordinates coordinates) {
-        return field[coordinates.X()][coordinates.Y()] == 2;
+        return field[coordinates.X()][coordinates.Y()] == 2 || field[coordinates.X()][coordinates.Y()] == 3;
     }
 
     public boolean isEmpty(Coordinates coordinates) {
