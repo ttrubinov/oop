@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="512.0" prefWidth="768.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            fx:controller="ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller.SettingsController">
+    <children>
+        <Button fx:id="menu" mnemonicParsing="false" onAction="#menuButton" text="Menu"/>
+        <Slider fx:id="speed" blockIncrement="1.0" cache="true" majorTickUnit="1.0" max="10.0" min="1.0"
+                minorTickCount="0" prefHeight="33.0" prefWidth="244.0" showTickLabels="true" showTickMarks="true"
+                snapToTicks="true" value="1.0"/>
+        <Slider fx:id="level" blockIncrement="100.0" cache="true" majorTickUnit="1.0" max="10.0" min="1.0"
+                minorTickCount="0" prefHeight="14.0" prefWidth="244.0" showTickLabels="true" showTickMarks="true"
+                snapToTicks="true" value="1.0"/>
+        <Label fx:id="speedLabel" text="Speed">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <Label fx:id="levelLabel" text="Difficulty level">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

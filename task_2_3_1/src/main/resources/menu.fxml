@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="512.0" prefWidth="768.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            fx:controller="ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller.MenuController">
+    <children>
+        <Button fx:id="settingsButton" id="settingsButton" layoutX="334.0" layoutY="231.0" mnemonicParsing="false"
+                onAction="#settingButton" text="Settings"
+                prefHeight="50.0" prefWidth="100.0"/>
+        <Button fx:id="playButton" id="playButton" layoutX="334.0" layoutY="303.0" mnemonicParsing="false"
+                onAction="#playButton" text="Play"
+                prefHeight="30.0" prefWidth="100.0"/>
+        <Text fx:id="text" fill="BLACK" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="The Snake Game">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Text>
+    </children>
+</AnchorPane>
