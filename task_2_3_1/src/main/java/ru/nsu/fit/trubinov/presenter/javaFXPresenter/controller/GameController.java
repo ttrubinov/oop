@@ -75,6 +75,7 @@ public class GameController {
         Scene scene = new Scene(root);
         MenuController menuController = loader.getController();
         menuController.initGame();
+        menuController.setDifficultyLevelAndGameSpeed(difficultyLevel, gameSpeed);
         menuController.init(stage);
         stage.setScene(scene);
         stage.show();

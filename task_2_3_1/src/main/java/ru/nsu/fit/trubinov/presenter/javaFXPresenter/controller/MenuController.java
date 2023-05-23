@@ -121,6 +121,7 @@ public class MenuController {
         SettingsController settingsController = loader.getController();
         settingsController.setCanvas(canvas);
         settingsController.setBackgroundGame(backgroundGame);
+        settingsController.setDifficultyLevelAndGameSpeed(difficultyLevel, gameSpeed);
         settingsController.init(stage);
         stage.setScene(scene);
         stage.show();
