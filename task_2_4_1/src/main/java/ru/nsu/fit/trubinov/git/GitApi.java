@@ -29,7 +29,6 @@ public class GitApi {
                     .getFullBranch()
                     .equals(branchName);
         } catch (IOException e) {
-            System.out.println("AAAAAAAA");
             return false;
         }
     }
