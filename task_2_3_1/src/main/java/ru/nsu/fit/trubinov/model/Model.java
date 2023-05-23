@@ -23,7 +23,7 @@ public class Model {
     private final List<Apple> apples;
     private final int difficultyLevel;
     private final int botsCount;
-    private Consumer<BotSnake> func;
+    private Consumer<BotSnake> botSpawnListener;
 
     public Model(int width, int height, int difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
@@ -33,6 +33,21 @@ public class Model {
         botSnakes = new ArrayList<>();
         allSnakes = new ArrayList<>();
         allSnakes.add(userSnake);
+        allSnakes.addAll(botSnakes);
+        walls = new ArrayList<>();
+        apples = new ArrayList<>();
+    }
+
+    public Model(int width, int height, int difficultyLevel, Snake userSnake) {
+        this.difficultyLevel = difficultyLevel;
+        botsCount = difficultyLevel;
+        field = new Field(width, height);
+        this.userSnake = userSnake;
+        botSnakes = new ArrayList<>();
+        allSnakes = new ArrayList<>();
+        if (userSnake != null) {
+            allSnakes.add(userSnake);
+        }
         allSnakes.addAll(botSnakes);
         walls = new ArrayList<>();
         apples = new ArrayList<>();
@@ -59,9 +74,13 @@ public class Model {
     }
 
     public Coordinates makeMove() {
-        collectApples(userSnake);
-        Coordinates intersection = deathIntersectionCoordinates(userSnake);
-        userSnake.move();
+
+        Coordinates intersection = null;
+        if (userSnake != null) {
+            collectApples(userSnake);
+            intersection = deathIntersectionCoordinates(userSnake);
+            userSnake.move();
+        }
         moveBots();
         if (intersection != null) {
             return intersection;
@@ -107,12 +126,12 @@ public class Model {
         }
     }
 
-    public void setSpawnBotsListener(Consumer<BotSnake> func) {
-        this.func = func;
+    public void setBotSpawnListener(Consumer<BotSnake> botSpawnListener) {
+        this.botSpawnListener = botSpawnListener;
     }
 
     public void spawnBotsListener(BotSnake botSnake) {
-        func.accept(botSnake);
+        botSpawnListener.accept(botSnake);
     }
 
     private void collectApples(Snake snake) {
@@ -178,9 +197,11 @@ public class Model {
 
     public Coordinates resize(int width, int height) {
         field.resize(width, height);
-        for (Coordinates coordinates : userSnake.getCoordinates()) {
-            if (coordinates.X() >= width - 1 || coordinates.Y() >= height - 1) {
-                return coordinates;
+        if (userSnake != null) {
+            for (Coordinates coordinates : userSnake.getCoordinates()) {
+                if (coordinates.X() >= width - 1 || coordinates.Y() >= height - 1) {
+                    return coordinates;
+                }
             }
         }
         botSnakes.removeIf(botSnake -> botSnake.isOutOfBounds(width, height));
