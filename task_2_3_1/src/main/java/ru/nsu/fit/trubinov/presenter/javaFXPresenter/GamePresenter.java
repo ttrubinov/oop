@@ -2,20 +2,16 @@ package ru.nsu.fit.trubinov.presenter.javaFXPresenter;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import ru.nsu.fit.trubinov.model.Model;
 import ru.nsu.fit.trubinov.model.fieldObjects.Apple;
 import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
-import ru.nsu.fit.trubinov.presenter.Presenter;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.utils.Direction;
 import ru.nsu.fit.trubinov.view.javaFXViewer.JavaFXViewer;
@@ -24,10 +20,10 @@ import ru.nsu.fit.trubinov.view.javaFXViewer.Textures;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.function.Consumer;
 
-public class JavaFXPresenter implements Presenter {
-    private final Stage stage;
-    private final JavaFXViewer viewer;
+public class GamePresenter {
     private final Map<KeyCode, Direction> keyMap = Map.of(
             KeyCode.W, Direction.UP,
             KeyCode.UP, Direction.UP,
@@ -38,65 +34,93 @@ public class JavaFXPresenter implements Presenter {
             KeyCode.D, Direction.RIGHT,
             KeyCode.RIGHT, Direction.RIGHT
     );
+    public Timeline timeline;
+    public Model model;
     protected int width;
     protected int height;
-    private Model model;
-    private int difficultyLevel = 10;
+    Runnable finishRunnable;
+    private int difficultyLevel;
     private Direction lastDirection;
-    private Map<Snake, Color> snakeColorMap;
+    private Map<Snake, Double> snakeColorMap;
+    private JavaFXViewer viewer;
+    private int gameSpeed;
+    private Consumer<Integer> scoreUpdater;
 
-    public JavaFXPresenter(Stage stage) {
-        this.stage = stage;
-        width = 512;
-        height = 512;
-        model = new Model(width / 64, height / 64, difficultyLevel);
-        viewer = new JavaFXViewer();
+    public GamePresenter(JavaFXViewer viewer, int width, int height,
+                         int difficultyLevel, int gameSpeed, boolean userSnakeSpawnFlag) {
+        this.viewer = viewer;
+        this.width = width;
+        this.height = height;
+        if (userSnakeSpawnFlag) {
+            model = new Model(width / 64, height / 64, difficultyLevel);
+        } else {
+            model = new Model(width / 64, height / 64, difficultyLevel, null);
+        }
+        this.difficultyLevel = difficultyLevel;
+        this.gameSpeed = gameSpeed;
     }
 
     public void init() {
-        viewer.getScene().setOnKeyPressed(this::onKeyPressed);
-        model = new Model(width / 64, height / 64, difficultyLevel);
+        if (model.getUserSnake() == null) {
+            model = new Model(width / 64, height / 64, difficultyLevel, null);
+        } else {
+            model = new Model(width / 64, height / 64, difficultyLevel);
+        }
         snakeColorMap = new HashMap<>();
-        snakeColorMap.put(model.getUserSnake(), Color.GREEN);
-        model.getBotSnakes().forEach(botSnake -> snakeColorMap.put(botSnake, SnakeColor.getRandomSnakeColor().color));
-        setResizeListener();
+        snakeColorMap.put(model.getUserSnake(), 0.0);
+        model.getBotSnakes().forEach(botSnake -> snakeColorMap.put(botSnake, getRandomValue()));
         setBotSpawnListener();
         draw();
     }
 
-    protected void start() {
-        viewer.initScene(stage, width, height);
+    public void start() {
+//        AtomicInteger cnt = new AtomicInteger();
         init();
-
-//        EventHandler<ActionEvent> eventHandler = null;
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500),
-                new EventHandler<>() {
-
-                    public void handle(ActionEvent event) {
-                        changeDirection();
-                        Coordinates intersection = model.makeMove();
-                        draw();
-                        if (intersection != null) {
-                            stage.close();
-                        }
-                    }
-                }));
-//        eventHandler.handle(eventHandler);
+        timeline = new Timeline();
+        EventHandler<ActionEvent> eventHandler = event -> {
+//            System.out.println(cnt.getAndIncrement());
+//            System.out.println();
+            changeDirection();
+            Coordinates intersection = model.makeMove();
+            draw();
+            if (model.getUserSnake() != null) {
+                updateScore();
+            }
+            if (intersection != null) {
+                timeline.stop();
+                finishRunnable.run();
+            }
+        };
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(gameSpeed), eventHandler));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
+    public void setScoreUpdater(Consumer<Integer> scoreUpdater) {
+        this.scoreUpdater = scoreUpdater;
+    }
+
+    private void updateScore() {
+        scoreUpdater.accept(model.getUserSnake().length);
+    }
+
+    public void setOnTimelineFinishListener(Runnable runnable) {
+        this.finishRunnable = runnable;
+    }
+
     private void setBotSpawnListener() {
-        model.setSpawnBotsListener(this::addNewBot);
+        model.setBotSpawnListener(this::addNewBot);
     }
 
     public void addNewBot(BotSnake botSnake) {
-        snakeColorMap.put(botSnake, SnakeColor.getRandomSnakeColor().color);
+        snakeColorMap.put(botSnake, getRandomValue());
     }
 
     private void draw() {
         drawField();
-        drawSnake(model.getUserSnake());
+        if (model.getUserSnake() != null) {
+            drawSnake(model.getUserSnake());
+        }
         model.getBotSnakes().forEach(this::drawSnake);
         drawWalls(model.getWalls());
         drawApples(model.getApples());
@@ -104,7 +128,7 @@ public class JavaFXPresenter implements Presenter {
     }
 
 
-    private void onKeyPressed(KeyEvent keyEvent) {
+    public void onKeyPressed(KeyEvent keyEvent) {
         Direction direction = getDirectionByKeyEvent(keyEvent);
         if (direction != null && model.getUserSnake().isPossibleTurn(direction)) {
             lastDirection = direction;
@@ -198,15 +222,15 @@ public class JavaFXPresenter implements Presenter {
         }
     }
 
-    private void setResizeListener() {
-        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-            width = (int) stage.getWidth();
-            height = (int) stage.getHeight();
-            model.resize(width / 64, height / 64);
-            viewer.resize(width, height);
-            draw();
-        };
-        stage.widthProperty().addListener(stageSizeListener);
-        stage.heightProperty().addListener(stageSizeListener);
+    public void resize(int width, int height) {
+        model.resize(width / 64, height / 64);
+        draw();
+        this.width = width;
+        this.height = height;
+    }
+
+    private double getRandomValue() {
+        Random r = new Random();
+        return -1 + (2) * r.nextDouble();
     }
 }
