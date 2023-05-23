@@ -55,7 +55,8 @@ public class Field {
         for (int i = 0; i < Math.min(this.width, width); i++) {
             for (int j = 0; j < Math.min(this.height, height); j++) {
                 newField.field[i][j] = this.field[i][j];
-                if (i == this.width - 1 || j == this.height - 1) {
+                if (i == this.width - 1 && i != width - 1 && j > 0 ||
+                        j == this.height - 1 && j != height - 1 && i > 0) { // delete old outer walls
                     newField.field[i][j] = 0;
                 }
             }
@@ -63,7 +64,7 @@ public class Field {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == width - 1 || j == height - 1) {
-                    newField.field[i][j] = 2;
+                    newField.field[i][j] = 2; // add new outer walls
                 }
             }
         }
