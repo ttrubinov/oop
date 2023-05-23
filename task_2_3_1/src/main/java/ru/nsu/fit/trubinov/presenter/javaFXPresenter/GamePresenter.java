@@ -34,16 +34,16 @@ public class GamePresenter {
             KeyCode.D, Direction.RIGHT,
             KeyCode.RIGHT, Direction.RIGHT
     );
+    private final int difficultyLevel;
+    private final JavaFXViewer viewer;
+    private final int gameSpeed;
     public Timeline timeline;
     public Model model;
     protected int width;
     protected int height;
     Runnable finishRunnable;
-    private int difficultyLevel;
     private Direction lastDirection;
     private Map<Snake, Double> snakeColorMap;
-    private JavaFXViewer viewer;
-    private int gameSpeed;
     private Consumer<Integer> scoreUpdater;
 
     public GamePresenter(JavaFXViewer viewer, int width, int height,
@@ -74,12 +74,9 @@ public class GamePresenter {
     }
 
     public void start() {
-//        AtomicInteger cnt = new AtomicInteger();
         init();
         timeline = new Timeline();
         EventHandler<ActionEvent> eventHandler = event -> {
-//            System.out.println(cnt.getAndIncrement());
-//            System.out.println();
             changeDirection();
             Coordinates intersection = model.makeMove();
             draw();

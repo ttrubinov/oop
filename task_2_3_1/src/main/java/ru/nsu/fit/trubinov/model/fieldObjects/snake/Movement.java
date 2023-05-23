@@ -1,7 +1,7 @@
 package ru.nsu.fit.trubinov.model.fieldObjects.snake;
 
-import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.model.field.Field;
+import ru.nsu.fit.trubinov.utils.Direction;
 
 import java.util.ArrayList;
 import java.util.Collections;

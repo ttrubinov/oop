@@ -36,7 +36,6 @@ public class JavaFXViewer {
     }
 
     public void drawBedrockBorders(Canvas canvas) {
-        System.out.println(canvas.getWidth() + " " + canvas.getHeight());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for (int i = 0; i < canvas.getWidth() / 64; i++) {
             for (int j = 0; j < canvas.getHeight() / 64; j++) {
