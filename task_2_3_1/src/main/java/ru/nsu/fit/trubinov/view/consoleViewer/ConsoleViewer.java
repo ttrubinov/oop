@@ -134,7 +134,6 @@ public class ConsoleViewer {
         try {
             screen.close();
         } catch (IOException e) {
-            System.out.println("AAAAAAAAAAAAA");
             throw new RuntimeException(e);
         }
     }

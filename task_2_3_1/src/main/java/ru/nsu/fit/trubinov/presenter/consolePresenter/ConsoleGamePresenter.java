@@ -6,12 +6,12 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import ru.nsu.fit.trubinov.model.Model;
-import ru.nsu.fit.trubinov.model.field.Direction;
 import ru.nsu.fit.trubinov.model.fieldObjects.Apple;
 import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
 import ru.nsu.fit.trubinov.utils.Coordinates;
+import ru.nsu.fit.trubinov.utils.Direction;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +37,6 @@ public class ConsoleGamePresenter {
             consoleViewer.drawDieMessage();
             consoleViewer.refresh();
             executor.shutdown();
-            System.out.println("Shutdown");
             try {
                 Thread.sleep(waitTimeBeforeGameStop);
             } catch (InterruptedException e) {
@@ -114,7 +113,7 @@ public class ConsoleGamePresenter {
                     TextCharacter.DEFAULT_CHARACTER.withCharacter(botSnake.getDirection().headCharacter),
                     new TextColor.RGB(0, 0, 0), fieldColor);
             for (int i = 0; i < botSnake.getCoordinates().size() - 1; i++) {
-                int r = getGradient(botSnake.getCoordinates(), i);
+                int r = 50;
                 int g = getGradient(botSnake.getCoordinates(), i);
                 int b = getGradient(botSnake.getCoordinates(), i);
                 consoleViewer.drawPixel(botSnake.getCoordinates().get(i),

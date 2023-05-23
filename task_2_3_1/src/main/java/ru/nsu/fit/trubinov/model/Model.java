@@ -131,7 +131,9 @@ public class Model {
     }
 
     public void spawnBotsListener(BotSnake botSnake) {
-        botSpawnListener.accept(botSnake);
+        if (botSpawnListener != null) {
+            botSpawnListener.accept(botSnake);
+        }
     }
 
     private void collectApples(Snake snake) {
