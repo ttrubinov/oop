@@ -12,6 +12,7 @@ import ru.nsu.fit.trubinov.model.fieldObjects.Apple;
 import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
+import ru.nsu.fit.trubinov.presenter.Presenter;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.utils.Direction;
 import ru.nsu.fit.trubinov.view.javaFXViewer.JavaFXViewer;
@@ -23,8 +24,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class GamePresenter {
-    private final Map<KeyCode, Direction> keyMap = Map.of(
+public class GamePresenter implements Presenter {
+    private static final Map<KeyCode, Direction> directionsKeyMap = Map.of(
             KeyCode.W, Direction.UP,
             KeyCode.UP, Direction.UP,
             KeyCode.A, Direction.LEFT,
@@ -133,7 +134,7 @@ public class GamePresenter {
     }
 
     private Direction getDirectionByKeyEvent(KeyEvent keyEvent) {
-        return keyMap.get(keyEvent.getCode());
+        return directionsKeyMap.get(keyEvent.getCode());
     }
 
     private void changeDirection() {
