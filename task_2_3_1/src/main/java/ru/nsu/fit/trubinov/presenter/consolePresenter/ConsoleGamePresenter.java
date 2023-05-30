@@ -1,7 +1,6 @@
 package ru.nsu.fit.trubinov.presenter.consolePresenter;
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -12,15 +11,25 @@ import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.utils.Direction;
+import ru.nsu.fit.trubinov.view.consoleViewer.ConsoleViewer;
+import ru.nsu.fit.trubinov.view.consoleViewer.Symbols;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsolePresenter.*;
+import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
 public class ConsoleGamePresenter {
     private static final long waitTimeBeforeGameStop = 1000;
     private static final TextColor fieldColor = new TextColor.RGB(0, 150, 0);
+    private static final Map<Character, Direction> directionsKeyMap = Map.of(
+            'W', Direction.UP, 'w', Direction.UP,
+            'A', Direction.LEFT, 'a', Direction.LEFT,
+            'S', Direction.DOWN, 's', Direction.DOWN,
+            'D', Direction.RIGHT, 'd', Direction.RIGHT
+    );
 
     protected static void game() {
         if (!pollInput()) {
@@ -57,7 +66,7 @@ public class ConsoleGamePresenter {
         if (input.getKeyType() == KeyType.Escape) {
             return false;
         }
-        Direction newDirection = Direction.getDirectionByKey(input);
+        Direction newDirection = directionsKeyMap.get(input.getCharacter());
         if (newDirection != null && model.isPossibleTurn(model.getUserSnake(), newDirection)) {
             model.getUserSnake().setDirection(newDirection);
         }
@@ -74,7 +83,7 @@ public class ConsoleGamePresenter {
 
     private static void drawWalls(List<Wall> walls) {
         walls.forEach(wall -> consoleViewer.drawByCoordinates(wall.getCoordinates(),
-                TextCharacter.DEFAULT_CHARACTER.withCharacter('#'), new TextColor.RGB(0, 0, 0), fieldColor));
+                Symbols.symbolMap.get(WALL), new TextColor.RGB(0, 0, 0), fieldColor));
 
     }
 
@@ -82,12 +91,10 @@ public class ConsoleGamePresenter {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-                    consoleViewer.drawPixel(new Coordinates(i, j),
-                            TextCharacter.DEFAULT_CHARACTER.withCharacter('#'),
+                    consoleViewer.drawPixel(new Coordinates(i, j), Symbols.symbolMap.get(WALL),
                             new TextColor.RGB(0, 0, 0), fieldColor);
                 } else {
-                    consoleViewer.drawPixel(new Coordinates(i, j),
-                            TextCharacter.DEFAULT_CHARACTER, fieldColor, fieldColor);
+                    consoleViewer.drawPixel(new Coordinates(i, j), Symbols.symbolMap.get(NOTHING), fieldColor, fieldColor);
                 }
             }
         }
@@ -95,36 +102,30 @@ public class ConsoleGamePresenter {
 
     private static void drawApples(List<Apple> apples) {
         apples.forEach(apple -> consoleViewer.drawByCoordinates(apple.getCoordinates(),
-                TextCharacter.DEFAULT_CHARACTER.withCharacter('O'), new TextColor.RGB(200, 0, 0), fieldColor));
+                Symbols.symbolMap.get(APPLE), new TextColor.RGB(200, 0, 0), fieldColor));
     }
 
     private static void drawSnakes(Snake userSnake, List<BotSnake> botSnakes) {
-        consoleViewer.drawPixel(userSnake.getHead(), TextCharacter.DEFAULT_CHARACTER
-                .withCharacter(userSnake.getDirection().headCharacter), new TextColor.RGB(0, 255, 0), fieldColor);
+        consoleViewer.drawPixel(userSnake.getHead(), Symbols.headSymbolMap.get(userSnake.getDirection()),
+                new TextColor.RGB(0, 255, 0), fieldColor);
         for (int i = 0; i < userSnake.getCoordinates().size() - 1; i++) {
-            int r = getGradient(userSnake.getCoordinates(), i);
+            int r = ConsoleViewer.getGradient(userSnake.getCoordinates(), i);
             int g = 255;
-            int b = getGradient(userSnake.getCoordinates(), i);
-            consoleViewer.drawPixel(userSnake.getCoordinates().get(i),
-                    TextCharacter.DEFAULT_CHARACTER.withCharacter('@'), new TextColor.RGB(r, g, b), fieldColor);
+            int b = ConsoleViewer.getGradient(userSnake.getCoordinates(), i);
+            consoleViewer.drawPixel(userSnake.getCoordinates().get(i), Symbols.symbolMap.get(SNAKE),
+                    new TextColor.RGB(r, g, b), fieldColor);
         }
         for (Snake botSnake : botSnakes) {
-            consoleViewer.drawPixel(botSnake.getHead(),
-                    TextCharacter.DEFAULT_CHARACTER.withCharacter(botSnake.getDirection().headCharacter),
+            consoleViewer.drawPixel(botSnake.getHead(), Symbols.headSymbolMap.get(botSnake.getDirection()),
                     new TextColor.RGB(0, 0, 0), fieldColor);
             for (int i = 0; i < botSnake.getCoordinates().size() - 1; i++) {
                 int r = 50;
-                int g = getGradient(botSnake.getCoordinates(), i);
-                int b = getGradient(botSnake.getCoordinates(), i);
-                consoleViewer.drawPixel(botSnake.getCoordinates().get(i),
-                        TextCharacter.DEFAULT_CHARACTER.withCharacter('@'),
+                int g = ConsoleViewer.getGradient(botSnake.getCoordinates(), i);
+                int b = ConsoleViewer.getGradient(botSnake.getCoordinates(), i);
+                consoleViewer.drawPixel(botSnake.getCoordinates().get(i), Symbols.symbolMap.get(SNAKE),
                         new TextColor.RGB(r, g, b), fieldColor);
             }
         }
-    }
-
-    private static int getGradient(List<Coordinates> coordinates, int i) {
-        return 255 / (coordinates.size()) * (coordinates.size() - i - 1);
     }
 
     protected static Coordinates doResizeIfNecessary() {
