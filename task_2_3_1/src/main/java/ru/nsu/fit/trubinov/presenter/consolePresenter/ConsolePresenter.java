@@ -9,8 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsoleSettingsPresenter.settings;
-
 
 public class ConsolePresenter implements Presenter {
     protected static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
@@ -31,7 +29,8 @@ public class ConsolePresenter implements Presenter {
         consoleViewer.start();
         ConsoleGamePresenter game = new ConsoleGamePresenter();
         while (exitFlag) {
-            settings();
+            ConsoleSettingsPresenter settings = new ConsoleSettingsPresenter();
+            settings.settings();
             if (!exitFlag) {
                 break;
             }

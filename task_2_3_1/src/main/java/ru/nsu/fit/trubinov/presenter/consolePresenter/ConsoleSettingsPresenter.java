@@ -11,9 +11,9 @@ import ru.nsu.fit.trubinov.utils.Coordinates;
 import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsolePresenter.*;
 
 public class ConsoleSettingsPresenter {
-    private static int currentLine;
+    private int currentLine;
 
-    private static boolean readInput() {
+    private boolean readInput() {
         KeyStroke input = consoleViewer.readInput();
         if (input == null) return true;
         if (input.getKeyType() == KeyType.Character) {
@@ -45,9 +45,9 @@ public class ConsoleSettingsPresenter {
         return true;
     }
 
-    public static void settings() {
+    public void settings() {
         TerminalResizeListener resizeListener = (terminal, newSize)
-                -> ConsoleSettingsPresenter.doResizeIfNecessary();
+                -> this.doResizeIfNecessary();
         consoleViewer.terminal.addResizeListener(resizeListener);
         do {
             draw();
@@ -55,7 +55,7 @@ public class ConsoleSettingsPresenter {
         consoleViewer.terminal.removeResizeListener(resizeListener);
     }
 
-    public static void doResizeIfNecessary() {
+    public void doResizeIfNecessary() {
         consoleViewer.doResizeIfNecessary();
         TerminalSize terminalSize = consoleViewer.getResizedTerminal();
         width = terminalSize.getColumns();
@@ -66,14 +66,14 @@ public class ConsoleSettingsPresenter {
         draw();
     }
 
-    protected static void draw() {
+    protected void draw() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 consoleViewer.drawPixel(new Coordinates(i, j), ' ',
                         TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
             }
         }
-        if (currentLine == 0) {
+        if (this.currentLine == 0) {
             drawGameSpeedSettings();
         } else {
             drawDifficultyLevelSettings();
@@ -81,7 +81,7 @@ public class ConsoleSettingsPresenter {
         consoleViewer.refresh();
     }
 
-    protected static void drawGameSpeedSettings() {
+    protected void drawGameSpeedSettings() {
         consoleViewer.drawTextMessage("Game speed",
                 new Coordinates(width / 2 - "Game speed".length() / 2, height / 2 - 2),
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
@@ -96,7 +96,7 @@ public class ConsoleSettingsPresenter {
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
     }
 
-    protected static void drawDifficultyLevelSettings() {
+    protected void drawDifficultyLevelSettings() {
         consoleViewer.drawTextMessage("Game speed",
                 new Coordinates(width / 2 - "Game speed".length() / 2, height / 2 - 2),
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
