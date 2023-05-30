@@ -17,23 +17,6 @@ public class ConsoleViewer {
     private final Screen screen;
     public Terminal terminal;
 
-    public ConsoleViewer() {
-        try {
-            terminal = new DefaultTerminalFactory()
-                    .setInitialTerminalSize(new TerminalSize(70, 20)).createTerminal();
-//            terminal.addResizeListener(new TerminalResizeListener() {
-//                @Override
-//                public void onResized(Terminal terminal, TerminalSize newSize) {
-//                    screen.doResizeIfNecessary();
-//                }
-//            });
-            screen = new TerminalScreen(terminal);
-            screen.startScreen();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public ConsoleViewer(int width, int height) {
         try {
             terminal = new DefaultTerminalFactory()
@@ -44,6 +27,10 @@ public class ConsoleViewer {
         }
     }
 
+    public static int getGradient(List<Coordinates> coordinates, int i) {
+        return 255 / (coordinates.size()) * (coordinates.size() - i - 1);
+    }
+
     public void start() {
         try {
             screen.startScreen();
@@ -52,17 +39,18 @@ public class ConsoleViewer {
         }
     }
 
-    public void drawPixel(Coordinates coordinate, TextCharacter character,
+    public void drawPixel(Coordinates coordinate, char character,
                           TextColor foregroundColor, TextColor backgroundColor) {
-        screen.setCharacter(coordinate.X(), coordinate.Y(), character
+        screen.setCharacter(coordinate.X(), coordinate.Y(), TextCharacter.DEFAULT_CHARACTER
+                .withCharacter(character)
                 .withForegroundColor(foregroundColor)
                 .withBackgroundColor(backgroundColor));
     }
 
-    public void drawByCoordinates(List<Coordinates> coordinates, TextCharacter character,
+    public void drawByCoordinates(List<Coordinates> coordinates, char character,
                                   TextColor foregroundColor, TextColor backgroundColor) {
         for (Coordinates coordinate : coordinates) {
-            screen.setCharacter(coordinate.X(), coordinate.Y(), character
+            screen.setCharacter(coordinate.X(), coordinate.Y(), TextCharacter.DEFAULT_CHARACTER.withCharacter(character)
                     .withForegroundColor(foregroundColor)
                     .withBackgroundColor(backgroundColor));
         }
