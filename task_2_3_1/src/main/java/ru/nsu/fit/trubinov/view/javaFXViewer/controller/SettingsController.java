@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller;
+package ru.nsu.fit.trubinov.view.javaFXViewer.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

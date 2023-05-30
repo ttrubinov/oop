@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller;
+package ru.nsu.fit.trubinov.view.javaFXViewer.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -69,9 +69,6 @@ public class MenuController {
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> resize();
         stage.widthProperty().addListener(stageSizeListener);
         stage.heightProperty().addListener(stageSizeListener);
-
-//        text.xProperty().bind(pane.widthProperty().divide(2).subtract(text.getLayoutBounds().getWidth() / 2));
-//        text.yProperty().bind(pane.heightProperty().divide(4));
         text.setX(10);
         text.setY(20);
         text.wrappingWidthProperty().bind(stage.widthProperty());
@@ -89,7 +86,6 @@ public class MenuController {
         }
         if (backgroundGame != null) {
             backgroundGame.resize((int) newWidth, (int) newHeight);
-//            text.setText(backgroundGame.model.field.toString());
         }
     }
 
@@ -103,14 +99,6 @@ public class MenuController {
         settingsButton.setMinHeight(newButtonHeight);
         playButton.setMinWidth(newButtonWidth);
         playButton.setMinHeight(newButtonHeight);
-//        ImageView apple = new ImageView(Textures.APPLE.image);
-//        apple.setFitWidth(newButtonWidth / 2);
-//        apple.setFitHeight(newButtonHeight / 2);
-//        settingsButton.setGraphic(apple);
-//        ImageView bedrock = new ImageView(Textures.BEDROCK.image);
-//        bedrock.setFitWidth(newButtonWidth);
-//        bedrock.setFitHeight(newButtonHeight);
-//        playButton.setGraphic(bedrock);
     }
 
     public void settingButton(ActionEvent actionEvent) throws IOException {

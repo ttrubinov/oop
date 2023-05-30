@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="512.0" prefWidth="1024.0"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
-            fx:controller="ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller.GameController">
+            fx:controller="ru.nsu.fit.trubinov.view.javaFXViewer.controller.GameController">
     <children>
         <Canvas fx:id="canvas" height="512.0" width="768.0"/>
         <Canvas fx:id="canvas2" height="512.0" width="256.0"/>

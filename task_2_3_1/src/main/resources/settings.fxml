@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="512.0" prefWidth="768.0"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
-            fx:controller="ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller.SettingsController">
+            fx:controller="ru.nsu.fit.trubinov.view.javaFXViewer.controller.SettingsController">
     <children>
         <Button fx:id="menu" mnemonicParsing="false" onAction="#menuButton" text="Menu"/>
         <Slider fx:id="speed" blockIncrement="1.0" cache="true" majorTickUnit="1.0" max="10.0" min="1.0"

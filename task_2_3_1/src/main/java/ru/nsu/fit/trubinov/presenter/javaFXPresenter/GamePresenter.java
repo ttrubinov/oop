@@ -47,11 +47,11 @@ public class GamePresenter {
     private Consumer<Integer> scoreUpdater;
 
     public GamePresenter(JavaFXViewer viewer, int width, int height,
-                         int difficultyLevel, int gameSpeed, boolean userSnakeSpawnFlag) {
+                         int difficultyLevel, int gameSpeed, boolean isUserPlay) {
         this.viewer = viewer;
         this.width = width;
         this.height = height;
-        if (userSnakeSpawnFlag) {
+        if (isUserPlay) {
             model = new Model(width / 64, height / 64, difficultyLevel);
         } else {
             model = new Model(width / 64, height / 64, difficultyLevel, null);
@@ -101,7 +101,7 @@ public class GamePresenter {
         scoreUpdater.accept(model.getUserSnake().length);
     }
 
-    public void setOnTimelineFinishListener(Runnable runnable) {
+    public void setOnGameEnd(Runnable runnable) {
         this.finishRunnable = runnable;
     }
 

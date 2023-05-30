@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="512.0" prefWidth="768.0"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
-            fx:controller="ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller.MenuController">
+            fx:controller="ru.nsu.fit.trubinov.view.javaFXViewer.controller.MenuController">
     <children>
         <Button fx:id="settingsButton" id="settingsButton" layoutX="334.0" layoutY="231.0" mnemonicParsing="false"
                 onAction="#settingButton" text="Settings"

@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.presenter.javaFXPresenter.controller;
+package ru.nsu.fit.trubinov.view.javaFXViewer.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +34,7 @@ public class GameController {
         viewer = new JavaFXViewer(canvas);
         game = new GamePresenter(viewer, (int) canvas.getWidth(),
                 (int) canvas.getHeight(), difficultyLevel, gameSpeed, true);
-        game.setOnTimelineFinishListener(() -> {
+        game.setOnGameEnd(() -> {
             try {
                 gameEnd();
             } catch (IOException e) {
