@@ -1,7 +1,6 @@
 package ru.nsu.fit.trubinov.presenter.consolePresenter;
 
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -70,7 +69,7 @@ public class ConsoleSettingsPresenter {
     protected static void draw() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                consoleViewer.drawPixel(new Coordinates(i, j), TextCharacter.DEFAULT_CHARACTER,
+                consoleViewer.drawPixel(new Coordinates(i, j), ' ',
                         TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
             }
         }
