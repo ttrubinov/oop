@@ -1,4 +1,4 @@
-package ru.nsu.fit.trubinov.model.field;
+package ru.nsu.fit.trubinov.utils;
 
 public enum FieldObject {
     SNAKE, WALL, APPLE, NOTHING
