@@ -2,12 +2,13 @@ package ru.nsu.fit.trubinov.model.field;
 
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
 import ru.nsu.fit.trubinov.utils.Coordinates;
+import ru.nsu.fit.trubinov.utils.FieldObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.nsu.fit.trubinov.model.field.FieldObject.*;
+import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
 public class Field {
     private int width;

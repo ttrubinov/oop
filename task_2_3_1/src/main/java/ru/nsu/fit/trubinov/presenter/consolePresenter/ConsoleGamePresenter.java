@@ -31,7 +31,8 @@ public class ConsoleGamePresenter {
             'D', Direction.RIGHT, 'd', Direction.RIGHT
     );
 
-    protected static void game() {
+
+    protected void startGame() {
         if (!pollInput()) {
             executor.shutdown();
             return;
@@ -55,7 +56,7 @@ public class ConsoleGamePresenter {
         }
     }
 
-    private static boolean pollInput() {
+    private boolean pollInput() {
         KeyStroke input = consoleViewer.pollInput();
         if (input == null) return true;
         if (input.getKeyType() == KeyType.Character) {
@@ -73,7 +74,7 @@ public class ConsoleGamePresenter {
         return true;
     }
 
-    protected static void draw() {
+    protected void draw() {
         drawField();
         drawApples(model.getApples());
         drawWalls(model.getWalls());
@@ -81,13 +82,13 @@ public class ConsoleGamePresenter {
         consoleViewer.refresh();
     }
 
-    private static void drawWalls(List<Wall> walls) {
+    private void drawWalls(List<Wall> walls) {
         walls.forEach(wall -> consoleViewer.drawByCoordinates(wall.getCoordinates(),
                 Symbols.symbolMap.get(WALL), new TextColor.RGB(0, 0, 0), fieldColor));
 
     }
 
-    private static void drawField() {
+    private void drawField() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
@@ -100,12 +101,12 @@ public class ConsoleGamePresenter {
         }
     }
 
-    private static void drawApples(List<Apple> apples) {
+    private void drawApples(List<Apple> apples) {
         apples.forEach(apple -> consoleViewer.drawByCoordinates(apple.getCoordinates(),
                 Symbols.symbolMap.get(APPLE), new TextColor.RGB(200, 0, 0), fieldColor));
     }
 
-    private static void drawSnakes(Snake userSnake, List<BotSnake> botSnakes) {
+    private void drawSnakes(Snake userSnake, List<BotSnake> botSnakes) {
         consoleViewer.drawPixel(userSnake.getHead(), Symbols.headSymbolMap.get(userSnake.getDirection()),
                 new TextColor.RGB(0, 255, 0), fieldColor);
         for (int i = 0; i < userSnake.getCoordinates().size() - 1; i++) {
@@ -128,7 +129,7 @@ public class ConsoleGamePresenter {
         }
     }
 
-    protected static Coordinates doResizeIfNecessary() {
+    protected Coordinates doResizeIfNecessary() {
         consoleViewer.doResizeIfNecessary();
         TerminalSize terminalSize = consoleViewer.getResizedTerminal();
         width = terminalSize.getColumns();

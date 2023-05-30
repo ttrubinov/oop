@@ -29,18 +29,19 @@ public class ConsolePresenter implements Presenter {
 
     public static void main(String[] args) throws InterruptedException {
         consoleViewer.start();
+        ConsoleGamePresenter game = new ConsoleGamePresenter();
         while (exitFlag) {
             settings();
             if (!exitFlag) {
                 break;
             }
             TerminalResizeListener resizeListener = (terminal, newSize) -> {
-                ConsoleGamePresenter.doResizeIfNecessary();
-                ConsoleGamePresenter.draw();
+                game.doResizeIfNecessary();
+                game.draw();
             };
             consoleViewer.terminal.addResizeListener(resizeListener);
             executor = Executors.newSingleThreadScheduledExecutor();
-            executor.scheduleAtFixedRate(ConsoleGamePresenter::game, 0, gameSpeed, TimeUnit.MILLISECONDS);
+            executor.scheduleAtFixedRate(game::startGame, 0, gameSpeed, TimeUnit.MILLISECONDS);
             executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
             consoleViewer.terminal.removeResizeListener(resizeListener);
         }
