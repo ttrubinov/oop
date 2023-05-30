@@ -7,21 +7,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.nsu.fit.trubinov.model.field.FieldObject.*;
+
 public class Field {
     private int width;
     private int height;
-    private int[][] field;
+    private FieldObject[][] field;
 
     public Field(int width, int height) {
         this.width = width;
         this.height = height;
-        field = new int[width][height];
+        field = new FieldObject[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
-                    field[i][j] = 2;
+                    field[i][j] = WALL;
                 } else {
-                    field[i][j] = 0;
+                    field[i][j] = NOTHING;
                 }
             }
         }
@@ -57,14 +59,14 @@ public class Field {
                 newField.field[i][j] = this.field[i][j];
                 if (i == this.width - 1 && i != width - 1 && j > 0 ||
                         j == this.height - 1 && j != height - 1 && i > 0) { // delete old outer walls
-                    newField.field[i][j] = 0;
+                    newField.field[i][j] = NOTHING;
                 }
             }
         }
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (i == width - 1 || j == height - 1) {
-                    newField.field[i][j] = 2; // add new outer walls
+                    newField.field[i][j] = WALL; // add new outer walls
                 }
             }
         }
@@ -80,7 +82,7 @@ public class Field {
      */
     public void addWall(Coordinates coordinates) {
         if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
-            field[coordinates.X()][coordinates.Y()] = 2;
+            field[coordinates.X()][coordinates.Y()] = WALL;
         }
     }
 
@@ -91,7 +93,7 @@ public class Field {
      */
     public void addSnake(Coordinates coordinates) {
         if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
-            field[coordinates.X()][coordinates.Y()] = 3;
+            field[coordinates.X()][coordinates.Y()] = SNAKE;
         }
     }
 
@@ -102,7 +104,7 @@ public class Field {
      */
     public void addNoCollisionFieldObject(Coordinates coordinates) {
         if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
-            field[coordinates.X()][coordinates.Y()] = 1;
+            field[coordinates.X()][coordinates.Y()] = APPLE;
         }
     }
 
@@ -113,15 +115,15 @@ public class Field {
      */
     public void addEmptyCell(Coordinates coordinates) {
         if (coordinates.X() > 0 && coordinates.Y() > 0 && coordinates.X() < width - 1 && coordinates.Y() < height - 1) {
-            field[coordinates.X()][coordinates.Y()] = 0;
+            field[coordinates.X()][coordinates.Y()] = NOTHING;
         }
     }
 
     public Coordinates deathIntersectionCoordinates(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         try {
-            if (field[coordinates.X()][coordinates.Y()] != 0 &&
-                    field[coordinates.X()][coordinates.Y()] != 1 &&
+            if (field[coordinates.X()][coordinates.Y()] != APPLE &&
+                    field[coordinates.X()][coordinates.Y()] != NOTHING &&
                     !coordinates.equals(snake.getCoordinates().get(0))) {
                 return coordinates;
             }
@@ -131,18 +133,14 @@ public class Field {
         return null;
     }
 
-    public boolean isDeath(Coordinates coordinates) {
-        return field[coordinates.X()][coordinates.Y()] == 2 || field[coordinates.X()][coordinates.Y()] == 3;
-    }
-
     public boolean isEmpty(Coordinates coordinates) {
-        return field[coordinates.X()][coordinates.Y()] == 0;
+        return field[coordinates.X()][coordinates.Y()] == NOTHING;
     }
 
     public boolean intersectionWithApple(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         try {
-            if (field[coordinates.X()][coordinates.Y()] == 1) {
+            if (field[coordinates.X()][coordinates.Y()] == APPLE) {
                 return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
@@ -164,7 +162,7 @@ public class Field {
                 for (int k = -emptySpace; k <= emptySpace; k++) {
                     for (int l = -emptySpace; l <= emptySpace; l++) {
                         try {
-                            if (field[i + k][j + l] == 0) {
+                            if (field[i + k][j + l] == NOTHING) {
                                 cnt++;
                             }
                         } catch (ArrayIndexOutOfBoundsException ignored) {
@@ -172,7 +170,7 @@ public class Field {
                     }
                 }
                 if (cnt == (2 * emptySpace + 1) * (2 * emptySpace + 1)) {
-                    if (field[i][j] == 0) {
+                    if (field[i][j] == NOTHING) {
                         emptyCells.add(new Coordinates(i, j));
                     }
                 }
