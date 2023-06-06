@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'ru.nsu.fit.trubinov'
+version '1.0-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = "16"
+    targetCompatibility = "16"
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'info.picocli:picocli:4.7.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "ru/nsu/fit/trubinov/Main.class",
+            ])
+        }))
+    }
+}

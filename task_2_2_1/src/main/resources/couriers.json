@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "deliveryTime": 4
+  },
+  {
+    "id": 2,
+    "deliveryTime": 7
+  },
+  {
+    "id": 3,
+    "deliveryTime": 3
+  }
+]
