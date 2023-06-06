@@ -22,7 +22,6 @@ public class MenuController {
     public Button playButton;
     public AnchorPane pane;
     public Text text;
-    //    public Text text;
     private int difficultyLevel = 2;
     private int gameSpeed = 600;
     private JavaFXViewer viewer;
@@ -56,8 +55,8 @@ public class MenuController {
 
     public void initGame() {
         viewer = new JavaFXViewer(canvas);
-        final int backgroundGameDifficultyLevel = 6;
-        final int backgroundGameSpeed = 300;
+        final int backgroundGameDifficultyLevel = 1;
+        final int backgroundGameSpeed = 100;
         backgroundGame = new GamePresenter(viewer, (int) canvas.getWidth(),
                 (int) canvas.getHeight(), backgroundGameDifficultyLevel, backgroundGameSpeed, false);
         backgroundGame.start(); // Starting game in background of menu screen without user snake

@@ -5,6 +5,7 @@ module ru.nsu.fit.trubinov {
 
     exports ru.nsu.fit.trubinov.view.javaFXViewer.controller;
     exports ru.nsu.fit.trubinov.presenter.javaFXPresenter;
+    exports ru.nsu.fit.trubinov.utils;
     opens ru.nsu.fit.trubinov.presenter.javaFXPresenter to javafx.fxml;
     opens ru.nsu.fit.trubinov.view.javaFXViewer.controller to javafx.fxml;
     opens ru.nsu.fit.trubinov.view.javaFXViewer to javafx.fxml;

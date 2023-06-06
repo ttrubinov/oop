@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
+/**
+ * Different bot movements.
+ */
 public enum Movement {
     NO_COLLISION(Movement::doNoCollisionMovement),
     RANDOM_WITH_NO_COLLISION(Movement::doRandomNoCollisionMovement),
@@ -23,6 +26,12 @@ public enum Movement {
         this.movementFunction = getNewDirection;
     }
 
+    /**
+     * Movement, in which snake moves by straight line but tries not to collide on this step.
+     *
+     * @param botSnake snake to do movement with
+     * @param field    field of the snake
+     */
     private static void doNoCollisionMovement(BotSnake botSnake, Field field) {
         List<Direction> randomDirections = Direction.getAllDirectionsRandomly();
         while (randomDirections.size() > 0 && botSnake.getField().deathIntersectionCoordinates(botSnake) != null) {
@@ -35,6 +44,12 @@ public enum Movement {
         botSnake.setDirection(botSnake.getDirection());
     }
 
+    /**
+     * Movement, in which snake moves randomly but tries not to collide on this step.
+     *
+     * @param botSnake snake to do movement with
+     * @param field    field of the snake
+     */
     private static void doRandomNoCollisionMovement(BotSnake botSnake, Field field) {
         List<Direction> randomDirections = Direction.getAllDirectionsRandomly();
         for (Direction randomDirection : randomDirections) {
@@ -48,9 +63,22 @@ public enum Movement {
         }
     }
 
+    /**
+     * Movement, in which snake moves by straight line
+     *
+     * @param botSnake snake to do movement with
+     * @param field    field of the snake
+     */
     private static void doStraightMovement(BotSnake botSnake, Field field) {
     }
 
+    /**
+     * Movement, in which snake calculates N steps further and chooses the best one.
+     * It has adjustable recursion depth, depending on calculation time of previous calculation.
+     *
+     * @param botSnake snake to do movement with
+     * @param field    field of the snake
+     */
     private static void doSmartMovement(BotSnake botSnake, Field field) {
         newDirection = null;
         long startTime = System.currentTimeMillis();
@@ -66,6 +94,13 @@ public enum Movement {
         }
     }
 
+    /**
+     * Method of calculating N steps of recursion for smart movement.
+     *
+     * @param botSnake snake, which steps to calculate
+     * @param n        steps of recursion
+     * @return maximal value that snake can get in N steps
+     */
     private static int calculateN(BotSnake botSnake, int n) {
         if (n == recursionDepth) {
             return evaluateNextPos(botSnake);
@@ -102,6 +137,13 @@ public enum Movement {
         return maxValue;
     }
 
+    /**
+     * Evaluation of position of the snake.
+     * Snake gets more score with apples and following walls with its body lines.
+     *
+     * @param botSnake snake to evaluate
+     * @return evaluation value
+     */
     private static int evaluateNextPos(BotSnake botSnake) {
         int curValue = 0;
         final int appleValue = 30;
@@ -129,12 +171,22 @@ public enum Movement {
         return curValue;
     }
 
+    /**
+     * Get all the movements in random order.
+     *
+     * @return list of movements
+     */
     public static List<Movement> getAllMovementsRandomly() {
         List<Movement> allMovements = new ArrayList<>(Stream.of(Movement.values()).toList());
         Collections.shuffle(allMovements);
         return allMovements;
     }
 
+    /**
+     * Get random movement.
+     *
+     * @return random movement
+     */
     public static Movement getRandomMovement() {
         return getAllMovementsRandomly().get(0);
     }

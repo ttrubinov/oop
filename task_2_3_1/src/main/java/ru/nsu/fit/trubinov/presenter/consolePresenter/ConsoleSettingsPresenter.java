@@ -10,6 +10,9 @@ import ru.nsu.fit.trubinov.utils.Coordinates;
 
 import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsolePresenter.*;
 
+/**
+ * Presenter of the console settings.
+ */
 public class ConsoleSettingsPresenter {
     private int currentLine;
 
@@ -45,6 +48,9 @@ public class ConsoleSettingsPresenter {
         return true;
     }
 
+    /**
+     * Settings of the game.
+     */
     public void settings() {
         TerminalResizeListener resizeListener = (terminal, newSize)
                 -> this.doResizeIfNecessary();
@@ -55,6 +61,9 @@ public class ConsoleSettingsPresenter {
         consoleViewer.terminal.removeResizeListener(resizeListener);
     }
 
+    /**
+     * Resizing.
+     */
     public void doResizeIfNecessary() {
         consoleViewer.doResizeIfNecessary();
         TerminalSize terminalSize = consoleViewer.getResizedTerminal();
@@ -66,6 +75,9 @@ public class ConsoleSettingsPresenter {
         draw();
     }
 
+    /**
+     * Draw the settings.
+     */
     protected void draw() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -81,7 +93,7 @@ public class ConsoleSettingsPresenter {
         consoleViewer.refresh();
     }
 
-    protected void drawGameSpeedSettings() {
+    private void drawGameSpeedSettings() {
         consoleViewer.drawTextMessage("Game speed",
                 new Coordinates(width / 2 - "Game speed".length() / 2, height / 2 - 2),
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
@@ -96,7 +108,7 @@ public class ConsoleSettingsPresenter {
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
     }
 
-    protected void drawDifficultyLevelSettings() {
+    private void drawDifficultyLevelSettings() {
         consoleViewer.drawTextMessage("Game speed",
                 new Coordinates(width / 2 - "Game speed".length() / 2, height / 2 - 2),
                 TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);

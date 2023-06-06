@@ -24,6 +24,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
+/**
+ * Presenter of JavaFX game.
+ */
 public class GamePresenter implements Presenter {
     private static final Map<KeyCode, Direction> directionsKeyMap = Map.of(
             KeyCode.W, Direction.UP,
@@ -61,7 +64,7 @@ public class GamePresenter implements Presenter {
         this.gameSpeed = gameSpeed;
     }
 
-    public void init() {
+    private void init() {
         if (model.getUserSnake() == null) {
             model = new Model(width / 64, height / 64, difficultyLevel, null);
         } else {
@@ -74,6 +77,9 @@ public class GamePresenter implements Presenter {
         draw();
     }
 
+    /**
+     * Playing game by ticks.
+     */
     public void start() {
         init();
         timeline = new Timeline();
@@ -110,10 +116,13 @@ public class GamePresenter implements Presenter {
         model.setBotSpawnListener(this::addNewBot);
     }
 
-    public void addNewBot(BotSnake botSnake) {
+    private void addNewBot(BotSnake botSnake) {
         snakeColorMap.put(botSnake, getRandomValue());
     }
 
+    /**
+     * Draw everything from the field.
+     */
     private void draw() {
         drawField();
         if (model.getUserSnake() != null) {
@@ -125,7 +134,11 @@ public class GamePresenter implements Presenter {
         drawGrid();
     }
 
-
+    /**
+     * Keys pressed handling.
+     *
+     * @param keyEvent key pressed
+     */
     public void onKeyPressed(KeyEvent keyEvent) {
         Direction direction = getDirectionByKeyEvent(keyEvent);
         if (direction != null && model.getUserSnake().isPossibleTurn(direction)) {
@@ -220,6 +233,12 @@ public class GamePresenter implements Presenter {
         }
     }
 
+    /**
+     * Resizing.
+     *
+     * @param width  width of field
+     * @param height height of field
+     */
     public void resize(int width, int height) {
         model.resize(width / 64, height / 64);
         draw();

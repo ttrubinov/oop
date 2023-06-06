@@ -10,6 +10,9 @@ import java.util.List;
 
 import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
+/**
+ * Field of the game, contains all the objects.
+ */
 public class Field implements Cloneable {
     private int width;
     private int height;
@@ -65,6 +68,12 @@ public class Field implements Cloneable {
         return String.valueOf(s);
     }
 
+    /**
+     * Resizing the field.
+     *
+     * @param width  width of a new field
+     * @param height height of a new field
+     */
     public void resize(int width, int height) {
         Field newField = new Field(width, height);
         for (int i = 0; i < Math.min(this.width, width); i++) {
@@ -132,6 +141,12 @@ public class Field implements Cloneable {
         }
     }
 
+    /**
+     * Get coordinates of snake's intersection with object which kills it.
+     *
+     * @param snake snake to check
+     * @return coordinates of the intersection
+     */
     public Coordinates deathIntersectionCoordinates(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         try {
@@ -146,15 +161,33 @@ public class Field implements Cloneable {
         return null;
     }
 
+    /**
+     * Check if the cell is empty.
+     *
+     * @param coordinates coordinates of the cell
+     * @return true if the cell is empty.
+     */
     public boolean isEmpty(Coordinates coordinates) {
         return field[coordinates.X()][coordinates.Y()] == NOTHING;
     }
 
+    /**
+     * Get coordinates of snake's intersection with apple.
+     *
+     * @param snake snake to check
+     * @return coordinates of the intersection
+     */
     public boolean intersectionWithApple(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         return field[coordinates.X()][coordinates.Y()] == APPLE;
     }
 
+    /**
+     * Check if snake intersects object which kills it
+     *
+     * @param snake snake to check
+     * @return true if snake intersects object which kills it
+     */
     public boolean deathIntersection(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         return !coordinates.equals(snake.getCoordinates().get(0)) &&
@@ -162,11 +195,23 @@ public class Field implements Cloneable {
                 field[coordinates.X()][coordinates.Y()] != NOTHING;
     }
 
+    /**
+     * Check if snake intersects any snake
+     *
+     * @param snake snake to check
+     * @return true if snake intersects any snake
+     */
     public boolean isSnakeIntersection(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         return !coordinates.equals(snake.getCoordinates().get(0)) && field[coordinates.X()][coordinates.Y()] == SNAKE;
     }
 
+    /**
+     * Check if snake intersects any wall
+     *
+     * @param snake snake to check
+     * @return true if snake intersects any wall
+     */
     public boolean isWallIntersection(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
         return !coordinates.equals(snake.getCoordinates().get(0)) && field[coordinates.X()][coordinates.Y()] == WALL;

@@ -7,6 +7,9 @@ import java.util.Map;
 
 import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
+/**
+ * Symbols to draw on the screen.
+ */
 public class Symbols {
     public static final Map<Direction, Character> headSymbolMap = Map.of(
             Direction.UP, '^',

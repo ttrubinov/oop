@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
+/**
+ * Game model, game logic provides here.
+ */
 public class Model {
     public final Field field;
     private final Snake userSnake;
@@ -54,6 +57,7 @@ public class Model {
         apples = new ArrayList<>();
     }
 
+
     public Coordinates getMaxCoordinates() {
         return field.getWidthAndHeight();
     }
@@ -74,6 +78,11 @@ public class Model {
         return walls;
     }
 
+    /**
+     * Make next model move with moving bots, user snake and collecting apples.
+     *
+     * @return coordinates of user's death intersection if such happened
+     */
     public Coordinates makeMove() {
 
         Coordinates intersection = null;
@@ -128,11 +137,16 @@ public class Model {
         }
     }
 
+    /**
+     * Listener on bot spawning.
+     *
+     * @param botSpawnListener function to execute on bot spawning
+     */
     public void setBotSpawnListener(Consumer<BotSnake> botSpawnListener) {
         this.botSpawnListener = botSpawnListener;
     }
 
-    public void spawnBotsListener(BotSnake botSnake) {
+    private void spawnBotsListener(BotSnake botSnake) {
         if (botSpawnListener != null) {
             botSpawnListener.accept(botSnake);
         }
@@ -199,6 +213,13 @@ public class Model {
         return snake.isPossibleTurn(direction);
     }
 
+    /**
+     * Resizing of the model.
+     *
+     * @param width  new width
+     * @param height new height
+     * @return coordinates of user snake's death intersection if such happened
+     */
     public Coordinates resize(int width, int height) {
         field.resize(width, height);
         if (userSnake != null) {

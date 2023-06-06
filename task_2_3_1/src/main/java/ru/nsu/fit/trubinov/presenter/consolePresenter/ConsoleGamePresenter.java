@@ -21,6 +21,9 @@ import java.util.Objects;
 import static ru.nsu.fit.trubinov.presenter.consolePresenter.ConsolePresenter.*;
 import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
+/**
+ * Presenter of the game screen in console.
+ */
 public class ConsoleGamePresenter {
     private static final long waitTimeBeforeGameStop = 1000;
     private static final TextColor fieldColor = new TextColor.RGB(0, 150, 0);
@@ -31,7 +34,9 @@ public class ConsoleGamePresenter {
             'D', Direction.RIGHT, 'd', Direction.RIGHT
     );
 
-
+    /**
+     * Starting a game.
+     */
     protected void startGame() {
         if (!pollInput()) {
             executor.shutdown();
@@ -74,6 +79,9 @@ public class ConsoleGamePresenter {
         return true;
     }
 
+    /**
+     * Drawing everything from field.
+     */
     protected void draw() {
         drawField();
         drawApples(model.getApples());
@@ -129,6 +137,11 @@ public class ConsoleGamePresenter {
         }
     }
 
+    /**
+     * Resizing.
+     *
+     * @return coordinates of user snake's death intersection if such happened
+     */
     protected Coordinates doResizeIfNecessary() {
         consoleViewer.doResizeIfNecessary();
         TerminalSize terminalSize = consoleViewer.getResizedTerminal();

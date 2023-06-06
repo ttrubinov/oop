@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 
+/**
+ * Drawing with JavaFX.
+ */
 public class JavaFXViewer {
     public GraphicsContext gc;
 
@@ -20,10 +23,24 @@ public class JavaFXViewer {
         this.gc = gc;
     }
 
+    /**
+     * Draw image without any adjustments.
+     *
+     * @param image       image to draw
+     * @param coordinates coordinates of the image
+     */
     public void drawDefaultImage(Image image, Coordinates coordinates) {
         gc.drawImage(image, coordinates.X(), coordinates.Y());
     }
 
+    /**
+     * Draw image with angle and color adjustments.
+     *
+     * @param image       image to draw
+     * @param angle       angle to rotate the image
+     * @param hue         hue to adjust the image on
+     * @param coordinates coordinates of the image
+     */
     public void drawImage(Image image, int angle, double hue, Coordinates coordinates) {
         ImageView imageView = new ImageView(image);
         imageView.setRotate(angle);
@@ -35,6 +52,11 @@ public class JavaFXViewer {
         gc.drawImage(imageView.snapshot(params, null), coordinates.X(), coordinates.Y());
     }
 
+    /**
+     * Draw borders around the field.
+     *
+     * @param canvas canvas to draw borders on
+     */
     public void drawBedrockBorders(Canvas canvas) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for (int i = 0; i < canvas.getWidth() / 64; i++) {

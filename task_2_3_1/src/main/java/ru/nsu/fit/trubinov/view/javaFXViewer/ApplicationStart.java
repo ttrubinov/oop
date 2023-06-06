@@ -11,6 +11,9 @@ import ru.nsu.fit.trubinov.view.javaFXViewer.controller.MenuController;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Starting the JavaFX game.
+ */
 public class ApplicationStart extends Application {
     public static void main(String[] args) {
         Application.launch(args);

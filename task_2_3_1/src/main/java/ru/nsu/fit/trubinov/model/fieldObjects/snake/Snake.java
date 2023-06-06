@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Snake of the snake game.
+ */
 public class Snake implements FieldObject {
     public final Map<Coordinates, Direction> snakeCeilDirections;
     private final List<Coordinates> bodyCoordinates;
@@ -37,6 +40,14 @@ public class Snake implements FieldObject {
         this.direction = direction;
         snakeCeilDirections = new HashMap<>();
         snakeCeilDirections.put(coordinates, this.direction);
+    }
+
+    public Snake(Snake snake) {
+        this.length = snake.length;
+        this.bodyCoordinates = new ArrayList<>(snake.bodyCoordinates);
+        this.snakeCeilDirections = new HashMap<>(snake.snakeCeilDirections);
+        this.direction = snake.direction;
+        this.field = snake.field.clone();
     }
 
     public List<Coordinates> getCoordinates() {
@@ -75,7 +86,6 @@ public class Snake implements FieldObject {
      */
     public void move() {
         if (bodyCoordinates.size() == 1) {
-//            field.addFieldObjectWithCollision(bodyCoordinates.get(0));
             field.addSnake(bodyCoordinates.get(0));
         }
         if (bodyCoordinates.size() == length) { // Standard movement
@@ -103,7 +113,7 @@ public class Snake implements FieldObject {
      * @return true if snake can do a turn in the direction
      */
     public boolean isPossibleTurn(Direction direction) {
-        return this.getCoordinates().size() <= 1 ||
+        return this.getCoordinates().size() > 1 &&
                 !this.getHead().sum(direction.getShiftByDirection()).
                         equals(this.getCoordinates().get(this.getCoordinates().size() - 2));
     }

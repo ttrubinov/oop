@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Textures of the drawing.
+ */
 public enum Textures {
     HEAD("snakeHead.png"),
     TAIL("snakeTail.png"),

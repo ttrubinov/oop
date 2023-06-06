@@ -9,7 +9,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * Presenter of the console, which switches between the game and setting screens.
+ */
 public class ConsolePresenter implements Presenter {
     protected static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     protected static int width = 40;
@@ -46,6 +48,9 @@ public class ConsolePresenter implements Presenter {
         }
     }
 
+    /**
+     * Exit from the game.
+     */
     protected static void exit() {
         executor.shutdown();
         consoleViewer.exit();

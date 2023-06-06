@@ -13,6 +13,9 @@ import ru.nsu.fit.trubinov.utils.Coordinates;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Drawing in console.
+ */
 public class ConsoleViewer {
     private final Screen screen;
     public Terminal terminal;
@@ -27,10 +30,20 @@ public class ConsoleViewer {
         }
     }
 
-    public static int getGradient(List<Coordinates> coordinates, int i) {
-        return 255 / (coordinates.size()) * (coordinates.size() - i - 1);
+    /**
+     * Get color gradient.
+     *
+     * @param coordinates list of coordinates to get gradient on
+     * @param index       index of current cell
+     * @return gradient value
+     */
+    public static int getGradient(List<Coordinates> coordinates, int index) {
+        return 255 / (coordinates.size()) * (coordinates.size() - index - 1);
     }
 
+    /**
+     * Start the screen.
+     */
     public void start() {
         try {
             screen.startScreen();
@@ -39,6 +52,14 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Draw 1 pixel.
+     *
+     * @param coordinate      coordinates of the pixel.
+     * @param character       character to draw on the pixel.
+     * @param foregroundColor foreground color of the pixel.
+     * @param backgroundColor backgroundColor color of the pixel.
+     */
     public void drawPixel(Coordinates coordinate, char character,
                           TextColor foregroundColor, TextColor backgroundColor) {
         screen.setCharacter(coordinate.X(), coordinate.Y(), TextCharacter.DEFAULT_CHARACTER
@@ -47,6 +68,14 @@ public class ConsoleViewer {
                 .withBackgroundColor(backgroundColor));
     }
 
+    /**
+     * Draw many pixels by the list of coordinates.
+     *
+     * @param coordinates     coordinates of the pixels.
+     * @param character       character to draw on the pixels.
+     * @param foregroundColor foreground color of the pixels.
+     * @param backgroundColor backgroundColor color of the pixels.
+     */
     public void drawByCoordinates(List<Coordinates> coordinates, char character,
                                   TextColor foregroundColor, TextColor backgroundColor) {
         for (Coordinates coordinate : coordinates) {
@@ -56,6 +85,9 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Resizing.
+     */
     public void doResizeIfNecessary() {
         screen.doResizeIfNecessary();
     }
@@ -64,6 +96,11 @@ public class ConsoleViewer {
         return screen.getTerminalSize();
     }
 
+    /**
+     * Polling user input.
+     *
+     * @return key that user pressed
+     */
     public KeyStroke pollInput() {
         try {
             return screen.pollInput();
@@ -72,6 +109,11 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Reading user input.
+     *
+     * @return key that user pressed
+     */
     public KeyStroke readInput() {
         try {
             return screen.readInput();
@@ -80,6 +122,9 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Refreshing the screen.
+     */
     public void refresh() {
         try {
             screen.refresh();
@@ -88,6 +133,12 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Draw intersection on the screen.
+     *
+     * @param coordinates     coordinates of the intersection
+     * @param backgroundColor backgroundColor to draw
+     */
     public void drawIntersection(Coordinates coordinates, TextColor backgroundColor) {
         screen.setCharacter(coordinates.X(), coordinates.Y(),
                 TextCharacter.DEFAULT_CHARACTER
@@ -96,6 +147,13 @@ public class ConsoleViewer {
                         .withBackgroundColor(backgroundColor));
     }
 
+    /**
+     * Draw text message on the screen.
+     *
+     * @param coordinates     coordinates of the text message
+     * @param foregroundColor foregroundColor to draw
+     * @param backgroundColor backgroundColor to draw
+     */
     public void drawTextMessage(String s, Coordinates coordinates, TextColor foregroundColor, TextColor backgroundColor) {
         for (int i = 0; i < s.length(); i++) {
             screen.setCharacter(coordinates.X() + i, coordinates.Y(),
@@ -106,6 +164,9 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Draw die message on the screen.
+     */
     public void drawDieMessage() {
         String s = "GAME OVER";
         for (int i = 0; i < s.length(); i++) {
@@ -118,6 +179,9 @@ public class ConsoleViewer {
         }
     }
 
+    /**
+     * Exit from the screen.
+     */
     public void exit() {
         try {
             screen.close();
