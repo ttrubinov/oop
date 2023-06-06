@@ -34,14 +34,15 @@ public enum Movement {
      */
     private static void doNoCollisionMovement(BotSnake botSnake, Field field) {
         List<Direction> randomDirections = Direction.getAllDirectionsRandomly();
-        while (randomDirections.size() > 0 && botSnake.getField().deathIntersectionCoordinates(botSnake) != null) {
-            if (!botSnake.isPossibleTurn(randomDirections.get(0))) {
+        for (Direction randomDirection : randomDirections) {
+            if (!botSnake.isPossibleTurn(randomDirection) || !botSnake.getField().deathIntersection(botSnake)) {
                 continue;
             }
-            botSnake.setDirection(randomDirections.get(0));
-            randomDirections.remove(0);
+            botSnake.setDirection(randomDirection);
+            if (botSnake.getField().deathIntersectionCoordinates(botSnake) == null) {
+                break;
+            }
         }
-        botSnake.setDirection(botSnake.getDirection());
     }
 
     /**

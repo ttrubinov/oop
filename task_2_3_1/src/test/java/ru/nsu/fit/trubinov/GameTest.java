@@ -4,9 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.nsu.fit.trubinov.model.Model;
+import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Movement;
+import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.utils.FieldObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameTest {
     private static Model model;
@@ -26,7 +31,7 @@ public class GameTest {
     @Test
     void movementTest() {
         BotSnake botSnake = model.getBotSnakes().get(0);
-        botSnake.setMovement(Movement.RANDOM_WITH_NO_COLLISION);
+        botSnake.setMovement(Movement.NO_COLLISION);
         for (int i = 0; i < 5; i++) {
             model.makeMove();
         }
@@ -36,6 +41,16 @@ public class GameTest {
             model.makeMove();
         }
         Assertions.assertSame(model.getBotSnakes().get(0), botSnake);
+        botSnake.setMovement(Movement.RANDOM_WITH_NO_COLLISION);
+        for (int i = 0; i < 5; i++) {
+            model.makeMove();
+        }
+        Assertions.assertSame(model.getBotSnakes().get(0), botSnake);
+        botSnake.setMovement(Movement.STRAIGHT);
+        for (int i = 0; i < 10; i++) {
+            model.makeMove();
+        }
+        Assertions.assertEquals(0, model.getBotSnakes().size());
     }
 
     @Test
@@ -57,4 +72,14 @@ public class GameTest {
         }
         Assertions.assertEquals(0, model.getBotSnakes().size());
     }
+
+    @Test
+    void fieldObjectTest() {
+        Wall wall = new Wall(new ArrayList<>());
+        wall.getCoordinates().add(new Coordinates(100, 100));
+        Assertions.assertTrue(wall.isOutOfBounds(5, 5));
+        Assertions.assertEquals(wall.getCoordinates(), List.of(new Coordinates(100, 100)));
+    }
+
+
 }
