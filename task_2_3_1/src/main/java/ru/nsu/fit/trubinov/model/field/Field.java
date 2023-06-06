@@ -30,6 +30,10 @@ public class Field implements Cloneable {
         }
     }
 
+    public FieldObject[][] getField() {
+        return field;
+    }
+
     public int getWidth() {
         return width;
     }
