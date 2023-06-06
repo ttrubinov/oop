@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "minTimeBetweenOrders": 4,
+    "maxTimeBetweenOrders": 7
+  },
+  {
+    "id": 2,
+    "minTimeBetweenOrders": 5,
+    "maxTimeBetweenOrders": 8
+  }
+]
