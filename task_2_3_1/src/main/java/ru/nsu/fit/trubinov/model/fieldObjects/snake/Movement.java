@@ -9,16 +9,18 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-// TODO: More movement types
 public enum Movement {
     NO_COLLISION(Movement::doNoCollisionMovement),
     RANDOM_WITH_NO_COLLISION(Movement::doRandomNoCollisionMovement),
-    STRAIGHT(Movement::doStraightMovement);
+    STRAIGHT(Movement::doStraightMovement),
+    SMART(Movement::doSmartMovement);
 
-    private final BiConsumer<BotSnake, Field> function;
+    public static int recursionDepth = 8;
+    private static Direction newDirection;
+    private final BiConsumer<BotSnake, Field> movementFunction;
 
     Movement(BiConsumer<BotSnake, Field> getNewDirection) {
-        this.function = getNewDirection;
+        this.movementFunction = getNewDirection;
     }
 
     private static void doNoCollisionMovement(BotSnake botSnake, Field field) {
@@ -47,7 +49,84 @@ public enum Movement {
     }
 
     private static void doStraightMovement(BotSnake botSnake, Field field) {
+    }
 
+    private static void doSmartMovement(BotSnake botSnake, Field field) {
+        newDirection = null;
+        long startTime = System.currentTimeMillis();
+        calculateN(botSnake.clone(), 0);
+        long endTime = System.currentTimeMillis();
+        if (endTime - startTime < 10 && recursionDepth < 60) {
+            recursionDepth++;
+        } else {
+            recursionDepth--;
+        }
+        if (newDirection != null) {
+            botSnake.setDirection(newDirection);
+        }
+    }
+
+    private static int calculateN(BotSnake botSnake, int n) {
+        if (n == recursionDepth) {
+            return evaluateNextPos(botSnake);
+        }
+        int maxValue = Integer.MIN_VALUE;
+        Direction newDir = null;
+        Direction initialDir = botSnake.getDirection();
+        for (Direction direction : Direction.getAllDirectionsRandomly()) {
+            if (!botSnake.isPossibleTurn(direction)) {
+                continue;
+            }
+            botSnake.setDirection(direction);
+            if (botSnake.getField().deathIntersection(botSnake)) {
+                botSnake.setDirection(initialDir);
+                continue;
+            }
+            botSnake.setDirection(initialDir);
+            BotSnake curBotSnake = botSnake.clone();
+            curBotSnake.setDirection(direction);
+            int curSnakeValue = evaluateNextPos(curBotSnake);
+            if (curSnakeValue < 0) {
+                continue;
+            }
+            curBotSnake.move();
+            curSnakeValue += calculateN(curBotSnake, n + 1);
+            if (maxValue < curSnakeValue) {
+                maxValue = curSnakeValue;
+                newDir = curBotSnake.getDirection();
+            }
+        }
+        if (n == 0 && newDir != null) {
+            newDirection = newDir;
+        }
+        return maxValue;
+    }
+
+    private static int evaluateNextPos(BotSnake botSnake) {
+        int curValue = 0;
+        final int appleValue = 30;
+        final int wallValue = -1000;
+        final int snakeIsCloseValue = 14;
+        final int wallIsCloseValue = snakeIsCloseValue * 2;
+        if (botSnake.getField().intersectionWithApple(botSnake)) {
+            curValue += appleValue;
+            botSnake.length++;
+        } else if (botSnake.getField().deathIntersection(botSnake)) {
+            curValue -= wallValue;
+        } else {
+            curValue++;
+        }
+        Direction initialDir = botSnake.getDirection();
+        for (Direction direction : Direction.getAllDirectionsRandomly()) {
+            botSnake.setDirection(direction);
+            if (botSnake.getField().isSnakeIntersection(botSnake)) {
+                curValue += snakeIsCloseValue;
+            } else if (botSnake.getField().isWallIntersection(botSnake)) {
+                curValue += wallIsCloseValue;
+            }
+        }
+        botSnake.setDirection(initialDir);
+        return curValue;
     }
 
     public static List<Movement> getAllMovementsRandomly() {
@@ -61,6 +140,6 @@ public enum Movement {
     }
 
     public void setNewDirection(BotSnake botSnake, Field field) {
-        function.accept(botSnake, field);
+        movementFunction.accept(botSnake, field);
     }
 }

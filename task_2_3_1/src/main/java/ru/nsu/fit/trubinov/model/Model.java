@@ -4,6 +4,7 @@ import ru.nsu.fit.trubinov.model.field.Field;
 import ru.nsu.fit.trubinov.model.fieldObjects.Apple;
 import ru.nsu.fit.trubinov.model.fieldObjects.Wall;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.BotSnake;
+import ru.nsu.fit.trubinov.model.fieldObjects.snake.Movement;
 import ru.nsu.fit.trubinov.model.fieldObjects.snake.Snake;
 import ru.nsu.fit.trubinov.utils.Coordinates;
 import ru.nsu.fit.trubinov.utils.Direction;
@@ -87,8 +88,8 @@ public class Model {
         }
         allSnakes.removeIf(snake -> snake.length <= 0);
         spawnWalls();
-        spawnApples();
         spawnBots();
+        spawnApples();
         return null;
     }
 
@@ -106,6 +107,7 @@ public class Model {
                 field.addSnake(botSnake.getHead());
                 iterator.remove();
                 botsToDelete.add(botSnake);
+                Movement.recursionDepth = 10;
             }
         }
         botSnakes.removeAll(botsToDelete);
