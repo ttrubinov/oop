@@ -1,0 +1,12 @@
+module:ru.nsu.fit.trubinov
+ru.nsu.fit.trubinov.model
+ru.nsu.fit.trubinov.model.field
+ru.nsu.fit.trubinov.model.fieldObjects
+ru.nsu.fit.trubinov.model.fieldObjects.snake
+ru.nsu.fit.trubinov.presenter
+ru.nsu.fit.trubinov.presenter.consolePresenter
+ru.nsu.fit.trubinov.presenter.javaFXPresenter
+ru.nsu.fit.trubinov.utils
+ru.nsu.fit.trubinov.view.consoleViewer
+ru.nsu.fit.trubinov.view.javaFXViewer
+ru.nsu.fit.trubinov.view.javaFXViewer.controller
