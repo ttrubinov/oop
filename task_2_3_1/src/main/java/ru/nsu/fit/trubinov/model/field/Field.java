@@ -10,7 +10,7 @@ import java.util.List;
 
 import static ru.nsu.fit.trubinov.utils.FieldObject.*;
 
-public class Field {
+public class Field implements Cloneable {
     private int width;
     private int height;
     private FieldObject[][] field;
@@ -28,6 +28,14 @@ public class Field {
                 }
             }
         }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public Coordinates getWidthAndHeight() {
@@ -140,13 +148,24 @@ public class Field {
 
     public boolean intersectionWithApple(Snake snake) {
         Coordinates coordinates = snake.getNextHeadPosition();
-        try {
-            if (field[coordinates.X()][coordinates.Y()] == APPLE) {
-                return true;
-            }
-        } catch (ArrayIndexOutOfBoundsException ignored) {
-        }
-        return false;
+        return field[coordinates.X()][coordinates.Y()] == APPLE;
+    }
+
+    public boolean deathIntersection(Snake snake) {
+        Coordinates coordinates = snake.getNextHeadPosition();
+        return !coordinates.equals(snake.getCoordinates().get(0)) &&
+                field[coordinates.X()][coordinates.Y()] != APPLE &&
+                field[coordinates.X()][coordinates.Y()] != NOTHING;
+    }
+
+    public boolean isSnakeIntersection(Snake snake) {
+        Coordinates coordinates = snake.getNextHeadPosition();
+        return !coordinates.equals(snake.getCoordinates().get(0)) && field[coordinates.X()][coordinates.Y()] == SNAKE;
+    }
+
+    public boolean isWallIntersection(Snake snake) {
+        Coordinates coordinates = snake.getNextHeadPosition();
+        return !coordinates.equals(snake.getCoordinates().get(0)) && field[coordinates.X()][coordinates.Y()] == WALL;
     }
 
     /**
@@ -179,5 +198,14 @@ public class Field {
         }
         Collections.shuffle(emptyCells);
         return emptyCells;
+    }
+
+    @Override
+    public Field clone() {
+        Field field = new Field(this.width, this.height);
+        for (int i = 0; i < width; i++) {
+            if (height >= 0) System.arraycopy(this.field[i], 0, field.field[i], 0, height);
+        }
+        return field;
     }
 }
