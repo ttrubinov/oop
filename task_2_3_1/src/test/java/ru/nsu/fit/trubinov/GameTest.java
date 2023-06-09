@@ -80,6 +80,4 @@ public class GameTest {
         Assertions.assertTrue(wall.isOutOfBounds(5, 5));
         Assertions.assertEquals(wall.getCoordinates(), List.of(new Coordinates(100, 100)));
     }
-
-
 }

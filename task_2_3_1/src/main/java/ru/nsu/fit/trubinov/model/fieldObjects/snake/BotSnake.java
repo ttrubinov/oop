@@ -11,7 +11,7 @@ public class BotSnake extends Snake implements Cloneable {
 
     public BotSnake(Coordinates coordinates, Field field) {
         super(coordinates, field);
-        this.movement = Movement.NO_COLLISION;
+        this.movement = Movement.SMART;
     }
 
     public BotSnake(BotSnake botSnake, Movement movement) {
